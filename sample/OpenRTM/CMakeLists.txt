@@ -57,6 +57,10 @@ list(APPEND project_files OpenRTM-PA10Pickup.cnoid)
 # Tank IO
 add_cnoid_body_io_rtc(TankIoRTC TankIoRTC.cpp)
 
+# DoubleArmV7 IO
+add_cnoid_body_io_rtc(DoubleArmV7IoRTC DoubleArmV7IoRTC.cpp)
+add_cnoid_body_io_rtc(DoubleArmV7PDControllerIoRTC DoubleArmV7PDControllerIoRTC.cpp)
+
 # Joystick
 add_cnoid_sample_rtc(JoystickRTC JoystickRTC.cpp)
 target_link_libraries(JoystickRTC CnoidUtil)
