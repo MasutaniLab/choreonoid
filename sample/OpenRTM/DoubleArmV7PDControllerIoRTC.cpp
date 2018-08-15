@@ -76,8 +76,8 @@ const char* spec[] =
 
 DoubleArmV7PDControllerIoRTC::DoubleArmV7PDControllerIoRTC(RTC::Manager* manager)
     : BodyIoRTC(manager),
-      anglesTargetIn("qt", anglesTarget),
       velocitiesIn("dq", velocities),
+      anglesTargetIn("qt", anglesTarget),
       anglesOut("q", angles)
 {
     hasPseudoContinuousTracks = false;
