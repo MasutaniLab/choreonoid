@@ -14,6 +14,8 @@ rtcon $r:q $m:value
 
 rtact $s $m
 
+echo "Chorenoidでシミュレーションを開始，停止してください"
+
 while [ "$input" != "y" ]
 do
     echo "終了しますか？"
@@ -26,3 +28,4 @@ sleep 5
 
 rtexit $s
 rtexit $m
+killall choreonoid
