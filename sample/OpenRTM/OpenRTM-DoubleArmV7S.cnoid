@@ -16,6 +16,85 @@ items:
       children: 
         - 
           id: 2
+          name: "DoubleArmV7"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "/home/masutani/choreonoid/share/model/DoubleArmV7/DoubleArmV7S.body"
+            currentBaseLink: "TFRAME"
+            rootPosition: [ 0, 0, 0.52 ]
+            rootAttitude: [ 
+              -1, -7.49879891e-33, 1.2246468e-16, 
+              1.2246468e-16, -6.123234e-17, 1, 
+              0, 1, 6.123234e-17 ]
+            jointPositions: [ 
+               0.000000,  0.000000,  0.000000,  0.000000, -1.221730,  2.617994,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000 ]
+            initialRootPosition: [ 0, 0, 0.52 ]
+            initialRootAttitude: [ 
+              -1, -1.23259516e-32, 1.2246468e-16, 
+              1.2246468e-16, -2.22044605e-16, 1, 
+              1.23259516e-32, 1, 2.22044605e-16 ]
+            initialJointPositions: [ 
+               0.000000,  0.000000,  0.000000,  0.000000, -1.221730,  2.617994,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: true
+          children: 
+            - 
+              id: 3
+              name: "BodyIoRTC"
+              plugin: OpenRTM
+              class: BodyIoRTCItem
+              data: 
+                isNoDelayMode: true
+                controllerOptions: ""
+                module: "DoubleArmV7PDControllerIoRTC.so"
+                baseDirectory: "RTC directory"
+                instanceName: ""
+                periodicRate: 0
+            - 
+              id: 4
+              name: "Joystick"
+              plugin: OpenRTM
+              class: ControllerRTCItem
+              data: 
+                isNoDelayMode: true
+                controllerOptions: ""
+                module: "JoystickDoubleArmV7RTC.so"
+                baseDirectory: "RTC directory"
+                instanceName: ""
+                executionContext: "SimulationExecutionContext"
+                periodicRate: 0
+        - 
+          id: 5
+          name: "Floor"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "/home/masutani/choreonoid/share/model/misc/floor.body"
+            currentBaseLink: "Floor"
+            rootPosition: [ 0, 0, -0.1 ]
+            rootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            jointPositions: [  ]
+            initialRootPosition: [ 0, 0, -0.1 ]
+            initialRootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: false
+        - 
+          id: 6
           name: "AISTSimulator"
           plugin: Body
           class: AISTSimulatorItem
@@ -44,7 +123,7 @@ items:
             2Dmode: false
             oldAccelSensorMode: false
         - 
-          id: 3
+          id: 7
           name: "RTSystem"
           plugin: OpenRTM
           class: RTSystemItem
@@ -53,85 +132,6 @@ items:
             format: RTS-PROFILE-XML
             AutoConnection: true
             PollingCycle: 500
-        - 
-          id: 4
-          name: "Floor"
-          plugin: Body
-          class: BodyItem
-          data: 
-            modelFile: "${SHARE}/model/misc/floor.body"
-            currentBaseLink: "Floor"
-            rootPosition: [ 0, 0, -0.1 ]
-            rootAttitude: [ 
-              1, 0, 0, 
-              0, 1, 0, 
-              0, 0, 1 ]
-            jointPositions: [  ]
-            initialRootPosition: [ 0, 0, -0.1 ]
-            initialRootAttitude: [ 
-              1, 0, 0, 
-              0, 1, 0, 
-              0, 0, 1 ]
-            zmp: [ 0, 0, 0 ]
-            collisionDetection: true
-            selfCollisionDetection: false
-            isEditable: false
-        - 
-          id: 5
-          name: "DoubleArmV7"
-          plugin: Body
-          class: BodyItem
-          data: 
-            modelFile: "${SHARE}/model/DoubleArmV7/DoubleArmV7S.body"
-            currentBaseLink: "TFRAME"
-            rootPosition: [ 0, 0, 0.52 ]
-            rootAttitude: [ 
-              -1, -1.23259516e-32, 1.2246468e-16, 
-              1.2246468e-16, -2.22044605e-16, 1, 
-              1.23259516e-32, 1, 2.22044605e-16 ]
-            jointPositions: [ 
-               0.000000,  0.000000,  0.000000,  0.000000, -1.221730,  2.617994,  0.000000,  0.000000,  0.000000,  0.000000, 
-               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
-               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000 ]
-            initialRootPosition: [ 0, 0, 0.52 ]
-            initialRootAttitude: [ 
-              -1, -1.23259516e-32, 1.2246468e-16, 
-              1.2246468e-16, -2.22044605e-16, 1, 
-              1.23259516e-32, 1, 2.22044605e-16 ]
-            initialJointPositions: [ 
-               0.000000,  0.000000,  0.000000,  0.000000, -1.221730,  2.617994,  0.000000,  0.000000,  0.000000,  0.000000, 
-               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
-               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000 ]
-            zmp: [ 0, 0, 0 ]
-            collisionDetection: true
-            selfCollisionDetection: false
-            isEditable: true
-          children: 
-            - 
-              id: 6
-              name: "BodyIoRTC"
-              plugin: OpenRTM
-              class: BodyIoRTCItem
-              data: 
-                isNoDelayMode: true
-                controllerOptions: ""
-                module: "DoubleArmV7PDControllerIoRTC.so"
-                baseDirectory: "RTC directory"
-                instanceName: ""
-                periodicRate: 0
-            - 
-              id: 7
-              name: "Joystick"
-              plugin: OpenRTM
-              class: ControllerRTCItem
-              data: 
-                isNoDelayMode: true
-                controllerOptions: ""
-                module: "JoystickDoubleArmV7RTC.so"
-                baseDirectory: "RTC directory"
-                instanceName: ""
-                executionContext: "SimulationExecutionContext"
-                periodicRate: 0
 views: 
   - 
     id: 0
@@ -144,9 +144,9 @@ views:
     class: ItemTreeView
     mounted: true
     state: 
-      selected: [ 7 ]
-      checked: [ 1, 4, 5, 6, 7 ]
-      expanded: [ 1, 5 ]
+      selected: [ 2 ]
+      checked: [ 2, 3, 4, 5 ]
+      expanded: [ 1, 2 ]
   - 
     id: 2
     plugin: Base
@@ -158,20 +158,17 @@ views:
     class: SceneView
     mounted: true
     state: 
-      editMode: true
+      editMode: false
       viewpointControlMode: thirdPerson
       collisionLines: false
       polygonMode: fill
       defaultHeadLight: true
-      defaultHeadLightIntensity: 0.4
+      defaultHeadLightIntensity: 0.75
       headLightLightingFromBack: false
       worldLight: true
-      worldLightIntensity: 0.1
-      worldLightAmbient: 0
+      worldLightIntensity: 0.5
+      worldLightAmbient: 0.3
       additionalLights: true
-      shadowLights: 
-        - 0
-        - 1
       fog: true
       floorGrid: true
       floorGridSpan: 10
@@ -196,17 +193,17 @@ views:
         - 
           camera: [ System, Perspective ]
           isCurrent: true
-          fieldOfView: 0.6978
+          fieldOfView: 0.698132
           near: 0.01
-          far: 10000
-          eye: [ -16.3121753, -8.95494797, 8.37266419 ]
-          direction: [ 0.819988251, 0.45015162, -0.353529047 ]
-          up: [ 0.309902039, 0.170127932, 0.935423547 ]
+          far: 100
+          eye: [ 4, 2, 1.5 ]
+          direction: [ -0.888888889, -0.444444444, -0.111111111 ]
+          up: [ -0.099380799, -0.0496903995, 0.99380799 ]
         - 
           camera: [ System, Orthographic ]
           orthoHeight: 20
           near: 0.01
-          far: 10000
+          far: 100
       backgroundColor: [ 0.100000001, 0.100000001, 0.300000012 ]
       gridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
       xzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
@@ -214,108 +211,49 @@ views:
       dedicatedItemTreeViewChecks: false
   - 
     id: 4
-    name: "Scene 2"
-    plugin: Base
-    class: SceneView
-    state: 
-      editMode: false
-      viewpointControlMode: thirdPerson
-      collisionLines: false
-      polygonMode: fill
-      defaultHeadLight: true
-      defaultHeadLightIntensity: 0.75
-      headLightLightingFromBack: false
-      worldLight: true
-      worldLightIntensity: 0.5
-      worldLightAmbient: 0.3
-      additionalLights: true
-      shadowLights: 
-        - 0
-      fog: true
-      floorGrid: false
-      floorGridSpan: 10
-      floorGridInterval: 0.5
-      xzGridSpan: 10
-      xzGridInterval: 0.5
-      xzGrid: false
-      yzGridSpan: 10
-      yzGridInterval: 0.5
-      texture: true
-      lineWidth: 1
-      pointSize: 1
-      normalVisualization: false
-      normalLength: 0.01
-      coordinateAxes: true
-      fpsTestIteration: 1
-      showFPS: false
-      enableNewDisplayListDoubleRendering: false
-      useBufferForPicking: true
-      upsideDown: false
-      cameras: 
-        - 
-          camera: [ System, Perspective ]
-          isCurrent: true
-          fieldOfView: 0.6978
-          near: 0.01
-          far: 100
-          eye: [ -5.29126118, -5.01169376, 3.84184278 ]
-          direction: [ 0.756596254, 0.487150344, -0.43617273 ]
-          up: [ 0.3667299, 0.236126726, 0.899862962 ]
-        - 
-          camera: [ System, Orthographic ]
-          orthoHeight: 20
-          near: 0.01
-          far: 100
-      backgroundColor: [ 0.100000001, 0.100000001, 0.300000012 ]
-      gridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
-      xzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
-      yzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
-      dedicatedItemTreeViewChecks: false
-  - 
-    id: 5
     name: "Virtual Joystick"
     plugin: Base
     class: VirtualJoystickView
     mounted: true
   - 
-    id: 6
+    id: 5
     plugin: Body
     class: BodyLinkView
     mounted: true
     state: 
       showRotationMatrix: false
   - 
-    id: 7
+    id: 6
     plugin: Body
     class: JointSliderView
     mounted: true
     state: 
       showAllJoints: true
-      jointId: true
+      jointId: false
       name: true
       numColumns: 1
       spinBox: true
       slider: true
       labelOnLeft: true
-      currentBodyItem: 5
+      currentBodyItem: 2
   - 
-    id: 8
+    id: 7
     plugin: Body
     class: LinkSelectionView
     mounted: true
     state: 
       listingMode: "Link List"
-      currentBodyItem: 5
+      currentBodyItem: 2
   - 
-    id: 9
+    id: 8
     name: "RTC Diagram"
     plugin: OpenRTM
     class: RTSDiagramView
     mounted: true
     state: 
-      currentRTSItem: 3
+      currentRTSItem: 7
   - 
-    id: 10
+    id: 9
     plugin: OpenRTM
     class: RTSNameServerView
     mounted: true
@@ -323,22 +261,22 @@ views:
       host: localhost
       port: 2809
   - 
-    id: 11
+    id: 10
     name: "RTC Properties"
     plugin: OpenRTM
     class: RTSPropertiesView
     mounted: true
   - 
-    id: 12
+    id: 11
     plugin: Python
     class: PythonConsoleView
     mounted: true
 toolbars: 
   "TimeBar": 
     minTime: 0
-    maxTime: 5
+    maxTime: 30
     frameRate: 1000
-    playbackFrameRate: 100
+    playbackFrameRate: 60
     idleLoopDrivenMode: false
     currentTime: 0
     speedScale: 1
@@ -355,7 +293,7 @@ toolbars:
     penetrationBlockDepth: 0.0005
     lazyCollisionDetectionMode: true
   "BodyBar": 
-    current: 5
+    current: 2
   "BodyMotionGenerationBar": 
     autoGenerationForNewBody: true
     balancer: false
@@ -395,7 +333,7 @@ Body:
   "EditableSceneBody": 
     editableSceneBodies: 
       - 
-        bodyItem: 4
+        bodyItem: 2
         showCenterOfMass: false
         showPpcom: false
         showZmp: false
@@ -428,12 +366,12 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 345, 1504 ]
+      sizes: [ 315, 1534 ]
       children: 
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 557, 556 ]
+          sizes: [ 539, 539 ]
           children: 
             - 
               type: pane
@@ -441,31 +379,22 @@ viewAreas:
               current: 1
             - 
               type: pane
-              views: [ 0, 8, 10 ]
-              current: 10
+              views: [ 0, 7, 9 ]
+              current: 0
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 813, 300 ]
+          sizes: [ 770, 308 ]
           children: 
             - 
               type: splitter
               orientation: horizontal
-              sizes: [ 749, 749 ]
+              sizes: [ 664, 864 ]
               children: 
                 - 
-                  type: splitter
-                  orientation: vertical
-                  sizes: [ 619, 188 ]
-                  children: 
-                    - 
-                      type: pane
-                      views: [ 9, 6, 7 ]
-                      current: 9
-                    - 
-                      type: pane
-                      views: [ 11 ]
-                      current: 11
+                  type: pane
+                  views: [ 5, 6, 8, 10 ]
+                  current: 8
                 - 
                   type: pane
                   views: [ 3 ]
@@ -473,21 +402,26 @@ viewAreas:
             - 
               type: splitter
               orientation: horizontal
-              sizes: [ 749, 749 ]
+              sizes: [ 764, 764 ]
               children: 
                 - 
                   type: pane
-                  views: [ 2, 12 ]
+                  views: [ 2, 11 ]
                   current: 2
                 - 
                   type: pane
-                  views: [ 5 ]
-                  current: 5
+                  views: [ 4 ]
+                  current: 4
 layoutOfToolBars: 
   rows: 
     - 
       - { name: "FileBar", x: 0, priority: 0 }
-      - { name: "ScriptBar", x: 48, priority: 0 }
-      - { name: "SimulationBar", x: 95, priority: 1 }
-      - { name: "TimeBar", x: 96, priority: 0 }
-      - { name: "SceneBar", x: 1336, priority: 2 }
+      - { name: "ScriptBar", x: 47, priority: 0 }
+      - { name: "TimeBar", x: 94, priority: 0 }
+      - { name: "SceneBar", x: 1023, priority: 0 }
+      - { name: "GraphBar", x: 1293, priority: 0 }
+      - { name: "SimulationBar", x: 1400, priority: 0 }
+      - { name: "BodyBar", x: 1597, priority: 0 }
+    - 
+      - { name: "KinematicsBar", x: 0, priority: 0 }
+      - { name: "BodyMotionGenerationBar", x: 234, priority: 0 }
