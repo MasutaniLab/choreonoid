@@ -70,7 +70,7 @@ class TkSlider(OpenRTM_aist.DataFlowComponentBase):
   def onActivated(self, ec_id):
     print("onActivated()")
     self._prev_data = map(math.radians, sl.get())
-    print(self._prev_data)
+    #print(self._prev_data)
     time.sleep(0.01)
     return RTC.RTC_OK
 

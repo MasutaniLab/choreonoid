@@ -78,7 +78,7 @@ class TkMonitorSlider(OpenRTM_aist.DataFlowComponentBase):
       try:
         indata = self._valueIn.read()
         val = map(math.degrees, indata.data)
-        print(val)
+        #print(val)
         if len(val) == self._num:
           sl.set(val)
       except Exception as e:
