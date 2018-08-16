@@ -366,12 +366,12 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 315, 1534 ]
+      sizes: [ 285, 1389 ]
       children: 
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 539, 539 ]
+          sizes: [ 317, 316 ]
           children: 
             - 
               type: pane
@@ -380,16 +380,16 @@ viewAreas:
             - 
               type: pane
               views: [ 0, 7, 9 ]
-              current: 0
+              current: 9
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 770, 308 ]
+          sizes: [ 452, 181 ]
           children: 
             - 
               type: splitter
               orientation: horizontal
-              sizes: [ 513, 1015 ]
+              sizes: [ 464, 919 ]
               children: 
                 - 
                   type: pane
@@ -402,7 +402,7 @@ viewAreas:
             - 
               type: splitter
               orientation: horizontal
-              sizes: [ 764, 764 ]
+              sizes: [ 692, 691 ]
               children: 
                 - 
                   type: pane

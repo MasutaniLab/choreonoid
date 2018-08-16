@@ -20,26 +20,28 @@ items:
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "${SHARE}/model/DoubleArmV7/DoubleArmV7S.body"
+            modelFile: "${SHARE}/model/DoubleArmV7/DoubleArmV7A.body"
             currentBaseLink: "TFRAME"
-            rootPosition: [ 0, 0, 0.52 ]
+            rootPosition: [ 0.00378213117, -4.98615603e-06, 0.536334845 ]
             rootAttitude: [ 
-              -1, -7.49879891e-33, 1.2246468e-16, 
-              1.2246468e-16, -6.123234e-17, 1, 
-              0, 1, 6.123234e-17 ]
+              0.999999945, -0.000330786414, 6.35965391e-08, 
+              6.04549318e-08, -9.4973993e-06, -1, 
+              0.000330786415, 0.999999945, -9.49737878e-06 ]
             jointPositions: [ 
-               0.000000,  0.000000,  0.000000,  0.000000, -1.221730,  2.617994,  0.000000,  0.000000,  0.000000,  0.000000, 
-               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
-               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000 ]
+               0.000000,  0.000000,  0.000023, -0.000000, -1.213317,  2.620434,  0.001694,  0.000000,  0.000001,  0.000000, 
+              -0.000021,  0.000002,  0.001165,  0.000002, -0.000197, -0.000002,  0.000000,  0.000000, -0.019811, -0.000331, 
+              -0.000331, -0.016092, -0.019802, -0.000331, -0.000331, -0.016098,  0.000009, -0.000012, -0.000036,  0.000045, 
+              -0.000038, -0.000030,  0.000040, -0.000031 ]
             initialRootPosition: [ 0, 0, 0.52 ]
             initialRootAttitude: [ 
-              -1, -1.23259516e-32, 1.2246468e-16, 
-              1.2246468e-16, -2.22044605e-16, 1, 
-              1.23259516e-32, 1, 2.22044605e-16 ]
+              1, 0, 0, 
+              0, 2.22044605e-16, -1, 
+              0, 1, 2.22044605e-16 ]
             initialJointPositions: [ 
                0.000000,  0.000000,  0.000000,  0.000000, -1.221730,  2.617994,  0.000000,  0.000000,  0.000000,  0.000000, 
                0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
-               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000 ]
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000,  0.000000,  0.000000 ]
             zmp: [ 0, 0, 0 ]
             collisionDetection: true
             selfCollisionDetection: false
@@ -82,43 +84,38 @@ items:
             isEditable: false
         - 
           id: 5
-          name: "AISTSimulator"
-          plugin: Body
-          class: AISTSimulatorItem
+          name: "AGXSimulator"
+          plugin: AGXDynamics
+          class: AGXSimulatorItem
           data: 
+            timeStep: 0.001
             realtimeSync: true
-            recording: "off"
+            recording: "full"
             timeRangeMode: "Unlimited"
-            timeLength: 60
-            allLinkPositionOutputMode: false
+            timeLength: 180
+            allLinkPositionOutputMode: true
             deviceStateOutput: true
             controllerThreads: true
             recordCollisionData: false
             controllerOptions: ""
-            dynamicsMode: "Forward dynamics"
-            integrationMode: "Runge Kutta"
-            gravity: [ 0, 0, -9.80665 ]
-            staticFriction: 0.5
-            dynamicFriction: 0.5
-            cullingThresh: 0.01
-            contactCullingDepth: 0.05
-            errorCriterion: 0.001
-            maxNumIterations: 1000
-            contactCorrectionDepth: 0.0001
-            contactCorrectionVelocityRatio: 30
-            kinematicWalking: false
-            2Dmode: false
-            oldAccelSensorMode: false
-        - 
-          id: 6
-          name: "RTSystem"
-          plugin: OpenRTM
-          class: RTSystemItem
-          data: 
-            filename: "${PROJECT_DIR}/DoubleArmV7System-single.xml"
-            format: RTS-PROFILE-XML
-            AutoConnection: true
-            PollingCycle: 500
+            Gravity: [ 0, 0, -9.80665 ]
+            NumThreads: 1
+            ContactReduction: true
+            ContactReductionBinResolution: 3
+            ContactReductionThreshhold: 12
+            ContactWarmstarting: false
+            AutoSleep: false
+            SaveToAGXFileOnStart: false
+    - 
+      id: 6
+      name: "RTSystem"
+      plugin: OpenRTM
+      class: RTSystemItem
+      data: 
+        filename: "${PROJECT_DIR}/DoubleArmV7System-single.xml"
+        format: RTS-PROFILE-XML
+        AutoConnection: true
+        PollingCycle: 500
 views: 
   - 
     id: 0
@@ -131,9 +128,9 @@ views:
     class: ItemTreeView
     mounted: true
     state: 
-      selected: [ 6 ]
+      selected: [ 5 ]
       checked: [ 2, 3, 4 ]
-      expanded: [ 1, 2 ]
+      expanded: [ 1, 2, 3 ]
   - 
     id: 2
     plugin: Base
@@ -216,7 +213,6 @@ views:
       spinBox: true
       slider: true
       labelOnLeft: true
-      currentBodyItem: 2
   - 
     id: 6
     plugin: Body
@@ -224,7 +220,6 @@ views:
     mounted: true
     state: 
       listingMode: "Link List"
-      currentBodyItem: 2
   - 
     id: 7
     name: "RTC Diagram"
@@ -253,28 +248,6 @@ views:
     class: PythonConsoleView
     mounted: true
 toolbars: 
-  "TimeBar": 
-    minTime: 0
-    maxTime: 30
-    frameRate: 1000
-    playbackFrameRate: 60
-    idleLoopDrivenMode: false
-    currentTime: 0
-    speedScale: 1
-    syncToOngoingUpdates: true
-    autoExpansion: true
-  "KinematicsBar": 
-    mode: AUTO
-    enablePositionDragger: true
-    penetrationBlock: false
-    collisionLinkHighlight: false
-    snapDistance: 0.025
-    penetrationBlockDepth: 0.0005
-    lazyCollisionDetectionMode: true
-  "BodyBar": 
-    current: 2
-  "LeggedBodyBar": 
-    stanceWidth: 0.15
   "BodyMotionGenerationBar": 
     autoGenerationForNewBody: true
     balancer: false
@@ -308,6 +281,26 @@ toolbars:
     waistHeightRelaxation: false
     gravity: 9.8
     dynamicsTimeRatio: 1
+  "TimeBar": 
+    minTime: 0
+    maxTime: 30
+    frameRate: 1000
+    playbackFrameRate: 60
+    idleLoopDrivenMode: false
+    currentTime: 0.179
+    speedScale: 1
+    syncToOngoingUpdates: true
+    autoExpansion: true
+  "LeggedBodyBar": 
+    stanceWidth: 0.15
+  "KinematicsBar": 
+    mode: AUTO
+    enablePositionDragger: true
+    penetrationBlock: false
+    collisionLinkHighlight: false
+    snapDistance: 0.025
+    penetrationBlockDepth: 0.0005
+    lazyCollisionDetectionMode: true
 Body: 
   "BodyMotionEngine": 
     updateJointVelocities: false
@@ -347,7 +340,7 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 402, 1272 ]
+      sizes: [ 285, 1389 ]
       children: 
         - 
           type: splitter
@@ -361,7 +354,7 @@ viewAreas:
             - 
               type: pane
               views: [ 0, 6, 8 ]
-              current: 0
+              current: 8
         - 
           type: splitter
           orientation: vertical
@@ -370,7 +363,7 @@ viewAreas:
             - 
               type: splitter
               orientation: horizontal
-              sizes: [ 425, 841 ]
+              sizes: [ 464, 919 ]
               children: 
                 - 
                   type: pane
