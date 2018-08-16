@@ -79,7 +79,7 @@ class TkSlider(OpenRTM_aist.DataFlowComponentBase):
     try:
       self._sl_data.data = map(math.radians, sl.get())
       if self._sl_data.data != self._prev_data:
-        print self._sl_data.data
+        #print self._sl_data.data
         self._slOut.write()
       self._prev_data = self._sl_data.data
     except Exception as e:

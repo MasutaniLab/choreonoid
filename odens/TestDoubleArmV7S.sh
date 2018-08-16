@@ -22,5 +22,7 @@ done
 
 rtdeact $s $m
 
+sleep 5
+
 rtexit $s
 rtexit $m
