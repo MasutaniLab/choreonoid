@@ -402,12 +402,15 @@ AGXWire::AGXWire(AGXWireDevice* device, AGXBody* agxBody) :
                 // set in world coord
                 m_wire->add(AGXObjectFactory::createWireFreeNode(transformToWorld()));
             }else if(nodeType == "fixed"){
-                if(agx::RigidBody* body = getAGXBody()->getAGXRigidBody(linkName)){
+                if(Link* const link = getAGXBody()->body()->link(linkName)){
                     // set in link coord
+                    agx::RigidBody* body = getAGXBody()->getAGXRigidBody(linkName);
+                    // reflect pose correction
+                    pos = link->Rs() * pos;
                     m_wire->add(AGXObjectFactory::createWireBodyFixedNode(body, agxConvert::toAGX(pos)));
                 }else{
                     // set in world coord
-                    m_wire->add(AGXObjectFactory::createWireBodyFixedNode(body, transformToWorld()));
+                    m_wire->add(AGXObjectFactory::createWireBodyFixedNode(nullptr, transformToWorld()));
                 }
             }else if(nodeType == "link"){
                 agx::RigidBody* wireLinkBody = getAGXBody()->getAGXRigidBody(linkName);
@@ -416,7 +419,7 @@ AGXWire::AGXWire(AGXWireDevice* device, AGXBody* agxBody) :
                 m_wire->add(wireLink, agxConvert::toAGX(pos));
                 agxWire::ILinkNodeRef iLinkNode = wireLink->getConnectingNode(m_wire);
                 if(iLinkNode){
-                    auto getILinkNodeValue = [&](string key, auto defaultValue){
+                    auto getILinkNodeValue = [&](string key, double defaultValue){
                         return wireNodeInfo.get(key, defaultValue);
                     };
                     agxWire::ILinkNode::ConnectionProperties* cp = iLinkNode->getConnectionProperties();
