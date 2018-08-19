@@ -31,6 +31,8 @@ class DoubleArmV7PDControllerIoRTC : public BodyIoRTC
     bool hasPseudoContinuousTracks;
     bool hasContinuousTracks;
 
+    ControllerIO* cio;
+
 public:
     DoubleArmV7PDControllerIoRTC(RTC::Manager* manager);
     ~DoubleArmV7PDControllerIoRTC(); 
@@ -93,7 +95,7 @@ DoubleArmV7PDControllerIoRTC::~DoubleArmV7PDControllerIoRTC()
 
 bool DoubleArmV7PDControllerIoRTC::initializeIO(ControllerIO* io)
 {
-
+    io->os() << "DoubleArmV7PDControllerIoRTC::initializeIO()" << endl;
     // Set InPort buffers
     addInPort("qt", anglesTargetIn);
     addInPort("dq", velocitiesIn);
@@ -107,6 +109,8 @@ bool DoubleArmV7PDControllerIoRTC::initializeIO(ControllerIO* io)
 
 bool DoubleArmV7PDControllerIoRTC::initializeSimulation(ControllerIO* io)
 {
+    cio = io;
+    cio->os() << "DoubleArmV7PDControllerIoRTC::initializeSimulation()" << endl;
     body = io->body();
     dt = io->timeStep();
 
@@ -128,6 +132,7 @@ bool DoubleArmV7PDControllerIoRTC::initPseudoContinuousTracks(ControllerIO* io)
     if(trackL->actuationMode() == Link::JOINT_SURFACE_VELOCITY &&
     trackR->actuationMode() == Link::JOINT_SURFACE_VELOCITY   ){
         hasPseudoContinuousTracks = true;
+        cio->os() << "hasPseudoContinuousTracks = true" << endl;
         return true;
     }
     return false;
@@ -144,11 +149,15 @@ bool DoubleArmV7PDControllerIoRTC::initContinuousTracks(ControllerIO* io)
     trackR->setActuationMode(Link::ActuationMode::JOINT_TORQUE);
     
     hasContinuousTracks = true;
+    cio->os() << "hasContinuousTracks = true" << endl;
     return true;
 }
 
 void DoubleArmV7PDControllerIoRTC::initArms(ControllerIO* io)
 {
+    armJointIdMap.clear();
+    armJoints.clear();
+    qref.clear();
     for(auto joint : body->joints()){
         if(joint->jointId() >= 0 && (joint->isRevoluteJoint() || joint->isPrismaticJoint())){
             joint->setActuationMode(Link::ActuationMode::JOINT_TORQUE);
