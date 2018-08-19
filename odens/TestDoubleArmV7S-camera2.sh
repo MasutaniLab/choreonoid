@@ -20,13 +20,13 @@ sleep 3
 
 rtconf $v1 set BGR 0
 
-#PythonのRTCはChoreonoidからactivateされないので
+#BodyRTCに接続していないRTCはChoreonoidからactivateされないので
 rtact $s $m
 
 (cd ..; bin/choreonoid sample/OpenRTM/OpenRTM-DoubleArmV7S-camera2.cnoid &)
 
 sleep 3
-sleep 3
+
 echo "Chorenoidでシミュレーションを開始，停止してください"
 
 input=
@@ -36,7 +36,7 @@ do
     read input
 done
 
-#PythonのRTCはChoreonoidからdeactivateされないので
+#BodyRTCに接続していないRTCはChoreonoidからdeactivateされないので
 rtdeact $s $m
 
 rtexit $s
