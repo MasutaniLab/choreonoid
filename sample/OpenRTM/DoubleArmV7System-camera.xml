@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<rts:RtsProfile rts:updateDate="2018-08-17T17:34:09" rts:creationDate="2018-08-17T17:34:09" rts:version="0.2" rts:id="RTSystem:AIST:RTSystem:1.0.0" xmlns:rts="http://www.openrtp.org/namespaces/rts" xmlns:rtsExt="http://www.openrtp.org/namespaces/rts_ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<rts:RtsProfile rts:updateDate="2018-08-19T21:04:11" rts:creationDate="2018-08-19T21:04:11" rts:version="0.2" rts:id="RTSystem:AIST:RTSystem:1.0.0" xmlns:rts="http://www.openrtp.org/namespaces/rts" xmlns:rtsExt="http://www.openrtp.org/namespaces/rts_ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<rts:Components xsi:type="rtsExt:component_ext" rts:isRequired="false" rts:compositeType="None" rts:activeConfigurationSet="default" rts:instanceName="DoubleArmV7-DoubleArmV7PDControllerIoRTC" rts:pathUri="localhost/DoubleArmV7-DoubleArmV7PDControllerIoRTC.rtc" rts:id="RTC:MasutaniLab:Generic:DoubleArmV7-DoubleArmV7PDControllerIoRTC:1.0">
 		<rts:DataPorts xsi:type="rtsExt:dataport_ext" rts:name="DoubleArmV7-DoubleArmV7PDControllerIoRTC.qt">
 			<rtsExt:Properties rtsExt:value="DataInPort" rtsExt:name="port.port_type" />
@@ -24,7 +24,7 @@
 		</rts:DataPorts>
 		<rts:ConfigurationSets rts:id="default" />
 		<rts:ExecutionContexts xsi:type="rtsExt:execution_context_ext" rts:id="0" rts:rate="1000" rts:kind="PERIODIC" />
-		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="562" rtsExt:y="-19" />
+		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="607" rtsExt:y="54" />
 		<rtsExt:Properties rtsExt:value="DoubleArmV7PDControllerIoRTC" rtsExt:name="implementation_id" />
 		<rtsExt:Properties rtsExt:value="DoubleArmV7PDControllerIoRTC" rtsExt:name="type_name" />
 		<rtsExt:Properties rtsExt:value="DoubleArmV7 with PD Controller I/O" rtsExt:name="description" />
@@ -162,7 +162,7 @@
 		</rts:DataPorts>
 		<rts:ConfigurationSets rts:id="default" />
 		<rts:ExecutionContexts xsi:type="rtsExt:execution_context_ext" rts:id="0" rts:rate="1000" rts:kind="PERIODIC" />
-		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="625" rtsExt:y="159" />
+		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="482" rtsExt:y="175" />
 		<rtsExt:Properties rtsExt:value="VisionSensorIoRTC" rtsExt:name="implementation_id" />
 		<rtsExt:Properties rtsExt:value="VisionSensorIoRTC" rtsExt:name="type_name" />
 		<rtsExt:Properties rtsExt:value="Vision sensor I/O" rtsExt:name="description" />
@@ -173,7 +173,7 @@
 		<rtsExt:Properties rtsExt:value="10" rtsExt:name="max_instance" />
 		<rtsExt:Properties rtsExt:value="C++" rtsExt:name="language" />
 		<rtsExt:Properties rtsExt:value="compile" rtsExt:name="lang_type" />
-		<rtsExt:Properties rtsExt:value="" rtsExt:name="conf" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="conf.default" />
 		<rtsExt:Properties rtsExt:value="" rtsExt:name="sdo.service.provider.enabled_services" />
 		<rtsExt:Properties rtsExt:value="" rtsExt:name="sdo.service.provider.available_services" />
 		<rtsExt:Properties rtsExt:value="" rtsExt:name="sdo.service.consumer.enabled_services" />
@@ -215,4 +215,324 @@
 		<rtsExt:Properties rtsExt:value="" rtsExt:name="port.outport.Upper_Hand_Camera" />
 		<rtsExt:Properties rtsExt:value="" rtsExt:name="IOR" />
 	</rts:Components>
+	<rts:Components xsi:type="rtsExt:component_ext" rts:isRequired="false" rts:compositeType="None" rts:activeConfigurationSet="default" rts:instanceName="ImageViewer1" rts:pathUri="localhost/ImageViewer1.rtc" rts:id="RTC:MasutaniLab:ImageProcessing:ImageViewer1:2.0.1">
+		<rts:DataPorts xsi:type="rtsExt:dataport_ext" rts:name="ImageViewer1.Image">
+			<rtsExt:Properties rtsExt:value="DataInPort" rtsExt:name="port.port_type" />
+			<rtsExt:Properties rtsExt:value="IDL:Img/TimedCameraImage:1.0" rtsExt:name="dataport.data_type" />
+			<rtsExt:Properties rtsExt:value="Any" rtsExt:name="dataport.subscription_type" />
+			<rtsExt:Properties rtsExt:value="push,pull" rtsExt:name="dataport.dataflow_type" />
+			<rtsExt:Properties rtsExt:value="corba_cdr" rtsExt:name="dataport.interface_type" />
+		</rts:DataPorts>
+		<rts:ServicePorts xsi:type="rtsExt:serviceport_ext" rts:name="ImageViewer1.CameraCaptureService">
+			<rtsExt:Properties rtsExt:value="CorbaPort" rtsExt:name="port.port_type" />
+		</rts:ServicePorts>
+		<rts:ConfigurationSets rts:id="default">
+			<rts:ConfigurationData rts:data="0" rts:name="capture_frame_num" />
+			<rts:ConfigurationData rts:data="1" rts:name="BGR" />
+		</rts:ConfigurationSets>
+		<rts:ConfigurationSets rts:id="__widget__">
+			<rts:ConfigurationData rts:data="text" rts:name="capture_frame_num" />
+			<rts:ConfigurationData rts:data="radio" rts:name="BGR" />
+		</rts:ConfigurationSets>
+		<rts:ConfigurationSets rts:id="__constraints__">
+			<rts:ConfigurationData rts:data="(0,1)" rts:name="BGR" />
+		</rts:ConfigurationSets>
+		<rts:ConfigurationSets rts:id="__type__">
+			<rts:ConfigurationData rts:data="int" rts:name="capture_frame_num" />
+			<rts:ConfigurationData rts:data="int" rts:name="BGR" />
+		</rts:ConfigurationSets>
+		<rts:ExecutionContexts xsi:type="rtsExt:execution_context_ext" rts:id="0" rts:rate="30" rts:kind="PERIODIC" />
+		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="864" rtsExt:y="129" />
+		<rtsExt:Properties rtsExt:value="ImageViewer" rtsExt:name="implementation_id" />
+		<rtsExt:Properties rtsExt:value="ImageViewer" rtsExt:name="type_name" />
+		<rtsExt:Properties rtsExt:value="Image Viewer Component with common camera interface 2.0" rtsExt:name="description" />
+		<rtsExt:Properties rtsExt:value="2.0.1" rtsExt:name="version" />
+		<rtsExt:Properties rtsExt:value="MasutaniLab" rtsExt:name="vendor" />
+		<rtsExt:Properties rtsExt:value="ImageProcessing" rtsExt:name="category" />
+		<rtsExt:Properties rtsExt:value="PERIODIC" rtsExt:name="activity_type" />
+		<rtsExt:Properties rtsExt:value="1" rtsExt:name="max_instance" />
+		<rtsExt:Properties rtsExt:value="C++" rtsExt:name="language" />
+		<rtsExt:Properties rtsExt:value="compile" rtsExt:name="lang_type" />
+		<rtsExt:Properties rtsExt:value="0" rtsExt:name="conf.default.capture_frame_num" />
+		<rtsExt:Properties rtsExt:value="1" rtsExt:name="conf.default.BGR" />
+		<rtsExt:Properties rtsExt:value="text" rtsExt:name="conf.__widget__.capture_frame_num" />
+		<rtsExt:Properties rtsExt:value="radio" rtsExt:name="conf.__widget__.BGR" />
+		<rtsExt:Properties rtsExt:value="(0,1)" rtsExt:name="conf.__constraints__.BGR" />
+		<rtsExt:Properties rtsExt:value="int" rtsExt:name="conf.__type__.capture_frame_num" />
+		<rtsExt:Properties rtsExt:value="int" rtsExt:name="conf.__type__.BGR" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="sdo.service.provider.enabled_services" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="sdo.service.provider.available_services" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="sdo.service.consumer.enabled_services" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="sdo.service.consumer.available_services" />
+		<rtsExt:Properties rtsExt:value="DataFlowComponent" rtsExt:name="kind" />
+		<rtsExt:Properties rtsExt:value="ImageViewer1" rtsExt:name="instance_name" />
+		<rtsExt:Properties rtsExt:value="1.1.2" rtsExt:name="config.version" />
+		<rtsExt:Properties rtsExt:value="OpenRTM-aist-1.1.2" rtsExt:name="openrtm.name" />
+		<rtsExt:Properties rtsExt:value="1.1.2" rtsExt:name="openrtm.version" />
+		<rtsExt:Properties rtsExt:value="Linux" rtsExt:name="os.name" />
+		<rtsExt:Properties rtsExt:value="4.4.0-133-generic" rtsExt:name="os.release" />
+		<rtsExt:Properties rtsExt:value="#159-Ubuntu SMP Fri Aug 10 07:31:43 UTC 2018" rtsExt:name="os.version" />
+		<rtsExt:Properties rtsExt:value="x86_64" rtsExt:name="os.arch" />
+		<rtsExt:Properties rtsExt:value="ubuntu" rtsExt:name="os.hostname" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="corba.endpoint" />
+		<rtsExt:Properties rtsExt:value="omniORB" rtsExt:name="corba.id" />
+		<rtsExt:Properties rtsExt:value="PeriodicExecutionContext" rtsExt:name="exec_cxt.periodic.type" />
+		<rtsExt:Properties rtsExt:value="30.0" rtsExt:name="exec_cxt.periodic.rate" />
+		<rtsExt:Properties rtsExt:value="EventDrivenExecutionContext" rtsExt:name="exec_cxt.evdriven.type" />
+		<rtsExt:Properties rtsExt:value="YES" rtsExt:name="logger.enable" />
+		<rtsExt:Properties rtsExt:value="INFO" rtsExt:name="logger.log_level" />
+		<rtsExt:Properties rtsExt:value="YES" rtsExt:name="naming.enable" />
+		<rtsExt:Properties rtsExt:value="corba" rtsExt:name="naming.type" />
+		<rtsExt:Properties rtsExt:value="%n.rtc" rtsExt:name="naming.formats" />
+		<rtsExt:Properties rtsExt:value="ImageViewer1.rtc" rtsExt:name="naming.names" />
+		<rtsExt:Properties rtsExt:value="ImageViewer.conf" rtsExt:name="config_file" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="port.inport.dataport" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="port.inport.Image" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="port.corba" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="port.corbaport." />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="IOR" />
+	</rts:Components>
+	<rts:Components xsi:type="rtsExt:component_ext" rts:isRequired="false" rts:compositeType="None" rts:activeConfigurationSet="default" rts:instanceName="ImageViewer2" rts:pathUri="localhost/ImageViewer2.rtc" rts:id="RTC:MasutaniLab:ImageProcessing:ImageViewer2:2.0.1">
+		<rts:DataPorts xsi:type="rtsExt:dataport_ext" rts:name="ImageViewer2.Image">
+			<rtsExt:Properties rtsExt:value="DataInPort" rtsExt:name="port.port_type" />
+			<rtsExt:Properties rtsExt:value="IDL:Img/TimedCameraImage:1.0" rtsExt:name="dataport.data_type" />
+			<rtsExt:Properties rtsExt:value="Any" rtsExt:name="dataport.subscription_type" />
+			<rtsExt:Properties rtsExt:value="push,pull" rtsExt:name="dataport.dataflow_type" />
+			<rtsExt:Properties rtsExt:value="corba_cdr" rtsExt:name="dataport.interface_type" />
+		</rts:DataPorts>
+		<rts:ServicePorts xsi:type="rtsExt:serviceport_ext" rts:name="ImageViewer2.CameraCaptureService">
+			<rtsExt:Properties rtsExt:value="CorbaPort" rtsExt:name="port.port_type" />
+		</rts:ServicePorts>
+		<rts:ConfigurationSets rts:id="default">
+			<rts:ConfigurationData rts:data="0" rts:name="capture_frame_num" />
+			<rts:ConfigurationData rts:data="1" rts:name="BGR" />
+		</rts:ConfigurationSets>
+		<rts:ConfigurationSets rts:id="__widget__">
+			<rts:ConfigurationData rts:data="text" rts:name="capture_frame_num" />
+			<rts:ConfigurationData rts:data="radio" rts:name="BGR" />
+		</rts:ConfigurationSets>
+		<rts:ConfigurationSets rts:id="__constraints__">
+			<rts:ConfigurationData rts:data="(0,1)" rts:name="BGR" />
+		</rts:ConfigurationSets>
+		<rts:ConfigurationSets rts:id="__type__">
+			<rts:ConfigurationData rts:data="int" rts:name="capture_frame_num" />
+			<rts:ConfigurationData rts:data="int" rts:name="BGR" />
+		</rts:ConfigurationSets>
+		<rts:ExecutionContexts xsi:type="rtsExt:execution_context_ext" rts:id="0" rts:rate="30" rts:kind="PERIODIC" />
+		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="871" rtsExt:y="212" />
+		<rtsExt:Properties rtsExt:value="ImageViewer" rtsExt:name="implementation_id" />
+		<rtsExt:Properties rtsExt:value="ImageViewer" rtsExt:name="type_name" />
+		<rtsExt:Properties rtsExt:value="Image Viewer Component with common camera interface 2.0" rtsExt:name="description" />
+		<rtsExt:Properties rtsExt:value="2.0.1" rtsExt:name="version" />
+		<rtsExt:Properties rtsExt:value="MasutaniLab" rtsExt:name="vendor" />
+		<rtsExt:Properties rtsExt:value="ImageProcessing" rtsExt:name="category" />
+		<rtsExt:Properties rtsExt:value="PERIODIC" rtsExt:name="activity_type" />
+		<rtsExt:Properties rtsExt:value="1" rtsExt:name="max_instance" />
+		<rtsExt:Properties rtsExt:value="C++" rtsExt:name="language" />
+		<rtsExt:Properties rtsExt:value="compile" rtsExt:name="lang_type" />
+		<rtsExt:Properties rtsExt:value="0" rtsExt:name="conf.default.capture_frame_num" />
+		<rtsExt:Properties rtsExt:value="1" rtsExt:name="conf.default.BGR" />
+		<rtsExt:Properties rtsExt:value="text" rtsExt:name="conf.__widget__.capture_frame_num" />
+		<rtsExt:Properties rtsExt:value="radio" rtsExt:name="conf.__widget__.BGR" />
+		<rtsExt:Properties rtsExt:value="(0,1)" rtsExt:name="conf.__constraints__.BGR" />
+		<rtsExt:Properties rtsExt:value="int" rtsExt:name="conf.__type__.capture_frame_num" />
+		<rtsExt:Properties rtsExt:value="int" rtsExt:name="conf.__type__.BGR" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="sdo.service.provider.enabled_services" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="sdo.service.provider.available_services" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="sdo.service.consumer.enabled_services" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="sdo.service.consumer.available_services" />
+		<rtsExt:Properties rtsExt:value="DataFlowComponent" rtsExt:name="kind" />
+		<rtsExt:Properties rtsExt:value="ImageViewer2" rtsExt:name="instance_name" />
+		<rtsExt:Properties rtsExt:value="1.1.2" rtsExt:name="config.version" />
+		<rtsExt:Properties rtsExt:value="OpenRTM-aist-1.1.2" rtsExt:name="openrtm.name" />
+		<rtsExt:Properties rtsExt:value="1.1.2" rtsExt:name="openrtm.version" />
+		<rtsExt:Properties rtsExt:value="Linux" rtsExt:name="os.name" />
+		<rtsExt:Properties rtsExt:value="4.4.0-133-generic" rtsExt:name="os.release" />
+		<rtsExt:Properties rtsExt:value="#159-Ubuntu SMP Fri Aug 10 07:31:43 UTC 2018" rtsExt:name="os.version" />
+		<rtsExt:Properties rtsExt:value="x86_64" rtsExt:name="os.arch" />
+		<rtsExt:Properties rtsExt:value="ubuntu" rtsExt:name="os.hostname" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="corba.endpoint" />
+		<rtsExt:Properties rtsExt:value="omniORB" rtsExt:name="corba.id" />
+		<rtsExt:Properties rtsExt:value="PeriodicExecutionContext" rtsExt:name="exec_cxt.periodic.type" />
+		<rtsExt:Properties rtsExt:value="30.0" rtsExt:name="exec_cxt.periodic.rate" />
+		<rtsExt:Properties rtsExt:value="EventDrivenExecutionContext" rtsExt:name="exec_cxt.evdriven.type" />
+		<rtsExt:Properties rtsExt:value="YES" rtsExt:name="logger.enable" />
+		<rtsExt:Properties rtsExt:value="INFO" rtsExt:name="logger.log_level" />
+		<rtsExt:Properties rtsExt:value="YES" rtsExt:name="naming.enable" />
+		<rtsExt:Properties rtsExt:value="corba" rtsExt:name="naming.type" />
+		<rtsExt:Properties rtsExt:value="%n.rtc" rtsExt:name="naming.formats" />
+		<rtsExt:Properties rtsExt:value="ImageViewer2.rtc" rtsExt:name="naming.names" />
+		<rtsExt:Properties rtsExt:value="ImageViewer.conf" rtsExt:name="config_file" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="port.inport.dataport" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="port.inport.Image" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="port.corba" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="port.corbaport." />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="IOR" />
+	</rts:Components>
+	<rts:Components xsi:type="rtsExt:component_ext" rts:isRequired="false" rts:compositeType="None" rts:activeConfigurationSet="default" rts:instanceName="TkMonitorSlider0" rts:pathUri="localhost/TkMonitorSlider0.rtc" rts:id="RTC:MasutaniLab:Generic:TkMonitorSlider0:1.0">
+		<rts:DataPorts xsi:type="rtsExt:dataport_ext" rts:name="TkMonitorSlider0.value">
+			<rtsExt:Properties rtsExt:value="DataInPort" rtsExt:name="port.port_type" />
+			<rtsExt:Properties rtsExt:value="IDL:RTC/TimedDoubleSeq:1.0" rtsExt:name="dataport.data_type" />
+			<rtsExt:Properties rtsExt:value="Any" rtsExt:name="dataport.subscription_type" />
+			<rtsExt:Properties rtsExt:value="push, pull" rtsExt:name="dataport.dataflow_type" />
+			<rtsExt:Properties rtsExt:value="corba_cdr" rtsExt:name="dataport.interface_type" />
+		</rts:DataPorts>
+		<rts:ConfigurationSets rts:id="default" />
+		<rts:ExecutionContexts xsi:type="rtsExt:execution_context_ext" rts:id="0" rts:rate="30" rts:kind="PERIODIC">
+			<rtsExt:Properties rtsExt:value="YES" rtsExt:name="sync_transition" />
+			<rtsExt:Properties rtsExt:value="0.5" rtsExt:name="transition_timeout" />
+			<rtsExt:Properties rtsExt:value="PeriodicExecutionContext" rtsExt:name="type" />
+			<rtsExt:Properties rtsExt:value="30" rtsExt:name="rate" />
+		</rts:ExecutionContexts>
+		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="837" rtsExt:y="-4" />
+		<rtsExt:Properties rtsExt:value="TkMonitorSlider" rtsExt:name="implementation_id" />
+		<rtsExt:Properties rtsExt:value="TkMonitorSlider" rtsExt:name="type_name" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="description" />
+		<rtsExt:Properties rtsExt:value="1.0" rtsExt:name="version" />
+		<rtsExt:Properties rtsExt:value="MasutaniLab" rtsExt:name="vendor" />
+		<rtsExt:Properties rtsExt:value="Generic" rtsExt:name="category" />
+		<rtsExt:Properties rtsExt:value="DataFlowComponent" rtsExt:name="activity_type" />
+		<rtsExt:Properties rtsExt:value="10" rtsExt:name="max_instance" />
+		<rtsExt:Properties rtsExt:value="Python" rtsExt:name="language" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="lang_type" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="conf" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="sdo.service.provider.available_services" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="sdo.service.consumer.available_services" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="lang_typeSCRIPT" />
+		<rtsExt:Properties rtsExt:value="1.1.0" rtsExt:name="config.version" />
+		<rtsExt:Properties rtsExt:value="OpenRTM-aist-1.1.0" rtsExt:name="openrtm.name" />
+		<rtsExt:Properties rtsExt:value="1.1.0" rtsExt:name="openrtm.version" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="os.name" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="os.release" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="os.version" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="os.arch" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="os.hostname" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="corba.endpoint" />
+		<rtsExt:Properties rtsExt:value="omniORB" rtsExt:name="corba.id" />
+		<rtsExt:Properties rtsExt:value="PeriodicExecutionContext" rtsExt:name="exec_cxt.periodic.type" />
+		<rtsExt:Properties rtsExt:value="30" rtsExt:name="exec_cxt.periodic.rate" />
+		<rtsExt:Properties rtsExt:value="YES" rtsExt:name="exec_cxt.sync_transition" />
+		<rtsExt:Properties rtsExt:value="0.5" rtsExt:name="exec_cxt.transition_timeout" />
+		<rtsExt:Properties rtsExt:value="NO" rtsExt:name="logger.enable" />
+		<rtsExt:Properties rtsExt:value="INFO" rtsExt:name="logger.log_level" />
+		<rtsExt:Properties rtsExt:value="YES" rtsExt:name="naming.enable" />
+		<rtsExt:Properties rtsExt:value="corba" rtsExt:name="naming.type" />
+		<rtsExt:Properties rtsExt:value="%n.rtc" rtsExt:name="naming.formats" />
+		<rtsExt:Properties rtsExt:value="TkMonitorSlider0.rtc" rtsExt:name="naming.names" />
+		<rtsExt:Properties rtsExt:value="TkMonitorSlider0" rtsExt:name="instance_name" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="config_file" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="port.inport.dataport" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="IOR" />
+	</rts:Components>
+	<rts:Components xsi:type="rtsExt:component_ext" rts:isRequired="false" rts:compositeType="None" rts:activeConfigurationSet="default" rts:instanceName="TkSlider0" rts:pathUri="localhost/TkSlider0.rtc" rts:id="RTC:MasutaniLab:Generic:TkSlider0:1.0">
+		<rts:DataPorts xsi:type="rtsExt:dataport_ext" rts:name="TkSlider0.slider">
+			<rtsExt:Properties rtsExt:value="DataOutPort" rtsExt:name="port.port_type" />
+			<rtsExt:Properties rtsExt:value="IDL:RTC/TimedDoubleSeq:1.0" rtsExt:name="dataport.data_type" />
+			<rtsExt:Properties rtsExt:value="flush, new, periodic" rtsExt:name="dataport.subscription_type" />
+			<rtsExt:Properties rtsExt:value="push, pull" rtsExt:name="dataport.dataflow_type" />
+			<rtsExt:Properties rtsExt:value="corba_cdr" rtsExt:name="dataport.interface_type" />
+		</rts:DataPorts>
+		<rts:ConfigurationSets rts:id="default" />
+		<rts:ExecutionContexts xsi:type="rtsExt:execution_context_ext" rts:id="0" rts:rate="30" rts:kind="PERIODIC">
+			<rtsExt:Properties rtsExt:value="YES" rtsExt:name="sync_transition" />
+			<rtsExt:Properties rtsExt:value="0.5" rtsExt:name="transition_timeout" />
+			<rtsExt:Properties rtsExt:value="PeriodicExecutionContext" rtsExt:name="type" />
+			<rtsExt:Properties rtsExt:value="30" rtsExt:name="rate" />
+		</rts:ExecutionContexts>
+		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="603" rtsExt:y="-5" />
+		<rtsExt:Properties rtsExt:value="TkSlider" rtsExt:name="implementation_id" />
+		<rtsExt:Properties rtsExt:value="TkSlider" rtsExt:name="type_name" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="description" />
+		<rtsExt:Properties rtsExt:value="1.0" rtsExt:name="version" />
+		<rtsExt:Properties rtsExt:value="MasutaniLab" rtsExt:name="vendor" />
+		<rtsExt:Properties rtsExt:value="Generic" rtsExt:name="category" />
+		<rtsExt:Properties rtsExt:value="DataFlowComponent" rtsExt:name="activity_type" />
+		<rtsExt:Properties rtsExt:value="10" rtsExt:name="max_instance" />
+		<rtsExt:Properties rtsExt:value="Python" rtsExt:name="language" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="lang_type" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="conf" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="sdo.service.provider.available_services" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="sdo.service.consumer.available_services" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="lang_typeSCRIPT" />
+		<rtsExt:Properties rtsExt:value="1.1.0" rtsExt:name="config.version" />
+		<rtsExt:Properties rtsExt:value="OpenRTM-aist-1.1.0" rtsExt:name="openrtm.name" />
+		<rtsExt:Properties rtsExt:value="1.1.0" rtsExt:name="openrtm.version" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="os.name" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="os.release" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="os.version" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="os.arch" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="os.hostname" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="corba.endpoint" />
+		<rtsExt:Properties rtsExt:value="omniORB" rtsExt:name="corba.id" />
+		<rtsExt:Properties rtsExt:value="PeriodicExecutionContext" rtsExt:name="exec_cxt.periodic.type" />
+		<rtsExt:Properties rtsExt:value="30" rtsExt:name="exec_cxt.periodic.rate" />
+		<rtsExt:Properties rtsExt:value="YES" rtsExt:name="exec_cxt.sync_transition" />
+		<rtsExt:Properties rtsExt:value="0.5" rtsExt:name="exec_cxt.transition_timeout" />
+		<rtsExt:Properties rtsExt:value="NO" rtsExt:name="logger.enable" />
+		<rtsExt:Properties rtsExt:value="INFO" rtsExt:name="logger.log_level" />
+		<rtsExt:Properties rtsExt:value="YES" rtsExt:name="naming.enable" />
+		<rtsExt:Properties rtsExt:value="corba" rtsExt:name="naming.type" />
+		<rtsExt:Properties rtsExt:value="%n.rtc" rtsExt:name="naming.formats" />
+		<rtsExt:Properties rtsExt:value="TkSlider0.rtc" rtsExt:name="naming.names" />
+		<rtsExt:Properties rtsExt:value="TkSlider0" rtsExt:name="instance_name" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="config_file" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="port.outport.dataport" />
+		<rtsExt:Properties rtsExt:value="" rtsExt:name="IOR" />
+	</rts:Components>
+	<rts:DataPortConnectors xsi:type="rtsExt:dataport_connector_ext" rts:connectorId="8b1c91c9-8f3c-45a4-9108-51a25858b18c" rts:name="DoubleArmV7-VisionSensorIoRTC.FRAME_FRONT_CAMERA_ImageViewer1.Image" rts:dataType="IDL:Img/TimedCameraImage:1.0" rts:interfaceType="corba_cdr" rts:dataflowType="push" rts:subscriptionType="flush">
+		<rts:sourceDataPort xsi:type="rtsExt:target_port_ext" rts:portName="DoubleArmV7-VisionSensorIoRTC.FRAME_FRONT_CAMERA" rts:instanceName="DoubleArmV7-VisionSensorIoRTC" rts:componentId="RTC:Choreonoid:Generic:DoubleArmV7-VisionSensorIoRTC:1.0.0">
+			<rtsExt:Properties rtsExt:value="localhost/DoubleArmV7-VisionSensorIoRTC.rtc" rtsExt:name="COMPONENT_PATH_ID" />
+		</rts:sourceDataPort>
+		<rts:targetDataPort xsi:type="rtsExt:target_port_ext" rts:portName="ImageViewer1.Image" rts:instanceName="ImageViewer1" rts:componentId="RTC:MasutaniLab:ImageProcessing:ImageViewer1:2.0.1">
+			<rtsExt:Properties rtsExt:value="localhost/ImageViewer1.rtc" rtsExt:name="COMPONENT_PATH_ID" />
+		</rts:targetDataPort>
+		<rtsExt:Properties rtsExt:value="IDL:Img/TimedCameraImage:1.0" rtsExt:name="dataport.data_type" />
+		<rtsExt:Properties rtsExt:value="corba_cdr" rtsExt:name="dataport.interface_type" />
+		<rtsExt:Properties rtsExt:value="push" rtsExt:name="dataport.dataflow_type" />
+		<rtsExt:Properties rtsExt:value="flush" rtsExt:name="dataport.subscription_type" />
+		<rtsExt:Properties rtsExt:value="little,big" rtsExt:name="dataport.serializer.cdr.endian" />
+		<rtsExt:Properties rtsExt:value="IOR:010000001a00000049444c3a4f70656e52544d2f496e506f72744364723a312e3000000001000000000000006800000001010200100000003139322e3136382e3132362e313239009dbb00000e000000fe635c795b00005083000000000500000200000000000000080000000100000000545441010000001c00000001000000010001000100000001000105090101000100000009010100" rtsExt:name="dataport.corba_cdr.inport_ior" />
+	</rts:DataPortConnectors>
+	<rts:DataPortConnectors xsi:type="rtsExt:dataport_connector_ext" rts:connectorId="f51cb314-a3a7-11e8-9777-000c2996467c" rts:name="TkSlider0.slider_DoubleArmV7-DoubleArmV7PDControllerIoRTC.qt" rts:dataType="IDL:RTC/TimedDoubleSeq:1.0" rts:interfaceType="corba_cdr" rts:dataflowType="push" rts:subscriptionType="flush">
+		<rts:sourceDataPort xsi:type="rtsExt:target_port_ext" rts:portName="TkSlider0.slider" rts:instanceName="TkSlider0" rts:componentId="RTC:MasutaniLab:Generic:TkSlider0:1.0">
+			<rtsExt:Properties rtsExt:value="localhost/TkSlider0.rtc" rtsExt:name="COMPONENT_PATH_ID" />
+		</rts:sourceDataPort>
+		<rts:targetDataPort xsi:type="rtsExt:target_port_ext" rts:portName="DoubleArmV7-DoubleArmV7PDControllerIoRTC.qt" rts:instanceName="DoubleArmV7-DoubleArmV7PDControllerIoRTC" rts:componentId="RTC:MasutaniLab:Generic:DoubleArmV7-DoubleArmV7PDControllerIoRTC:1.0">
+			<rtsExt:Properties rtsExt:value="localhost/DoubleArmV7-DoubleArmV7PDControllerIoRTC.rtc" rtsExt:name="COMPONENT_PATH_ID" />
+		</rts:targetDataPort>
+		<rtsExt:Properties rtsExt:value="IDL:RTC/TimedDoubleSeq:1.0" rtsExt:name="dataport.data_type" />
+		<rtsExt:Properties rtsExt:value="corba_cdr" rtsExt:name="dataport.interface_type" />
+		<rtsExt:Properties rtsExt:value="push" rtsExt:name="dataport.dataflow_type" />
+		<rtsExt:Properties rtsExt:value="flush" rtsExt:name="dataport.subscription_type" />
+		<rtsExt:Properties rtsExt:value="little,big" rtsExt:name="dataport.serializer.cdr.endian" />
+		<rtsExt:Properties rtsExt:value="IOR:010000001a00000049444c3a4f70656e52544d2f496e506f72744364723a312e3000000001000000000000006800000001010200100000003139322e3136382e3132362e31323900aeb200000e000000fe655c795b000050a4000000001700000200000000000000080000000100000000545441010000001c00000001000000010001000100000001000105090101000100000009010100" rtsExt:name="dataport.corba_cdr.inport_ior" />
+	</rts:DataPortConnectors>
+	<rts:DataPortConnectors xsi:type="rtsExt:dataport_connector_ext" rts:connectorId="d08a096b-5ddb-4f18-927e-60bfec754c01" rts:name="DoubleArmV7-DoubleArmV7PDControllerIoRTC.q_TkMonitorSlider0.value" rts:dataType="IDL:RTC/TimedDoubleSeq:1.0" rts:interfaceType="corba_cdr" rts:dataflowType="push" rts:subscriptionType="flush">
+		<rts:sourceDataPort xsi:type="rtsExt:target_port_ext" rts:portName="DoubleArmV7-DoubleArmV7PDControllerIoRTC.q" rts:instanceName="DoubleArmV7-DoubleArmV7PDControllerIoRTC" rts:componentId="RTC:MasutaniLab:Generic:DoubleArmV7-DoubleArmV7PDControllerIoRTC:1.0">
+			<rtsExt:Properties rtsExt:value="localhost/DoubleArmV7-DoubleArmV7PDControllerIoRTC.rtc" rtsExt:name="COMPONENT_PATH_ID" />
+		</rts:sourceDataPort>
+		<rts:targetDataPort xsi:type="rtsExt:target_port_ext" rts:portName="TkMonitorSlider0.value" rts:instanceName="TkMonitorSlider0" rts:componentId="RTC:MasutaniLab:Generic:TkMonitorSlider0:1.0">
+			<rtsExt:Properties rtsExt:value="localhost/TkMonitorSlider0.rtc" rtsExt:name="COMPONENT_PATH_ID" />
+		</rts:targetDataPort>
+		<rtsExt:Properties rtsExt:value="IDL:RTC/TimedDoubleSeq:1.0" rtsExt:name="dataport.data_type" />
+		<rtsExt:Properties rtsExt:value="corba_cdr" rtsExt:name="dataport.interface_type" />
+		<rtsExt:Properties rtsExt:value="push" rtsExt:name="dataport.dataflow_type" />
+		<rtsExt:Properties rtsExt:value="flush" rtsExt:name="dataport.subscription_type" />
+		<rtsExt:Properties rtsExt:value="little,big" rtsExt:name="dataport.serializer.cdr.endian" />
+		<rtsExt:Properties rtsExt:value="IOR:010000001a00000049444c3a4f70656e52544d2f496e506f72744364723a312e3000000001000000000000006800000001010200100000003139322e3136382e3132362e3132390097df00000e000000fe635c795b00005070000000000400000200000000000000080000000100000000545441010000001c00000001000000010001000100000001000105090101000100000009010100" rtsExt:name="dataport.corba_cdr.inport_ior" />
+	</rts:DataPortConnectors>
+	<rts:DataPortConnectors xsi:type="rtsExt:dataport_connector_ext" rts:connectorId="b6579cff-a46b-44ad-81da-d08f44911be3" rts:name="DoubleArmV7-VisionSensorIoRTC.WORK_RIGHT_VIEW_ImageViewer2.Image" rts:dataType="IDL:Img/TimedCameraImage:1.0" rts:interfaceType="corba_cdr" rts:dataflowType="push" rts:subscriptionType="flush">
+		<rts:sourceDataPort xsi:type="rtsExt:target_port_ext" rts:portName="DoubleArmV7-VisionSensorIoRTC.WORK_RIGHT_VIEW" rts:instanceName="DoubleArmV7-VisionSensorIoRTC" rts:componentId="RTC:Choreonoid:Generic:DoubleArmV7-VisionSensorIoRTC:1.0.0">
+			<rtsExt:Properties rtsExt:value="localhost/DoubleArmV7-VisionSensorIoRTC.rtc" rtsExt:name="COMPONENT_PATH_ID" />
+		</rts:sourceDataPort>
+		<rts:targetDataPort xsi:type="rtsExt:target_port_ext" rts:portName="ImageViewer2.Image" rts:instanceName="ImageViewer2" rts:componentId="RTC:MasutaniLab:ImageProcessing:ImageViewer2:2.0.1">
+			<rtsExt:Properties rtsExt:value="localhost/ImageViewer2.rtc" rtsExt:name="COMPONENT_PATH_ID" />
+		</rts:targetDataPort>
+		<rtsExt:Properties rtsExt:value="IDL:Img/TimedCameraImage:1.0" rtsExt:name="dataport.data_type" />
+		<rtsExt:Properties rtsExt:value="corba_cdr" rtsExt:name="dataport.interface_type" />
+		<rtsExt:Properties rtsExt:value="push" rtsExt:name="dataport.dataflow_type" />
+		<rtsExt:Properties rtsExt:value="flush" rtsExt:name="dataport.subscription_type" />
+		<rtsExt:Properties rtsExt:value="little,big" rtsExt:name="dataport.serializer.cdr.endian" />
+		<rtsExt:Properties rtsExt:value="IOR:010000001a00000049444c3a4f70656e52544d2f496e506f72744364723a312e3000000001000000000000006800000001010200100000003139322e3136382e3132362e313239001aaf00000e000000fe635c795b0000509c000000000500000200000000000000080000000100000000545441010000001c00000001000000010001000100000001000105090101000100000009010100" rtsExt:name="dataport.corba_cdr.inport_ior" />
+	</rts:DataPortConnectors>
 </rts:RtsProfile>
