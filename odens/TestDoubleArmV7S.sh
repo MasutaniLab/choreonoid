@@ -18,7 +18,7 @@ echo "Chorenoidでシミュレーションを開始，停止してください"
 
 while [ "$input" != "y" ]
 do
-    echo "終了しますか？"
+    echo -n "終了しますか？"
     read input
 done
 
