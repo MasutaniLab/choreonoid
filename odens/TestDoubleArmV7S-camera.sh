@@ -17,9 +17,6 @@ v2=/localhost/ImageViewer2.rtc
 
 sleep 3
 
-rtconf $v1 set BGR 1
-rtconf $v2 set BGR 1
-
 #外部のRTCはChoreonoidからactivateされないので
 rtact $s $m $v1 $v2
 

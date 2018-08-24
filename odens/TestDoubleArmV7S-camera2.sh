@@ -18,8 +18,6 @@ p1=/localhost/PointCloudViewer1.rtc
 
 sleep 3
 
-rtconf $v1 set BGR 0
-
 #BodyRTCに接続していないRTCはChoreonoidからactivateされないので
 rtact $s $m
 
