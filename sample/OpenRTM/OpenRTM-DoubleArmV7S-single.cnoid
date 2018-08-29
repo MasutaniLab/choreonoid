@@ -119,6 +119,8 @@ items:
             format: RTS-PROFILE-XML
             AutoConnection: true
             PollingCycle: 500
+            StateCheck: Polling
+            CheckAtLoading: true
 views: 
   - 
     id: 0
@@ -239,8 +241,10 @@ views:
     class: RTSNameServerView
     mounted: true
     state: 
-      host: localhost
-      port: 2809
+      NameServers: 
+        - 
+          host: "localhost"
+          port: 2809
   - 
     id: 9
     name: "RTC Properties"
@@ -253,6 +257,28 @@ views:
     class: PythonConsoleView
     mounted: true
 toolbars: 
+  "TimeBar": 
+    minTime: 0
+    maxTime: 30
+    frameRate: 1000
+    playbackFrameRate: 60
+    idleLoopDrivenMode: false
+    currentTime: 0
+    speedScale: 1
+    syncToOngoingUpdates: true
+    autoExpansion: true
+  "LeggedBodyBar": 
+    stanceWidth: 0.15
+  "KinematicsBar": 
+    mode: AUTO
+    enablePositionDragger: true
+    penetrationBlock: false
+    collisionLinkHighlight: false
+    snapDistance: 0.025
+    penetrationBlockDepth: 0.0005
+    lazyCollisionDetectionMode: true
+  "BodyBar": 
+    current: 2
   "BodyMotionGenerationBar": 
     autoGenerationForNewBody: true
     balancer: false
@@ -286,28 +312,6 @@ toolbars:
     waistHeightRelaxation: false
     gravity: 9.8
     dynamicsTimeRatio: 1
-  "TimeBar": 
-    minTime: 0
-    maxTime: 30
-    frameRate: 1000
-    playbackFrameRate: 60
-    idleLoopDrivenMode: false
-    currentTime: 0
-    speedScale: 1
-    syncToOngoingUpdates: true
-    autoExpansion: true
-  "LeggedBodyBar": 
-    stanceWidth: 0.15
-  "KinematicsBar": 
-    mode: AUTO
-    enablePositionDragger: true
-    penetrationBlock: false
-    collisionLinkHighlight: false
-    snapDistance: 0.025
-    penetrationBlockDepth: 0.0005
-    lazyCollisionDetectionMode: true
-  "BodyBar": 
-    current: 2
 Body: 
   "BodyMotionEngine": 
     updateJointVelocities: false
@@ -347,12 +351,12 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 402, 1272 ]
+      sizes: [ 460, 1454 ]
       children: 
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 404, 402 ]
+          sizes: [ 480, 478 ]
           children: 
             - 
               type: pane
@@ -365,12 +369,12 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 576, 230 ]
+          sizes: [ 685, 273 ]
           children: 
             - 
               type: splitter
               orientation: horizontal
-              sizes: [ 425, 841 ]
+              sizes: [ 404, 1044 ]
               children: 
                 - 
                   type: pane

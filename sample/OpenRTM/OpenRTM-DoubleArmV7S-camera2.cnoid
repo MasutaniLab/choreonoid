@@ -153,6 +153,8 @@ items:
         format: RTS-PROFILE-XML
         AutoConnection: true
         PollingCycle: 500
+        StateCheck: Polling
+        CheckAtLoading: true
 views: 
   - 
     id: 0
@@ -165,7 +167,7 @@ views:
     class: ItemTreeView
     mounted: true
     state: 
-      selected: [ 4 ]
+      selected: [ 4, 6 ]
       checked: [ 2, 3, 4, 5 ]
       expanded: [ 1, 2, 6 ]
   - 
@@ -273,8 +275,10 @@ views:
     class: RTSNameServerView
     mounted: true
     state: 
-      host: localhost
-      port: 2809
+      NameServers: 
+        - 
+          host: "localhost"
+          port: 2809
   - 
     id: 9
     name: "RTC Properties"
@@ -287,6 +291,28 @@ views:
     class: PythonConsoleView
     mounted: true
 toolbars: 
+  "TimeBar": 
+    minTime: 0
+    maxTime: 30
+    frameRate: 1000
+    playbackFrameRate: 60
+    idleLoopDrivenMode: false
+    currentTime: 18.201
+    speedScale: 1
+    syncToOngoingUpdates: true
+    autoExpansion: true
+  "KinematicsBar": 
+    mode: AUTO
+    enablePositionDragger: true
+    penetrationBlock: false
+    collisionLinkHighlight: false
+    snapDistance: 0.025
+    penetrationBlockDepth: 0.0005
+    lazyCollisionDetectionMode: true
+  "BodyBar": 
+    current: 2
+  "LeggedBodyBar": 
+    stanceWidth: 0.15
   "BodyMotionGenerationBar": 
     autoGenerationForNewBody: true
     balancer: false
@@ -320,28 +346,6 @@ toolbars:
     waistHeightRelaxation: false
     gravity: 9.8
     dynamicsTimeRatio: 1
-  "TimeBar": 
-    minTime: 0
-    maxTime: 30
-    frameRate: 1000
-    playbackFrameRate: 60
-    idleLoopDrivenMode: false
-    currentTime: 0
-    speedScale: 1
-    syncToOngoingUpdates: true
-    autoExpansion: true
-  "KinematicsBar": 
-    mode: AUTO
-    enablePositionDragger: true
-    penetrationBlock: false
-    collisionLinkHighlight: false
-    snapDistance: 0.025
-    penetrationBlockDepth: 0.0005
-    lazyCollisionDetectionMode: true
-  "BodyBar": 
-    current: 2
-  "LeggedBodyBar": 
-    stanceWidth: 0.15
 Body: 
   "BodyMotionEngine": 
     updateJointVelocities: false
@@ -381,12 +385,12 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 402, 1272 ]
+      sizes: [ 460, 1454 ]
       children: 
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 400, 398 ]
+          sizes: [ 480, 478 ]
           children: 
             - 
               type: pane
@@ -399,12 +403,12 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 570, 228 ]
+          sizes: [ 684, 274 ]
           children: 
             - 
               type: splitter
               orientation: horizontal
-              sizes: [ 432, 834 ]
+              sizes: [ 494, 954 ]
               children: 
                 - 
                   type: pane

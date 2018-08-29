@@ -8,17 +8,20 @@ m=/localhost/TkMonitorSlider0.rtc
 c=/localhost/DoubleArmV7-VisionSensorIoRTC.rtc
 v1=/localhost/ImageViewer1.rtc
 v2=/localhost/ImageViewer2.rtc
+p1=/localhost/PointCloudViewer1.rtc
 
 ./TkSlider.py &
 ./TkMonitorSlider.py &
 #../../ImageViewerがあることが前提
 ../../ImageViewer/ImageViewer.bash 1
 ../../ImageViewer/ImageViewer.bash 2
+#../../PointCloudViewerがあることが前提
+../../PointCloudViewer/PointCloudViewer.bash 1
 
 sleep 3
 
 #外部のRTCはChoreonoidからactivateされないので
-rtact $s $m $v1 $v2
+rtact $s $m $v1 $v2 $p1
 
 (cd ..; bin/choreonoid sample/OpenRTM/OpenRTM-DoubleArmV7S-camera.cnoid &)
 
@@ -34,10 +37,11 @@ do
 done
 
 #外部のRTCはChoreonoidからdeactivateされないので
-rtdeact $s $m $v1 $v2
+rtdeact $s $m $v1 $v2  $p1
 
 rtexit $s
 rtexit $m
 rtexit $v1
 rtexit $v2
+rtexit $p1
 killall choreonoid
