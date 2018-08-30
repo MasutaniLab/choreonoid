@@ -297,7 +297,7 @@ toolbars:
     frameRate: 1000
     playbackFrameRate: 60
     idleLoopDrivenMode: false
-    currentTime: 18.201
+    currentTime: 0
     speedScale: 1
     syncToOngoingUpdates: true
     autoExpansion: true
@@ -385,12 +385,12 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 460, 1454 ]
+      sizes: [ 402, 1272 ]
       children: 
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 480, 478 ]
+          sizes: [ 404, 402 ]
           children: 
             - 
               type: pane
@@ -403,12 +403,12 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 684, 274 ]
+          sizes: [ 575, 231 ]
           children: 
             - 
               type: splitter
               orientation: horizontal
-              sizes: [ 494, 954 ]
+              sizes: [ 432, 834 ]
               children: 
                 - 
                   type: pane

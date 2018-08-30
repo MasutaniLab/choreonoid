@@ -164,7 +164,7 @@ views:
     class: ItemTreeView
     mounted: true
     state: 
-      selected: [ 6 ]
+      selected: [ 2 ]
       checked: [ 2, 3, 4, 5 ]
       expanded: [ 1, 2, 6 ]
   - 
@@ -294,7 +294,7 @@ toolbars:
     frameRate: 1000
     playbackFrameRate: 60
     idleLoopDrivenMode: false
-    currentTime: 7.234
+    currentTime: 0
     speedScale: 1
     syncToOngoingUpdates: true
     autoExpansion: true
@@ -382,12 +382,12 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 460, 1454 ]
+      sizes: [ 402, 1272 ]
       children: 
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 480, 478 ]
+          sizes: [ 404, 402 ]
           children: 
             - 
               type: pane
@@ -400,12 +400,12 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 684, 274 ]
+          sizes: [ 575, 231 ]
           children: 
             - 
               type: splitter
               orientation: horizontal
-              sizes: [ 636, 812 ]
+              sizes: [ 556, 710 ]
               children: 
                 - 
                   type: pane
