@@ -133,7 +133,7 @@ views:
     class: ItemTreeView
     mounted: true
     state: 
-      selected: [ 6 ]
+      selected: [ 3 ]
       checked: [ 2, 3, 4 ]
       expanded: [ 1, 2 ]
   - 
@@ -267,8 +267,6 @@ toolbars:
     speedScale: 1
     syncToOngoingUpdates: true
     autoExpansion: true
-  "LeggedBodyBar": 
-    stanceWidth: 0.15
   "KinematicsBar": 
     mode: AUTO
     enablePositionDragger: true
@@ -279,6 +277,8 @@ toolbars:
     lazyCollisionDetectionMode: true
   "BodyBar": 
     current: 2
+  "LeggedBodyBar": 
+    stanceWidth: 0.15
   "BodyMotionGenerationBar": 
     autoGenerationForNewBody: true
     balancer: false
@@ -356,7 +356,7 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 480, 478 ]
+          sizes: [ 481, 479 ]
           children: 
             - 
               type: pane
@@ -365,16 +365,16 @@ viewAreas:
             - 
               type: pane
               views: [ 0, 6, 8 ]
-              current: 8
+              current: 0
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 685, 273 ]
+          sizes: [ 686, 274 ]
           children: 
             - 
               type: splitter
               orientation: horizontal
-              sizes: [ 404, 1044 ]
+              sizes: [ 590, 858 ]
               children: 
                 - 
                   type: pane

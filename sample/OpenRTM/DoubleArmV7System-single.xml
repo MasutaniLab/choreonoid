@@ -24,7 +24,7 @@
 		</rts:DataPorts>
 		<rts:ConfigurationSets rts:id="default" />
 		<rts:ExecutionContexts xsi:type="rtsExt:execution_context_ext" rts:id="0" rts:rate="1000" rts:kind="PERIODIC" />
-		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="24" rtsExt:y="55" />
+		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="92" rtsExt:y="97" />
 	</rts:Components>
 	<rts:Components xsi:type="rtsExt:component_ext" rts:isRequired="false" rts:compositeType="None" rts:activeConfigurationSet="default" rts:instanceName="TkMonitorSlider0" rts:pathUri="localhost/TkMonitorSlider0.rtc" rts:id="RTC:MasutaniLab:Generic:TkMonitorSlider0:1.0">
 		<rts:DataPorts xsi:type="rtsExt:dataport_ext" rts:name="TkMonitorSlider0.value">
@@ -41,7 +41,7 @@
 			<rtsExt:Properties rtsExt:value="PeriodicExecutionContext" rtsExt:name="type" />
 			<rtsExt:Properties rtsExt:value="30" rtsExt:name="rate" />
 		</rts:ExecutionContexts>
-		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="266" rtsExt:y="2" />
+		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="438" rtsExt:y="0" />
 	</rts:Components>
 	<rts:Components xsi:type="rtsExt:component_ext" rts:isRequired="false" rts:compositeType="None" rts:activeConfigurationSet="default" rts:instanceName="TkSlider0" rts:pathUri="localhost/TkSlider0.rtc" rts:id="RTC:MasutaniLab:Generic:TkSlider0:1.0">
 		<rts:DataPorts xsi:type="rtsExt:dataport_ext" rts:name="TkSlider0.slider">
@@ -58,23 +58,9 @@
 			<rtsExt:Properties rtsExt:value="PeriodicExecutionContext" rtsExt:name="type" />
 			<rtsExt:Properties rtsExt:value="30" rtsExt:name="rate" />
 		</rts:ExecutionContexts>
-		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="0" rtsExt:y="0" />
+		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="0" rtsExt:y="10" />
 	</rts:Components>
-	<rts:DataPortConnectors xsi:type="rtsExt:dataport_connector_ext" rts:connectorId="13f48a66-f1d5-4eb6-b7db-683ad3f97c72" rts:name="DoubleArmV7-DoubleArmV7PDControllerIoRTC.q_TkMonitorSlider0.value" rts:dataType="IDL:RTC/TimedDoubleSeq:1.0" rts:interfaceType="corba_cdr" rts:dataflowType="push" rts:subscriptionType="flush">
-		<rts:sourceDataPort xsi:type="rtsExt:target_port_ext" rts:portName="DoubleArmV7-DoubleArmV7PDControllerIoRTC.q" rts:instanceName="DoubleArmV7-DoubleArmV7PDControllerIoRTC" rts:componentId="RTC:MasutaniLab:Generic:DoubleArmV7-DoubleArmV7PDControllerIoRTC:1.0">
-			<rtsExt:Properties rtsExt:value="localhost/DoubleArmV7-DoubleArmV7PDControllerIoRTC.rtc" rtsExt:name="COMPONENT_PATH_ID" />
-		</rts:sourceDataPort>
-		<rts:targetDataPort xsi:type="rtsExt:target_port_ext" rts:portName="TkMonitorSlider0.value" rts:instanceName="TkMonitorSlider0" rts:componentId="RTC:MasutaniLab:Generic:TkMonitorSlider0:1.0">
-			<rtsExt:Properties rtsExt:value="localhost/TkMonitorSlider0.rtc" rtsExt:name="COMPONENT_PATH_ID" />
-		</rts:targetDataPort>
-		<rtsExt:Properties rtsExt:value="IDL:RTC/TimedDoubleSeq:1.0" rtsExt:name="dataport.data_type" />
-		<rtsExt:Properties rtsExt:value="corba_cdr" rtsExt:name="dataport.interface_type" />
-		<rtsExt:Properties rtsExt:value="push" rtsExt:name="dataport.dataflow_type" />
-		<rtsExt:Properties rtsExt:value="flush" rtsExt:name="dataport.subscription_type" />
-		<rtsExt:Properties rtsExt:value="little,big" rtsExt:name="dataport.serializer.cdr.endian" />
-		<rtsExt:Properties rtsExt:value="{1:(226,74),2:(231,74),3:(255,74),4:(255,21),5:(299,21),6:(304,21)}" rtsExt:name="POSITION" />
-	</rts:DataPortConnectors>
-	<rts:DataPortConnectors xsi:type="rtsExt:dataport_connector_ext" rts:connectorId="8a20bbf6-ab94-11e8-be2e-7c7a9156e947" rts:name="TkSlider0.slider_DoubleArmV7-DoubleArmV7PDControllerIoRTC.qt" rts:dataType="IDL:RTC/TimedDoubleSeq:1.0" rts:interfaceType="corba_cdr" rts:dataflowType="push" rts:subscriptionType="flush">
+	<rts:DataPortConnectors xsi:type="rtsExt:dataport_connector_ext" rts:connectorId="fb213a7a-ad00-11e8-be2e-7c7a9156e947" rts:name="TkSlider0.slider_DoubleArmV7-DoubleArmV7PDControllerIoRTC.qt" rts:dataType="IDL:RTC/TimedDoubleSeq:1.0" rts:interfaceType="corba_cdr" rts:dataflowType="push" rts:subscriptionType="flush">
 		<rts:sourceDataPort xsi:type="rtsExt:target_port_ext" rts:portName="TkSlider0.slider" rts:instanceName="TkSlider0" rts:componentId="RTC:MasutaniLab:Generic:TkSlider0:1.0">
 			<rtsExt:Properties rtsExt:value="localhost/TkSlider0.rtc" rtsExt:name="COMPONENT_PATH_ID" />
 		</rts:sourceDataPort>
@@ -86,6 +72,20 @@
 		<rtsExt:Properties rtsExt:value="push" rtsExt:name="dataport.dataflow_type" />
 		<rtsExt:Properties rtsExt:value="flush" rtsExt:name="dataport.subscription_type" />
 		<rtsExt:Properties rtsExt:value="little,big" rtsExt:name="dataport.serializer.cdr.endian" />
-		<rtsExt:Properties rtsExt:value="{1:(70,19),2:(75,19),3:(105,19),4:(105,74),5:(161,74),6:(166,74)}" rtsExt:name="POSITION" />
+		<rtsExt:Properties rtsExt:value="{1:(75.7776,29.4536),2:(80.7776,29.4536),3:(166.889,29.4536),4:(166.889,116),5:(253,116),6:(258,116)}" rtsExt:name="POSITION" />
+	</rts:DataPortConnectors>
+	<rts:DataPortConnectors xsi:type="rtsExt:dataport_connector_ext" rts:connectorId="c460e9c7-0246-4d72-b650-bf9fedc452fb" rts:name="DoubleArmV7-DoubleArmV7PDControllerIoRTC.q_TkMonitorSlider0.value" rts:dataType="IDL:RTC/TimedDoubleSeq:1.0" rts:interfaceType="corba_cdr" rts:dataflowType="push" rts:subscriptionType="flush">
+		<rts:sourceDataPort xsi:type="rtsExt:target_port_ext" rts:portName="DoubleArmV7-DoubleArmV7PDControllerIoRTC.q" rts:instanceName="DoubleArmV7-DoubleArmV7PDControllerIoRTC" rts:componentId="RTC:MasutaniLab:Generic:DoubleArmV7-DoubleArmV7PDControllerIoRTC:1.0">
+			<rtsExt:Properties rtsExt:value="localhost/DoubleArmV7-DoubleArmV7PDControllerIoRTC.rtc" rtsExt:name="COMPONENT_PATH_ID" />
+		</rts:sourceDataPort>
+		<rts:targetDataPort xsi:type="rtsExt:target_port_ext" rts:portName="TkMonitorSlider0.value" rts:instanceName="TkMonitorSlider0" rts:componentId="RTC:MasutaniLab:Generic:TkMonitorSlider0:1.0">
+			<rtsExt:Properties rtsExt:value="localhost/TkMonitorSlider0.rtc" rtsExt:name="COMPONENT_PATH_ID" />
+		</rts:targetDataPort>
+		<rtsExt:Properties rtsExt:value="IDL:RTC/TimedDoubleSeq:1.0" rtsExt:name="dataport.data_type" />
+		<rtsExt:Properties rtsExt:value="corba_cdr" rtsExt:name="dataport.interface_type" />
+		<rtsExt:Properties rtsExt:value="push" rtsExt:name="dataport.dataflow_type" />
+		<rtsExt:Properties rtsExt:value="flush" rtsExt:name="dataport.subscription_type" />
+		<rtsExt:Properties rtsExt:value="little,big" rtsExt:name="dataport.serializer.cdr.endian" />
+		<rtsExt:Properties rtsExt:value="{1:(318,116),2:(323,116),3:(401.489,116),4:(401.489,18.8705),5:(479.978,18.8705),6:(484.978,18.8705)}" rtsExt:name="POSITION" />
 	</rts:DataPortConnectors>
 </rts:RtsProfile>
