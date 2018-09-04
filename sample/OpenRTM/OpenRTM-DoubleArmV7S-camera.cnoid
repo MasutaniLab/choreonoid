@@ -387,7 +387,7 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 404, 402 ]
+          sizes: [ 235, 233 ]
           children: 
             - 
               type: pane
@@ -400,7 +400,7 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 575, 231 ]
+          sizes: [ 334, 134 ]
           children: 
             - 
               type: splitter
