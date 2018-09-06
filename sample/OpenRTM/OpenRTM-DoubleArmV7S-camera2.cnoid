@@ -20,7 +20,7 @@ items:
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "${SHARE}/model/DoubleArmV7/DoubleArmV7S2.body"
+            modelFile: "${SHARE}/model/DoubleArmV7/DoubleArmV7S-odens.body"
             currentBaseLink: "TFRAME"
             rootPosition: [ 0, 0, 0.52 ]
             rootAttitude: [ 
@@ -28,9 +28,9 @@ items:
               1.2246468e-16, -6.123234e-17, 1, 
               0, 1, 6.123234e-17 ]
             jointPositions: [ 
-               0.000000,  0.000000,  0.000000,  0.000000, -1.221730,  2.617994,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000, -1.221730,  2.617994,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
                0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
-               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000 ]
+               0.000000,  0.000000,  0.000000,  0.000000 ]
             initialRootPosition: [ 0, 0, 0.52 ]
             initialRootAttitude: [ 
               -1, -1.23259516e-32, 1.2246468e-16, 
@@ -39,7 +39,7 @@ items:
             initialJointPositions: [ 
                0.000000,  0.000000,  0.000000,  0.000000, -1.221730,  2.617994,  0.000000,  0.000000,  0.000000,  0.000000, 
                0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
-               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000 ]
+               0.000000,  0.000000,  0.000000,  0.000000 ]
             zmp: [ 0, 0, 0 ]
             collisionDetection: true
             selfCollisionDetection: false
@@ -385,12 +385,12 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 402, 1272 ]
+      sizes: [ 444, 1405 ]
       children: 
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 404, 402 ]
+          sizes: [ 540, 538 ]
           children: 
             - 
               type: pane
@@ -403,12 +403,12 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 575, 231 ]
+          sizes: [ 769, 309 ]
           children: 
             - 
               type: splitter
               orientation: horizontal
-              sizes: [ 432, 834 ]
+              sizes: [ 478, 921 ]
               children: 
                 - 
                   type: pane

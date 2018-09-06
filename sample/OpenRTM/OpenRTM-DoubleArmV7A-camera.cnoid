@@ -20,7 +20,7 @@ items:
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "${SHARE}/model/DoubleArmV7/DoubleArmV7A2.body"
+            modelFile: "${SHARE}/model/DoubleArmV7/DoubleArmV7A-odens.body"
             currentBaseLink: "TFRAME"
             rootPosition: [ 0, 0, 0.52 ]
             rootAttitude: [ 
@@ -28,19 +28,20 @@ items:
               1.2246468e-16, -6.123234e-17, 1, 
               0, 1, 6.123234e-17 ]
             jointPositions: [ 
-               0.000000,  0.000000,  0.000000,  0.000000, -1.221730,  2.617994,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000, -1.221730,  2.617994,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
                0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
                0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
-               0.000000,  0.000000,  0.000000,  0.000000 ]
+               0.000000,  0.000000 ]
             initialRootPosition: [ 0, 0, 0.52 ]
             initialRootAttitude: [ 
               -1, -1.23259516e-32, 1.2246468e-16, 
               1.2246468e-16, -2.22044605e-16, 1, 
               1.23259516e-32, 1, 2.22044605e-16 ]
             initialJointPositions: [ 
-               0.000000,  0.000000,  0.000000,  0.000000, -1.221730,  2.617994,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000, -1.221730,  2.617994,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
                0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
-               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000 ]
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000 ]
             zmp: [ 0, 0, 0 ]
             collisionDetection: true
             selfCollisionDetection: false
@@ -293,8 +294,6 @@ toolbars:
     speedScale: 1
     syncToOngoingUpdates: true
     autoExpansion: true
-  "BodyBar": 
-    current: 2
   "KinematicsBar": 
     mode: AUTO
     enablePositionDragger: true
@@ -303,6 +302,8 @@ toolbars:
     snapDistance: 0.025
     penetrationBlockDepth: 0.0005
     lazyCollisionDetectionMode: true
+  "BodyBar": 
+    current: 2
   "LeggedBodyBar": 
     stanceWidth: 0.15
   "BodyMotionGenerationBar": 
@@ -377,12 +378,12 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 460, 1454 ]
+      sizes: [ 444, 1405 ]
       children: 
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 481, 479 ]
+          sizes: [ 551, 549 ]
           children: 
             - 
               type: pane
@@ -395,12 +396,12 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 685, 275 ]
+          sizes: [ 785, 315 ]
           children: 
             - 
               type: splitter
               orientation: horizontal
-              sizes: [ 636, 812 ]
+              sizes: [ 616, 783 ]
               children: 
                 - 
                   type: pane
