@@ -6,6 +6,7 @@ from Tkinter import *
 #import thread
 import dummy_threading
 import time
+from operator import mul
 
 class SliderMulti(Frame):
 	def __init__(self, channels, title="", varType="int", master=None,
@@ -22,6 +23,7 @@ class SliderMulti(Frame):
 		self._channels = channels
 		self.var = [] 
 		self.scales = []
+		self.mag = []
 		i = 0
 		for channel in self._channels:
                         if varType == "int":
@@ -41,8 +43,12 @@ class SliderMulti(Frame):
                                       from_=channel[2],
                                       resolution=channel[3],
                                       length=channel[4]))
-                        if len(channel) == 6:
+                        if len(channel) >= 6:
                                 self.scales[i].set(channel[5])
+			if len(channel) >= 7:
+				self.mag.append(channel[6])
+			else:
+				self.mag.append(1)
 			self.scales[i].pack(side=LEFT)
 			i = i + 1
 
@@ -64,10 +70,11 @@ class SliderMulti(Frame):
 		val = []
 		for v in self.var:
 			val.append(v.get())
-
-		return val
+		
+		return map(mul, val, self.mag)
 
 	def set(self, value):
+		value = map(mul, value, self.mag)
 		i = 0
 		for v in value:
 			self.var[i].set(v)

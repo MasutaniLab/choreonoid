@@ -20,23 +20,24 @@ if sys.executable.endswith("pythonw.exe"):
   sys.stdout = sys.stderr = devnull
 ###
 
+r2d = math.degrees(1)
 channels = (
-  ("MFRAME",  -687.5,  687.5, 1, 200, 0),
-  ("BLOCK",   -48.0,   69.5, 1, 200, 0),
-  ("BOOM",   -75.1,   53.2, 1, 200, -70.0),
-  ("ARM",    30.7,  152.1, 1, 200, 150.0),
-  ("TOHKU_PITCH",   -33.7,   90.0, 1, 200, 0),
-  ("TOHKU_ROLL",  -180.0,  180.0, 1, 200, 0),
-  ("TOHKU_TIP_01",   -20.0,    0.0, 1, 200, 0),
-  ("TOHKU_TIP_02",   -20.0,    0.0, 1, 200, 0),
-  ("UFRAME",  -687.5,  687.5, 1, 200, 0),
-  ("MNP_SWING",   -60.0,   60.0, 1, 200, 0),
-  ("MANIBOOM",     0.0,  115.0, 1, 200, 0),
-  ("MANIARM",  -110.0,    0.0, 1, 200, 0),
-  ("MANIELBOW",   -90.0,   20.0, 1, 200, 0),
-  ("YAWJOINT",   -50.48,  50.48, 1, 200, 0),
-  ("HANDBASE",  -270.0,  270.0, 1, 200, 0),
-  ("PUSHROD",    -0.0507,  0.0, 1, 200, 0))
+  ("MFRAME",  -687.5,  687.5, 1, 200, 0, r2d),
+  ("BLOCK",   -48.0,   69.5, 1, 200, 0, r2d),
+  ("BOOM",   -75.1,   53.2, 1, 200, -70.0, r2d),
+  ("ARM",    30.7,  152.1, 1, 200, 150.0, r2d),
+  ("TOHKU_PITCH",   -33.7,   90.0, 1, 200, 0, r2d),
+  ("TOHKU_ROLL",  -180.0,  180.0, 1, 200, 0, r2d),
+  ("TIP_01",   -20.0,    0.0, 1, 200, 0, r2d), #"TOHKU_TIP_01"
+  ("TIP_02",   -20.0,    0.0, 1, 200, 0, r2d), #"TOHKU_TIP_02"
+  ("UFRAME",  -687.5,  687.5, 1, 200, 0, r2d),
+  ("MNP_SWING",   -60.0,   60.0, 1, 200, 0, r2d),
+  ("MANIBOOM",     0.0,  115.0, 1, 200, 0, r2d),
+  ("MANIARM",  -110.0,    0.0, 1, 200, 0, r2d),
+  ("MANIELBOW",   -90.0,   20.0, 1, 200, 0, r2d),
+  ("YAWJOINT",   -50.48,  50.48, 1, 200, 0, r2d),
+  ("HANDBASE",  -270.0,  270.0, 1, 200, 0, r2d),
+  ("PUSHROD",    -0.0507,  0.0, 0.0001, 200, 0, 1))
 
 mod_spec = ["implementation_id", "TkMonitorSlider", 
             "type_name", "TkMonitorSlider", 
@@ -77,7 +78,7 @@ class TkMonitorSlider(OpenRTM_aist.DataFlowComponentBase):
     if self._valueIn.isNew():
       try:
         indata = self._valueIn.read()
-        val = map(math.degrees, indata.data)
+        val = indata.data
         #print(val)
         if len(val) == self._num:
           sl.set(val)

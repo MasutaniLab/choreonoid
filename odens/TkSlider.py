@@ -20,23 +20,24 @@ if sys.executable.endswith("pythonw.exe"):
   sys.stdout = sys.stderr = devnull
 ###
 
+d2r = math.radians(1)
 channels = (
-  ("MFRAME",  -687.5,  687.5, 1, 200, 0),
-  ("BLOCK",   -48.0,   69.5, 1, 200, 0),
-  ("BOOM",   -75.1,   53.2, 1, 200, -70.0),
-  ("ARM",    30.7,  152.1, 1, 200, 150.0),
-  ("TOHKU_PITCH",   -33.7,   90.0, 1, 200, 0),
-  ("TOHKU_ROLL",  -180.0,  180.0, 1, 200, 0),
-  ("TOHKU_TIP_01",   -20.0,    0.0, 1, 200, 0),
-  ("TOHKU_TIP_02",   -20.0,    0.0, 1, 200, 0),
-  ("UFRAME",  -687.5,  687.5, 1, 200, 0),
-  ("MNP_SWING",   -60.0,   60.0, 1, 200, 0),
-  ("MANIBOOM",     0.0,  115.0, 1, 200, 0),
-  ("MANIARM",  -110.0,    0.0, 1, 200, 0),
-  ("MANIELBOW",   -90.0,   20.0, 1, 200, 0),
-  ("YAWJOINT",   -50.48,  50.48, 1, 200, 0),
-  ("HANDBASE",  -270.0,  270.0, 1, 200, 0),
-  ("PUSHROD",    -0.0507,  0.0, 1, 200, 0))
+  ("MFRAME",  -687.5,  687.5, 1, 200, 0, d2r),
+  ("BLOCK",   -48.0,   69.5, 1, 200, 0, d2r),
+  ("BOOM",   -75.1,   53.2, 1, 200, -70.0, d2r),
+  ("ARM",    30.7,  152.1, 1, 200, 150.0, d2r),
+  ("TOHKU_PITCH",   -33.7,   90.0, 1, 200, 0, d2r),
+  ("TOHKU_ROLL",  -180.0,  180.0, 1, 200, 0, d2r),
+  ("TIP_01",   -20.0,    0.0, 1, 200, 0, d2r), #"TOHKU_TIP_01"
+  ("TIP_02",   -20.0,    0.0, 1, 200, 0, d2r), #"TOHKU_TIP_02"
+  ("UFRAME",  -687.5,  687.5, 1, 200, 0, d2r),
+  ("MNP_SWING",   -60.0,   60.0, 1, 200, 0, d2r),
+  ("MANIBOOM",     0.0,  115.0, 1, 200, 0, d2r),
+  ("MANIARM",  -110.0,    0.0, 1, 200, 0, d2r),
+  ("MANIELBOW",   -90.0,   20.0, 1, 200, 0, d2r),
+  ("YAWJOINT",   -50.48,  50.48, 1, 200, 0, d2r),
+  ("HANDBASE",  -270.0,  270.0, 1, 200, 0, d2r),
+  ("PUSHROD",    -0.0507,  0.0, 0.0001, 200, 0, 1))
 
 mod_spec = ["implementation_id", "TkSlider", 
             "type_name", "TkSlider", 
@@ -69,7 +70,7 @@ class TkSlider(OpenRTM_aist.DataFlowComponentBase):
 
   def onActivated(self, ec_id):
     print("onActivated()")
-    self._prev_data = map(math.radians, sl.get())
+    self._prev_data = sl.get()
     #print(self._prev_data)
     time.sleep(0.01)
     return RTC.RTC_OK
@@ -77,7 +78,7 @@ class TkSlider(OpenRTM_aist.DataFlowComponentBase):
 
   def onExecute(self, ec_id):
     try:
-      self._sl_data.data = map(math.radians, sl.get())
+      self._sl_data.data = sl.get()
       if self._sl_data.data != self._prev_data:
         #print self._sl_data.data
         self._slOut.write()
