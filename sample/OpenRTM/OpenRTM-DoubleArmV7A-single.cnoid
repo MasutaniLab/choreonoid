@@ -35,7 +35,7 @@ items:
               0, 0, 1 ]
             zmp: [ 0, 0, 0 ]
             collisionDetection: true
-            selfCollisionDetection: false
+            selfCollisionDetection: true
             isEditable: false
         - 
           id: 3
