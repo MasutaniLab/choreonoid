@@ -159,8 +159,8 @@ bool DoubleArmV7PDControllerIoRTC::initContinuousTracks(ControllerIO* io)
     if(!trackL) return false;
     if(!trackR) return false;
 
-    trackL->setActuationMode(Link::ActuationMode::JOINT_TORQUE);
-    trackR->setActuationMode(Link::ActuationMode::JOINT_TORQUE);
+    trackL->setActuationMode(Link::ActuationMode::JOINT_VELOCITY);
+    trackR->setActuationMode(Link::ActuationMode::JOINT_VELOCITY);
     
     hasContinuousTracks = true;
     cio->os() << "hasContinuousTracks = true" << endl;
