@@ -130,7 +130,11 @@ bool DoubleArmV7PDControllerIoRTC::initializeSimulation(ControllerIO* io)
     istringstream is(option);
     string mode = "";
     while (!is.eof()) {
-        is >> mode;
+        string tmp;
+        is >> tmp;
+        if (tmp == "position" || tmp == "velocity" || tmp == "torque") {
+            mode = tmp;
+        }
     }
     io->os() << "The actuation mode is ";
     if(mode == "velocity"){
@@ -139,9 +143,6 @@ bool DoubleArmV7PDControllerIoRTC::initializeSimulation(ControllerIO* io)
     } else if(mode  == "position"){
         mainActuationMode = Link::ActuationMode::JOINT_DISPLACEMENT;
         io->os() << "JOINT_DISPLACEMENT";
-    } else if(mode  == "torque") {
-        mainActuationMode = Link::ActuationMode::JOINT_EFFORT;
-        io->os() << "JOINT_EFFORT";
     } else {
         mainActuationMode = Link::ActuationMode::JOINT_EFFORT;
         io->os() << "JOINT_EFFORT";
