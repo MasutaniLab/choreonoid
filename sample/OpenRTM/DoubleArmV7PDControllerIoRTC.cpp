@@ -7,6 +7,8 @@
 #include <rtm/idl/BasicDataTypeSkel.h>
 #include <rtm/DataInPort.h>
 #include <rtm/DataOutPort.h>
+#include <cnoid/EigenUtil>
+#include <sstream>
 
 using namespace std;
 using namespace cnoid;
@@ -18,20 +20,20 @@ class DoubleArmV7PDControllerIoRTC : public BodyIoRTC
     Body* body;
     double dt;
 
-    vector<int> armJointIdMap;
-    vector<Link*> armJoints;
-    vector<double> qref;
-    vector<double> qold;
-    vector<double> pgain;
-    vector<double> dgain;
-    double trackgain;
-
     Link::ActuationMode mainActuationMode;
 
+    enum TrackType { NO_TRACKS = 0, CONTINOUS_TRACKS, PSEUDO_TRACKS };
+    int trackType;
     Link* trackL;
     Link* trackR;
-    bool hasPseudoContinuousTracks;
-    bool hasContinuousTracks;
+    double trackgain;
+
+    vector<int> armJointIdMap;
+    vector<Link*> armJoints;
+    vector<double> q_ref;
+    vector<double> q_prev;
+    vector<double> pgain;
+    vector<double> dgain;
 
     ControllerIO* cio;
 
@@ -54,6 +56,7 @@ public:
     void controlArmsWithVelocity();
     void controlArmsWithPosition();
 
+    Link* link(const char* name) { return body->link(name); }
     
     // DataInPort declaration
     RTC::TimedDoubleSeq anglesTarget;
@@ -91,8 +94,7 @@ DoubleArmV7PDControllerIoRTC::DoubleArmV7PDControllerIoRTC(RTC::Manager* manager
       anglesOut("q", angles)
 {
     mainActuationMode = Link::ActuationMode::JOINT_TORQUE;
-    hasPseudoContinuousTracks = false;
-    hasContinuousTracks = false;
+    trackType = NO_TRACKS;
 }
 
 
@@ -119,87 +121,120 @@ bool DoubleArmV7PDControllerIoRTC::initializeIO(ControllerIO* io)
 bool DoubleArmV7PDControllerIoRTC::initializeSimulation(ControllerIO* io)
 {
     cio = io;
-    cio->os() << "DoubleArmV7PDControllerIoRTC::initializeSimulation()" << endl;
+    io->os() << "DoubleArmV7PDControllerIoRTC::initializeSimulation()" << endl;
     body = io->body();
     dt = io->timeStep();
 
     string option = io->optionString();
-    if(option == "velocity")        mainActuationMode = Link::ActuationMode::JOINT_VELOCITY;
-    else if(option  == "position")  mainActuationMode = Link::ActuationMode::JOINT_ANGLE;
-    else                            mainActuationMode = Link::ActuationMode::JOINT_TORQUE;
+    io->os() << "Controller option: " << option << endl;
+    istringstream is(option);
+    string mode = "";
+    while (!is.eof()) {
+        is >> mode;
+    }
+    io->os() << "The actuation mode is ";
+    if(mode == "velocity"){
+        mainActuationMode = Link::ActuationMode::JOINT_VELOCITY;
+        io->os() << "JOINT_VELOCITY";
+    } else if(mode  == "position"){
+        mainActuationMode = Link::ActuationMode::JOINT_DISPLACEMENT;
+        io->os() << "JOINT_DISPLACEMENT";
+    } else if(mode  == "torque") {
+        mainActuationMode = Link::ActuationMode::JOINT_EFFORT;
+        io->os() << "JOINT_EFFORT";
+    } else {
+        mainActuationMode = Link::ActuationMode::JOINT_EFFORT;
+        io->os() << "JOINT_EFFORT";
+    }
+    io->os() << "." << endl;
 
-    if(!initPseudoContinuousTracks(io))
+    if (initPseudoContinuousTracks(io) == false) {
         initContinuousTracks(io);
+    }
+        
     initArms(io);
     initPDGain();
 
     return true;
 }
 
-bool DoubleArmV7PDControllerIoRTC::initPseudoContinuousTracks(ControllerIO* io)
-{
-    trackL = body->link("TRACK_L");
-    trackR = body->link("TRACK_R");
-    if(!trackL) return false;
-    if(!trackR) return false;
-
-    if(trackL->actuationMode() == Link::JOINT_SURFACE_VELOCITY &&
-    trackR->actuationMode() == Link::JOINT_SURFACE_VELOCITY   ){
-        hasPseudoContinuousTracks = true;
-        cio->os() << "hasPseudoContinuousTracks = true" << endl;
-        return true;
-    }
-    return false;
-}
-
 bool DoubleArmV7PDControllerIoRTC::initContinuousTracks(ControllerIO* io)
 {
-    trackL = body->link("WHEEL_L0");
-    trackR = body->link("WHEEL_R0");
-    if(!trackL) return false;
-    if(!trackR) return false;
+    trackL = link("WHEEL_L0");
+    trackR = link("WHEEL_R0");
 
-    trackL->setActuationMode(Link::ActuationMode::JOINT_VELOCITY);
-    trackR->setActuationMode(Link::ActuationMode::JOINT_VELOCITY);
+    if(!trackL || !trackR){
+        return false;
+    }
+
+    if(mainActuationMode == Link::ActuationMode::JOINT_EFFORT){
+        trackL->setActuationMode(Link::ActuationMode::JOINT_TORQUE);
+        trackR->setActuationMode(Link::ActuationMode::JOINT_TORQUE);
+    } else {
+        trackL->setActuationMode(Link::ActuationMode::JOINT_VELOCITY);
+        trackR->setActuationMode(Link::ActuationMode::JOINT_VELOCITY);
+    }
     
-    hasContinuousTracks = true;
-    cio->os() << "hasContinuousTracks = true" << endl;
+    trackType = CONTINOUS_TRACKS;
+
+    io->os() << "Continuous tracks of " << body->name() << " are detected." << endl;
+
     return true;
 }
+
+bool DoubleArmV7PDControllerIoRTC::initPseudoContinuousTracks(ControllerIO* io)
+{
+    trackL = link("TRACK_L");
+    trackR = link("TRACK_R");
+
+    if(!trackL || !trackR){
+        return false;
+    }
+
+    if(trackL->actuationMode() == Link::JOINT_SURFACE_VELOCITY 
+        && trackR->actuationMode() == Link::JOINT_SURFACE_VELOCITY){
+        trackType = PSEUDO_TRACKS;
+        io->os() << "Pseudo continuous tracks of " << body->name() << " are detected." << endl;
+    }
+
+    return (trackType == PSEUDO_TRACKS);
+}
+
 
 void DoubleArmV7PDControllerIoRTC::initArms(ControllerIO* io)
 {
     armJointIdMap.clear();
     armJoints.clear();
-    qref.clear();
+    q_ref.clear();
     for(auto joint : body->joints()){
         if(joint->jointId() >= 0 && (joint->isRevoluteJoint() || joint->isPrismaticJoint())){
             joint->setActuationMode(mainActuationMode);
             armJointIdMap.push_back(armJoints.size());
             armJoints.push_back(joint);
-            qref.push_back(joint->q());
+            q_ref.push_back(joint->q());
         } else {
             armJointIdMap.push_back(-1);
         }
     }
-    qold = qref;
-    angles.data.length(qref.size());
+    q_prev = q_ref;
+    angles.data.length(q_ref.size());
 }
 
 void DoubleArmV7PDControllerIoRTC::initPDGain()
 {
     // Tracks
-    if(hasPseudoContinuousTracks) trackgain = 1.0;
-    if(hasContinuousTracks){
-        if(mainActuationMode == Link::ActuationMode::JOINT_TORQUE){
+    if(trackType == CONTINOUS_TRACKS){
+        if(mainActuationMode == Link::ActuationMode::JOINT_EFFORT){
             trackgain = 2000.0;
-        }else{
+        } else {
             trackgain = 2.0;
         }
+    } else if(trackType == PSEUDO_TRACKS){
+        trackgain = 1.0;
     }
 
     // Arm
-    if(mainActuationMode == Link::ActuationMode::JOINT_TORQUE){
+    if(mainActuationMode == Link::ActuationMode::JOINT_EFFORT){
         pgain = {
         /* MFRAME */ 200000, /* BLOCK */ 150000, /* BOOM */ 150000, /* ARM  */ 100000,
         /* PITCH  */  30000, /* ROLL  */  20000, /* TIP1 */    500, /* TIP2 */    500,
@@ -210,15 +245,13 @@ void DoubleArmV7PDControllerIoRTC::initPDGain()
         /* PITCH  */   500, /* ROLL  */   500, /* TIP1 */    50, /* TIP2 */   50,
         /* UFRAME */ 15000, /* SWING */  1000, /* BOOM */  3000, /* ARM  */ 2000,
         /* ELBOW */    500, /* YAW   */   500, /* HAND */    20, /* ROD  */ 5000};
-    }
-    if(mainActuationMode == Link::ActuationMode::JOINT_VELOCITY){
+
+    } else if(mainActuationMode == Link::ActuationMode::JOINT_VELOCITY){
         pgain = {
         /* MFRAME */ 100, /* BLOCK */ 180, /* BOOM */ 150, /* ARM  */ 100,
         /* PITCH  */  30, /* ROLL  */  20, /* TIP1 */   5, /* TIP2 */   5,
         /* UFRAME */ 150, /* SWING */ 180, /* BOOM */ 100, /* ARM  */  80,
         /* ELBOW */   30, /* YAW   */  20, /* HAND */   1, /* ROD  */  50};
-    }
-    if(mainActuationMode == Link::ActuationMode::JOINT_ANGLE){
     }
 }
 
@@ -251,59 +284,83 @@ void DoubleArmV7PDControllerIoRTC::outputToSimulator()
 
 void DoubleArmV7PDControllerIoRTC::controlTracks()
 {
-    if (hasPseudoContinuousTracks 
-        || mainActuationMode == Link::ActuationMode::JOINT_VELOCITY
-        || mainActuationMode == Link::ActuationMode::JOINT_ANGLE) {
-        trackL->dq() = trackgain * velocities.data[0];
-        trackR->dq() = trackgain * velocities.data[1];
-    } else if (mainActuationMode == Link::ActuationMode::JOINT_TORQUE){
+    trackL->u() = 0.0;
+    trackL->dq_target() = 0.0;
+    trackR->u() = 0.0;
+    trackR->dq_target() = 0.0;
+    if(trackType == CONTINOUS_TRACKS 
+        && mainActuationMode == Link::ActuationMode::JOINT_EFFORT){
         trackL->u() = trackgain * velocities.data[0];
         trackR->u() = trackgain * velocities.data[1];
+    } else {
+        trackL->dq_target() = trackgain * velocities.data[0];
+        trackR->dq_target() = trackgain * velocities.data[1];
     }
 }
 void DoubleArmV7PDControllerIoRTC::setTargetArmPositions()
 {
-    size_t len = anglesTarget.data.length();
-    for(size_t i=0; i < len; ++i){
-        qref[i] = anglesTarget.data[i];
+    static const double maxerror = radian(3.0);
+    for(size_t i=0; i < armJoints.size(); ++i){
+        auto joint = armJoints[i];
+        auto& q = q_ref[i];
+        q = anglesTarget.data[i];
+#if 0
+        auto q_current = joint->q();
+        auto q_lower = std::max(q_current - maxerror, joint->q_lower());
+        auto q_upper = std::min(q_current + maxerror, joint->q_upper());
+#else
+        auto q_lower = joint->q_lower();
+        auto q_upper = joint->q_upper();
+#endif
+        if(q < q_lower){
+            q = q_lower;
+        } else if(q > q_upper){
+            q = q_upper;
+        }
     }
 }
+
 void DoubleArmV7PDControllerIoRTC::controlArms()
 {
-    if(mainActuationMode == Link::ActuationMode::JOINT_VELOCITY){
-        controlArmsWithVelocity();
-    }else if(mainActuationMode == Link::ActuationMode::JOINT_ANGLE){
+    switch(mainActuationMode){
+    case Link::ActuationMode::JOINT_DISPLACEMENT:
         controlArmsWithPosition();
-    }else{
+        break;
+    case Link::ActuationMode::JOINT_VELOCITY:
+        controlArmsWithVelocity();
+        break;
+    case Link::ActuationMode::JOINT_EFFORT:
         controlArmsWithTorque();
-    }
-}
-
-void DoubleArmV7PDControllerIoRTC::controlArmsWithTorque()
-{
-    for(size_t i=0; i < armJoints.size(); ++i){
-        Link* joint = armJoints[i];
-        double q = joint->q();
-        double dq = (q - qold[i]) / dt;
-        joint->u() = (qref[i] - q) * pgain[i] + (0.0 - dq) * dgain[i];
-        qold[i] = q;
-    }
-}
-
-void DoubleArmV7PDControllerIoRTC::controlArmsWithVelocity()
-{
-    for(size_t i=0; i < armJoints.size(); ++i){
-        Link* joint = armJoints[i];
-        double q = joint->q();
-        joint->dq() = (qref[i] - q) * pgain[i];
+        break;
+    default:
+        break;
     }
 }
 
 void DoubleArmV7PDControllerIoRTC::controlArmsWithPosition()
 {
     for(size_t i=0; i < armJoints.size(); ++i){
-        Link* joint = armJoints[i];
-        joint->q() = qref[i];
+        armJoints[i]->q_target() = q_ref[i];
+    }
+}
+
+void DoubleArmV7PDControllerIoRTC::controlArmsWithVelocity()
+{
+    for(size_t i=0; i < armJoints.size(); ++i){
+        auto joint = armJoints[i];
+        auto q_current = joint->q();
+        joint->dq_target() = pgain[i] * (q_ref[i] - q_current);
+    }
+}
+
+void DoubleArmV7PDControllerIoRTC::controlArmsWithTorque()
+{
+    for(size_t i=0; i < armJoints.size(); ++i){
+        auto joint = armJoints[i];
+        auto q_current = joint->q();
+        auto dq_current = (q_current - q_prev[i]) / dt;
+        joint->u() = pgain[i] * (q_ref[i] - q_current) + dgain[i] * (0.0 - dq_current);
+        q_prev[i] = q_current;
     }
 }
 
