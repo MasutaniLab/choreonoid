@@ -59,7 +59,7 @@ items:
             fieldOfView: 0.785398
         - 
           id: 4
-          name: "VisionSensorOutut"
+          name: "VisionSensorOut"
           plugin: OpenRTM
           class: BodyIoRTCItem
           data: 
