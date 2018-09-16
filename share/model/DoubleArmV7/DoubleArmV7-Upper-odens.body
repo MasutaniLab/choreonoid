@@ -21,6 +21,7 @@ links:
         uri: "prt/frame1.wrl"
       - 
         type: RateGyroSensor
+        rotation: [[1, 0, 0, -90], [0, 0, 1, 180]]
         name: FRAME_GYRO
         id: 0
       -
@@ -42,6 +43,11 @@ links:
         height: 240
         fieldOfView: 62
         frameRate: 30
+      -
+        type: AccelerationSensor
+        name: ACCEL_SENSOR
+        rotation: [[1, 0, 0, -90], [0, 0, 1, 180]]
+        id: 0
   -
     name: MFRAME
     parent: TFRAME

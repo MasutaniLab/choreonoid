@@ -3,8 +3,11 @@
 */
 
 #include <cnoid/BodyIoRTC>
+#include <cnoid/AccelerationSensor>
+#include <cnoid/RateGyroSensor>
 #include <cnoid/Light>
 #include <rtm/idl/BasicDataTypeSkel.h>
+#include <rtm/idl/ExtendedDataTypesSkel.h>
 #include <rtm/DataInPort.h>
 #include <rtm/DataOutPort.h>
 #include <cnoid/EigenUtil>
@@ -37,6 +40,9 @@ class DoubleArmV7PDControllerIoRTC : public BodyIoRTC
 
     ControllerIO* cio;
 
+    AccelerationSensor* accelSensor;
+    RateGyroSensor* gyro;
+
 public:
     DoubleArmV7PDControllerIoRTC(RTC::Manager* manager);
     ~DoubleArmV7PDControllerIoRTC(); 
@@ -68,6 +74,12 @@ public:
     // DataOutPort declaration
     RTC::TimedDoubleSeq angles;
     RTC::OutPort<RTC::TimedDoubleSeq> anglesOut;
+
+    RTC::Acceleration3D accel;
+    RTC::OutPort<RTC::Acceleration3D> accelOut;
+
+    RTC::AngularVelocity3D angularVelocity;
+    RTC::OutPort<RTC::AngularVelocity3D> angularVelocityOut;
 };
 
 const char* spec[] =
@@ -91,7 +103,9 @@ DoubleArmV7PDControllerIoRTC::DoubleArmV7PDControllerIoRTC(RTC::Manager* manager
     : BodyIoRTC(manager),
       velocitiesIn("dq", velocities),
       anglesTargetIn("qt", anglesTarget),
-      anglesOut("q", angles)
+      anglesOut("q", angles),
+      accelOut("dv", accel),
+      angularVelocityOut("w", angularVelocity)
 {
     mainActuationMode = Link::ActuationMode::JOINT_TORQUE;
     trackType = NO_TRACKS;
@@ -113,6 +127,8 @@ bool DoubleArmV7PDControllerIoRTC::initializeIO(ControllerIO* io)
     
     // Set OutPort buffer
     addOutPort("q", anglesOut);
+    addOutPort("dv", accelOut);
+    addOutPort("w", angularVelocityOut);
 
     return true;
 }
@@ -155,6 +171,17 @@ bool DoubleArmV7PDControllerIoRTC::initializeSimulation(ControllerIO* io)
         
     initArms(io);
     initPDGain();
+
+    accelSensor = body->findDevice<AccelerationSensor>("ACCEL_SENSOR");
+    if (accelSensor == nullptr) {
+        io->os() << "加速度センサが見つかりません" << endl;
+        return false;
+    }
+    gyro = body->findDevice<RateGyroSensor>("FRAME_GYRO");
+    if (gyro == nullptr) {
+        io->os() << "ジャイロセンサが見つかりません" << endl;
+        return false;
+    }
 
     return true;
 }
@@ -266,6 +293,18 @@ void DoubleArmV7PDControllerIoRTC::inputFromSimulator()
         angles.data[i] = joint->q();;
     }
     anglesOut.write();
+    
+    auto dv = accelSensor->dv();
+    accel.ax = dv.x();
+    accel.ay = dv.y();
+    accel.az = dv.z();
+    accelOut.write();
+
+    auto w = gyro->w();
+    angularVelocity.avx = w.x();
+    angularVelocity.avy = w.y();
+    angularVelocity.avz = w.z();
+    angularVelocityOut.write();
 }
 
 void DoubleArmV7PDControllerIoRTC::outputToSimulator()
