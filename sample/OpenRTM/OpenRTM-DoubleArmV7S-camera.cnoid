@@ -22,22 +22,23 @@ items:
           data: 
             modelFile: "${SHARE}/model/DoubleArmV7/DoubleArmV7S-odens.body"
             currentBaseLink: "TFRAME"
-            rootPosition: [ 3.9399101e-07, 9.00666104e-08, 0.519900423 ]
+            rootPosition: [ 0, 0, 0.52 ]
             rootAttitude: [ 
-              -1, 5.59261184e-07, -2.81647324e-08, 
-              -2.81647365e-08, -7.4707629e-09, 1, 
-              5.59261184e-07, 1, 7.47078321e-09 ]
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
             jointPositions: [ 
-               0.000000,  0.000000, -1.221730,  2.617994,  0.000000,  0.000000,  0.000000,  0.000000, 
-               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000 ]
+               0.000000,  0.000000, -1.221730,  2.617994,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000,  0.000000,  0.000000 ]
             initialRootPosition: [ 0, 0, 0.52 ]
             initialRootAttitude: [ 
-              -1, -1.23259516e-32, 1.2246468e-16, 
-              1.2246468e-16, -2.22044605e-16, 1, 
-              1.23259516e-32, 1, 2.22044605e-16 ]
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
             initialJointPositions: [ 
-              0.000000,  0.000000, -1.221730,  2.617994,  0.000000,  0.000000,  0.000000,  0.000000, 
-              0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000 ]
+               0.000000,  0.000000, -1.221730,  2.617994,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000 ]
             zmp: [ 0, 0, 0 ]
             collisionDetection: true
             selfCollisionDetection: false
@@ -162,7 +163,7 @@ views:
     class: ItemTreeView
     mounted: true
     state: 
-      selected: [ 2 ]
+      selected: [ 2, 6 ]
       checked: [ 2, 3, 4, 5 ]
       expanded: [ 1, 2, 6 ]
   - 
@@ -292,7 +293,7 @@ toolbars:
     frameRate: 1000
     playbackFrameRate: 60
     idleLoopDrivenMode: false
-    currentTime: 0
+    currentTime: 11.567
     speedScale: 1
     syncToOngoingUpdates: true
     autoExpansion: true
@@ -380,12 +381,12 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 444, 1405 ]
+      sizes: [ 319, 1010 ]
       children: 
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 541, 537 ]
+          sizes: [ 416, 412 ]
           children: 
             - 
               type: pane
@@ -398,12 +399,12 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 769, 309 ]
+          sizes: [ 591, 237 ]
           children: 
             - 
               type: splitter
               orientation: horizontal
-              sizes: [ 619, 780 ]
+              sizes: [ 444, 560 ]
               children: 
                 - 
                   type: pane

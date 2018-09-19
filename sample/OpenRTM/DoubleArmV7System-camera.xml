@@ -22,9 +22,23 @@
 			<rtsExt:Properties rtsExt:value="push,pull" rtsExt:name="dataport.dataflow_type" />
 			<rtsExt:Properties rtsExt:value="corba_cdr" rtsExt:name="dataport.interface_type" />
 		</rts:DataPorts>
+		<rts:DataPorts xsi:type="rtsExt:dataport_ext" rts:name="DoubleArmV7-DoubleArmV7PDControllerIoRTC.dv">
+			<rtsExt:Properties rtsExt:value="DataOutPort" rtsExt:name="port.port_type" />
+			<rtsExt:Properties rtsExt:value="IDL:RTC/Acceleration3D:1.0" rtsExt:name="dataport.data_type" />
+			<rtsExt:Properties rtsExt:value="flush,new,periodic" rtsExt:name="dataport.subscription_type" />
+			<rtsExt:Properties rtsExt:value="push,pull" rtsExt:name="dataport.dataflow_type" />
+			<rtsExt:Properties rtsExt:value="corba_cdr" rtsExt:name="dataport.interface_type" />
+		</rts:DataPorts>
+		<rts:DataPorts xsi:type="rtsExt:dataport_ext" rts:name="DoubleArmV7-DoubleArmV7PDControllerIoRTC.w">
+			<rtsExt:Properties rtsExt:value="DataOutPort" rtsExt:name="port.port_type" />
+			<rtsExt:Properties rtsExt:value="IDL:RTC/AngularVelocity3D:1.0" rtsExt:name="dataport.data_type" />
+			<rtsExt:Properties rtsExt:value="flush,new,periodic" rtsExt:name="dataport.subscription_type" />
+			<rtsExt:Properties rtsExt:value="push,pull" rtsExt:name="dataport.dataflow_type" />
+			<rtsExt:Properties rtsExt:value="corba_cdr" rtsExt:name="dataport.interface_type" />
+		</rts:DataPorts>
 		<rts:ConfigurationSets rts:id="default" />
 		<rts:ExecutionContexts xsi:type="rtsExt:execution_context_ext" rts:id="0" rts:rate="1000" rts:kind="PERIODIC" />
-		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="189" rtsExt:y="78" />
+		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="190" rtsExt:y="78" />
 	</rts:Components>
 	<rts:Components xsi:type="rtsExt:component_ext" rts:isRequired="false" rts:compositeType="None" rts:activeConfigurationSet="default" rts:instanceName="DoubleArmV7-VisionSensorIoRTC" rts:pathUri="localhost/DoubleArmV7-VisionSensorIoRTC.rtc" rts:id="RTC:Choreonoid:Generic:DoubleArmV7-VisionSensorIoRTC:1.0.0">
 		<rts:DataPorts xsi:type="rtsExt:dataport_ext" rts:name="DoubleArmV7-VisionSensorIoRTC.FRAME_FRONT_CAMERA">
@@ -44,20 +58,6 @@
 		<rts:DataPorts xsi:type="rtsExt:dataport_ext" rts:name="DoubleArmV7-VisionSensorIoRTC.FRAME_FRONT_CAMERA_DEPTH-depth">
 			<rtsExt:Properties rtsExt:value="DataOutPort" rtsExt:name="port.port_type" />
 			<rtsExt:Properties rtsExt:value="IDL:PointCloudTypes/PointCloud:1.0" rtsExt:name="dataport.data_type" />
-			<rtsExt:Properties rtsExt:value="flush,new,periodic" rtsExt:name="dataport.subscription_type" />
-			<rtsExt:Properties rtsExt:value="push,pull" rtsExt:name="dataport.dataflow_type" />
-			<rtsExt:Properties rtsExt:value="corba_cdr" rtsExt:name="dataport.interface_type" />
-		</rts:DataPorts>
-		<rts:DataPorts xsi:type="rtsExt:dataport_ext" rts:name="DoubleArmV7-VisionSensorIoRTC.WORK_RIGHT_VIEW">
-			<rtsExt:Properties rtsExt:value="DataOutPort" rtsExt:name="port.port_type" />
-			<rtsExt:Properties rtsExt:value="IDL:Img/TimedCameraImage:1.0" rtsExt:name="dataport.data_type" />
-			<rtsExt:Properties rtsExt:value="flush,new,periodic" rtsExt:name="dataport.subscription_type" />
-			<rtsExt:Properties rtsExt:value="push,pull" rtsExt:name="dataport.dataflow_type" />
-			<rtsExt:Properties rtsExt:value="corba_cdr" rtsExt:name="dataport.interface_type" />
-		</rts:DataPorts>
-		<rts:DataPorts xsi:type="rtsExt:dataport_ext" rts:name="DoubleArmV7-VisionSensorIoRTC.WORK_LEFT_VIEW">
-			<rtsExt:Properties rtsExt:value="DataOutPort" rtsExt:name="port.port_type" />
-			<rtsExt:Properties rtsExt:value="IDL:Img/TimedCameraImage:1.0" rtsExt:name="dataport.data_type" />
 			<rtsExt:Properties rtsExt:value="flush,new,periodic" rtsExt:name="dataport.subscription_type" />
 			<rtsExt:Properties rtsExt:value="push,pull" rtsExt:name="dataport.dataflow_type" />
 			<rtsExt:Properties rtsExt:value="corba_cdr" rtsExt:name="dataport.interface_type" />
@@ -134,7 +134,7 @@
 		</rts:DataPorts>
 		<rts:ConfigurationSets rts:id="default" />
 		<rts:ExecutionContexts xsi:type="rtsExt:execution_context_ext" rts:id="0" rts:rate="1000" rts:kind="PERIODIC" />
-		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="1" rtsExt:y="202" />
+		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="2" rtsExt:y="202" />
 	</rts:Components>
 	<rts:Components xsi:type="rtsExt:component_ext" rts:isRequired="false" rts:compositeType="None" rts:activeConfigurationSet="default" rts:instanceName="ImageViewer1" rts:pathUri="localhost/ImageViewer1.rtc" rts:id="RTC:MasutaniLab:ImageProcessing:ImageViewer1:2.0.1">
 		<rts:DataPorts xsi:type="rtsExt:dataport_ext" rts:name="ImageViewer1.Image">
@@ -149,18 +149,31 @@
 		</rts:ServicePorts>
 		<rts:ConfigurationSets rts:id="default">
 			<rts:ConfigurationData rts:data="0" rts:name="capture_frame_num" />
+			<rts:ConfigurationData rts:data="0" rts:name="zbar" />
+			<rts:ConfigurationData rts:data="ImageViewer" rts:name="windowTitle" />
+			<rts:ConfigurationData rts:data="0" rts:name="windowX" />
+			<rts:ConfigurationData rts:data="0" rts:name="windowY" />
 		</rts:ConfigurationSets>
 		<rts:ConfigurationSets rts:id="__widget__">
 			<rts:ConfigurationData rts:data="text" rts:name="capture_frame_num" />
+			<rts:ConfigurationData rts:data="radio" rts:name="zbar" />
+			<rts:ConfigurationData rts:data="text" rts:name="windowTitle" />
+			<rts:ConfigurationData rts:data="text" rts:name="windowX" />
+			<rts:ConfigurationData rts:data="text" rts:name="windowY" />
+		</rts:ConfigurationSets>
+		<rts:ConfigurationSets rts:id="__constraints__">
+			<rts:ConfigurationData rts:data="(0,1)" rts:name="zbar" />
+			<rts:ConfigurationData rts:data="(0,1)" rts:name="BGR" />
 		</rts:ConfigurationSets>
 		<rts:ConfigurationSets rts:id="__type__">
 			<rts:ConfigurationData rts:data="int" rts:name="capture_frame_num" />
-		</rts:ConfigurationSets>
-		<rts:ConfigurationSets rts:id="__constraints__">
-			<rts:ConfigurationData rts:data="(0,1)" rts:name="BGR" />
+			<rts:ConfigurationData rts:data="short" rts:name="zbar" />
+			<rts:ConfigurationData rts:data="string" rts:name="windowTitle" />
+			<rts:ConfigurationData rts:data="short" rts:name="windowX" />
+			<rts:ConfigurationData rts:data="short" rts:name="windowY" />
 		</rts:ConfigurationSets>
 		<rts:ExecutionContexts xsi:type="rtsExt:execution_context_ext" rts:id="0" rts:rate="30" rts:kind="PERIODIC" />
-		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="425" rtsExt:y="161" />
+		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="426" rtsExt:y="161" />
 	</rts:Components>
 	<rts:Components xsi:type="rtsExt:component_ext" rts:isRequired="false" rts:compositeType="None" rts:activeConfigurationSet="default" rts:instanceName="ImageViewer2" rts:pathUri="localhost/ImageViewer2.rtc" rts:id="RTC:MasutaniLab:ImageProcessing:ImageViewer2:2.0.1">
 		<rts:DataPorts xsi:type="rtsExt:dataport_ext" rts:name="ImageViewer2.Image">
@@ -175,18 +188,31 @@
 		</rts:ServicePorts>
 		<rts:ConfigurationSets rts:id="default">
 			<rts:ConfigurationData rts:data="0" rts:name="capture_frame_num" />
+			<rts:ConfigurationData rts:data="0" rts:name="zbar" />
+			<rts:ConfigurationData rts:data="ImageViewer" rts:name="windowTitle" />
+			<rts:ConfigurationData rts:data="0" rts:name="windowX" />
+			<rts:ConfigurationData rts:data="0" rts:name="windowY" />
 		</rts:ConfigurationSets>
 		<rts:ConfigurationSets rts:id="__widget__">
 			<rts:ConfigurationData rts:data="text" rts:name="capture_frame_num" />
+			<rts:ConfigurationData rts:data="radio" rts:name="zbar" />
+			<rts:ConfigurationData rts:data="text" rts:name="windowTitle" />
+			<rts:ConfigurationData rts:data="text" rts:name="windowX" />
+			<rts:ConfigurationData rts:data="text" rts:name="windowY" />
+		</rts:ConfigurationSets>
+		<rts:ConfigurationSets rts:id="__constraints__">
+			<rts:ConfigurationData rts:data="(0,1)" rts:name="zbar" />
+			<rts:ConfigurationData rts:data="(0,1)" rts:name="BGR" />
 		</rts:ConfigurationSets>
 		<rts:ConfigurationSets rts:id="__type__">
 			<rts:ConfigurationData rts:data="int" rts:name="capture_frame_num" />
-		</rts:ConfigurationSets>
-		<rts:ConfigurationSets rts:id="__constraints__">
-			<rts:ConfigurationData rts:data="(0,1)" rts:name="BGR" />
+			<rts:ConfigurationData rts:data="short" rts:name="zbar" />
+			<rts:ConfigurationData rts:data="string" rts:name="windowTitle" />
+			<rts:ConfigurationData rts:data="short" rts:name="windowX" />
+			<rts:ConfigurationData rts:data="short" rts:name="windowY" />
 		</rts:ConfigurationSets>
 		<rts:ExecutionContexts xsi:type="rtsExt:execution_context_ext" rts:id="0" rts:rate="30" rts:kind="PERIODIC" />
-		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="430" rtsExt:y="309" />
+		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="431" rtsExt:y="309" />
 	</rts:Components>
 	<rts:Components xsi:type="rtsExt:component_ext" rts:isRequired="false" rts:compositeType="None" rts:activeConfigurationSet="default" rts:instanceName="PointCloudViewer1" rts:pathUri="localhost/PointCloudViewer1.rtc" rts:id="RTC:OECU:RTCPCL:PointCloudViewer1:1.0.0">
 		<rts:DataPorts xsi:type="rtsExt:dataport_ext" rts:name="PointCloudViewer1.pc">
@@ -221,7 +247,7 @@
 			<rts:ConfigurationData rts:data="double" rts:name="transZ" />
 		</rts:ConfigurationSets>
 		<rts:ExecutionContexts xsi:type="rtsExt:execution_context_ext" rts:id="0" rts:rate="1000" rts:kind="PERIODIC" />
-		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="414" rtsExt:y="249" />
+		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="415" rtsExt:y="249" />
 	</rts:Components>
 	<rts:Components xsi:type="rtsExt:component_ext" rts:isRequired="false" rts:compositeType="None" rts:activeConfigurationSet="default" rts:instanceName="TkMonitorSlider0" rts:pathUri="localhost/TkMonitorSlider0.rtc" rts:id="RTC:MasutaniLab:Generic:TkMonitorSlider0:1.0">
 		<rts:DataPorts xsi:type="rtsExt:dataport_ext" rts:name="TkMonitorSlider0.value">
@@ -238,7 +264,7 @@
 			<rtsExt:Properties rtsExt:value="PeriodicExecutionContext" rtsExt:name="type" />
 			<rtsExt:Properties rtsExt:value="30" rtsExt:name="rate" />
 		</rts:ExecutionContexts>
-		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="438" rtsExt:y="18" />
+		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="439" rtsExt:y="18" />
 	</rts:Components>
 	<rts:Components xsi:type="rtsExt:component_ext" rts:isRequired="false" rts:compositeType="None" rts:activeConfigurationSet="default" rts:instanceName="TkSlider0" rts:pathUri="localhost/TkSlider0.rtc" rts:id="RTC:MasutaniLab:Generic:TkSlider0:1.0">
 		<rts:DataPorts xsi:type="rtsExt:dataport_ext" rts:name="TkSlider0.slider">
@@ -255,9 +281,23 @@
 			<rtsExt:Properties rtsExt:value="PeriodicExecutionContext" rtsExt:name="type" />
 			<rtsExt:Properties rtsExt:value="30" rtsExt:name="rate" />
 		</rts:ExecutionContexts>
-		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="122" rtsExt:y="11" />
+		<rtsExt:Location rtsExt:direction="RIGHT" rtsExt:width="-1" rtsExt:height="-1" rtsExt:x="123" rtsExt:y="11" />
 	</rts:Components>
-	<rts:DataPortConnectors xsi:type="rtsExt:dataport_connector_ext" rts:connectorId="657ea9e9-2168-444e-9bf1-e08afd5ba4f5" rts:name="DoubleArmV7-DoubleArmV7PDControllerIoRTC.q_TkMonitorSlider0.value" rts:dataType="IDL:RTC/TimedDoubleSeq:1.0" rts:interfaceType="corba_cdr" rts:dataflowType="push" rts:subscriptionType="flush">
+	<rts:DataPortConnectors xsi:type="rtsExt:dataport_connector_ext" rts:connectorId="c7a87ebb-9185-4ef0-81b4-4a04f691cdca" rts:name="DoubleArmV7-VisionSensorIoRTC.FRAME_FRONT_CAMERA_DEPTH-depth_PointCloudViewer1.pc" rts:dataType="IDL:PointCloudTypes/PointCloud:1.0" rts:interfaceType="corba_cdr" rts:dataflowType="push" rts:subscriptionType="flush">
+		<rts:sourceDataPort xsi:type="rtsExt:target_port_ext" rts:portName="DoubleArmV7-VisionSensorIoRTC.FRAME_FRONT_CAMERA_DEPTH-depth" rts:instanceName="DoubleArmV7-VisionSensorIoRTC" rts:componentId="RTC:Choreonoid:Generic:DoubleArmV7-VisionSensorIoRTC:1.0.0">
+			<rtsExt:Properties rtsExt:value="localhost/DoubleArmV7-VisionSensorIoRTC.rtc" rtsExt:name="COMPONENT_PATH_ID" />
+		</rts:sourceDataPort>
+		<rts:targetDataPort xsi:type="rtsExt:target_port_ext" rts:portName="PointCloudViewer1.pc" rts:instanceName="PointCloudViewer1" rts:componentId="RTC:OECU:RTCPCL:PointCloudViewer1:1.0.0">
+			<rtsExt:Properties rtsExt:value="localhost/PointCloudViewer1.rtc" rtsExt:name="COMPONENT_PATH_ID" />
+		</rts:targetDataPort>
+		<rtsExt:Properties rtsExt:value="IDL:PointCloudTypes/PointCloud:1.0" rtsExt:name="dataport.data_type" />
+		<rtsExt:Properties rtsExt:value="corba_cdr" rtsExt:name="dataport.interface_type" />
+		<rtsExt:Properties rtsExt:value="push" rtsExt:name="dataport.dataflow_type" />
+		<rtsExt:Properties rtsExt:value="flush" rtsExt:name="dataport.subscription_type" />
+		<rtsExt:Properties rtsExt:value="little,big" rtsExt:name="dataport.serializer.cdr.endian" />
+		<rtsExt:Properties rtsExt:value="{1:(172,257),2:(177,257),3:(323,257),4:(323,271),5:(469,271),6:(474,271)}" rtsExt:name="POSITION" />
+	</rts:DataPortConnectors>
+	<rts:DataPortConnectors xsi:type="rtsExt:dataport_connector_ext" rts:connectorId="2fe83664-d632-4eb5-a0a3-4d47b51c436d" rts:name="DoubleArmV7-DoubleArmV7PDControllerIoRTC.q_TkMonitorSlider0.value" rts:dataType="IDL:RTC/TimedDoubleSeq:1.0" rts:interfaceType="corba_cdr" rts:dataflowType="push" rts:subscriptionType="flush">
 		<rts:sourceDataPort xsi:type="rtsExt:target_port_ext" rts:portName="DoubleArmV7-DoubleArmV7PDControllerIoRTC.q" rts:instanceName="DoubleArmV7-DoubleArmV7PDControllerIoRTC" rts:componentId="RTC:MasutaniLab:Generic:DoubleArmV7-DoubleArmV7PDControllerIoRTC:1.0">
 			<rtsExt:Properties rtsExt:value="localhost/DoubleArmV7-DoubleArmV7PDControllerIoRTC.rtc" rtsExt:name="COMPONENT_PATH_ID" />
 		</rts:sourceDataPort>
@@ -271,21 +311,7 @@
 		<rtsExt:Properties rtsExt:value="little,big" rtsExt:name="dataport.serializer.cdr.endian" />
 		<rtsExt:Properties rtsExt:value="{1:(327,95),2:(332,95),3:(367,95),4:(367,37),5:(388,37),6:(393,37)}" rtsExt:name="POSITION" />
 	</rts:DataPortConnectors>
-	<rts:DataPortConnectors xsi:type="rtsExt:dataport_connector_ext" rts:connectorId="1765207c-b191-11e8-b6cd-000c2996467c" rts:name="TkSlider0.slider_DoubleArmV7-DoubleArmV7PDControllerIoRTC.qt" rts:dataType="IDL:RTC/TimedDoubleSeq:1.0" rts:interfaceType="corba_cdr" rts:dataflowType="push" rts:subscriptionType="flush">
-		<rts:sourceDataPort xsi:type="rtsExt:target_port_ext" rts:portName="TkSlider0.slider" rts:instanceName="TkSlider0" rts:componentId="RTC:MasutaniLab:Generic:TkSlider0:1.0">
-			<rtsExt:Properties rtsExt:value="localhost/TkSlider0.rtc" rtsExt:name="COMPONENT_PATH_ID" />
-		</rts:sourceDataPort>
-		<rts:targetDataPort xsi:type="rtsExt:target_port_ext" rts:portName="DoubleArmV7-DoubleArmV7PDControllerIoRTC.qt" rts:instanceName="DoubleArmV7-DoubleArmV7PDControllerIoRTC" rts:componentId="RTC:MasutaniLab:Generic:DoubleArmV7-DoubleArmV7PDControllerIoRTC:1.0">
-			<rtsExt:Properties rtsExt:value="localhost/DoubleArmV7-DoubleArmV7PDControllerIoRTC.rtc" rtsExt:name="COMPONENT_PATH_ID" />
-		</rts:targetDataPort>
-		<rtsExt:Properties rtsExt:value="IDL:RTC/TimedDoubleSeq:1.0" rtsExt:name="dataport.data_type" />
-		<rtsExt:Properties rtsExt:value="corba_cdr" rtsExt:name="dataport.interface_type" />
-		<rtsExt:Properties rtsExt:value="push" rtsExt:name="dataport.dataflow_type" />
-		<rtsExt:Properties rtsExt:value="flush" rtsExt:name="dataport.subscription_type" />
-		<rtsExt:Properties rtsExt:value="little,big" rtsExt:name="dataport.serializer.cdr.endian" />
-		<rtsExt:Properties rtsExt:value="{1:(191,36),2:(196,36),3:(220,36),4:(220,95),5:(262,95),6:(267,95)}" rtsExt:name="POSITION" />
-	</rts:DataPortConnectors>
-	<rts:DataPortConnectors xsi:type="rtsExt:dataport_connector_ext" rts:connectorId="0663a1d0-68bb-4afb-b010-24a37238af77" rts:name="DoubleArmV7-VisionSensorIoRTC.FRAME_FRONT_CAMERA_ImageViewer1.Image" rts:dataType="IDL:Img/TimedCameraImage:1.0" rts:interfaceType="corba_cdr" rts:dataflowType="push" rts:subscriptionType="flush">
+	<rts:DataPortConnectors xsi:type="rtsExt:dataport_connector_ext" rts:connectorId="a9d79d5d-326b-4f43-b364-3187be40e284" rts:name="DoubleArmV7-VisionSensorIoRTC.FRAME_FRONT_CAMERA_ImageViewer1.Image" rts:dataType="IDL:Img/TimedCameraImage:1.0" rts:interfaceType="corba_cdr" rts:dataflowType="push" rts:subscriptionType="flush">
 		<rts:sourceDataPort xsi:type="rtsExt:target_port_ext" rts:portName="DoubleArmV7-VisionSensorIoRTC.FRAME_FRONT_CAMERA" rts:instanceName="DoubleArmV7-VisionSensorIoRTC" rts:componentId="RTC:Choreonoid:Generic:DoubleArmV7-VisionSensorIoRTC:1.0.0">
 			<rtsExt:Properties rtsExt:value="localhost/DoubleArmV7-VisionSensorIoRTC.rtc" rtsExt:name="COMPONENT_PATH_ID" />
 		</rts:sourceDataPort>
@@ -299,8 +325,22 @@
 		<rtsExt:Properties rtsExt:value="little,big" rtsExt:name="dataport.serializer.cdr.endian" />
 		<rtsExt:Properties rtsExt:value="{1:(172,221),2:(177,221),3:(320,221),4:(320,179),5:(463,179),6:(468,179)}" rtsExt:name="POSITION" />
 	</rts:DataPortConnectors>
-	<rts:DataPortConnectors xsi:type="rtsExt:dataport_connector_ext" rts:connectorId="f7187371-02c3-4718-b90e-3ca2d655548e" rts:name="DoubleArmV7-VisionSensorIoRTC.WORK_RIGHT_VIEW_ImageViewer2.Image" rts:dataType="IDL:Img/TimedCameraImage:1.0" rts:interfaceType="corba_cdr" rts:dataflowType="push" rts:subscriptionType="flush">
-		<rts:sourceDataPort xsi:type="rtsExt:target_port_ext" rts:portName="DoubleArmV7-VisionSensorIoRTC.WORK_RIGHT_VIEW" rts:instanceName="DoubleArmV7-VisionSensorIoRTC" rts:componentId="RTC:Choreonoid:Generic:DoubleArmV7-VisionSensorIoRTC:1.0.0">
+	<rts:DataPortConnectors xsi:type="rtsExt:dataport_connector_ext" rts:connectorId="3ff3011a-bbc0-11e8-9c52-000c2996467c" rts:name="TkSlider0.slider_DoubleArmV7-DoubleArmV7PDControllerIoRTC.qt" rts:dataType="IDL:RTC/TimedDoubleSeq:1.0" rts:interfaceType="corba_cdr" rts:dataflowType="push" rts:subscriptionType="flush">
+		<rts:sourceDataPort xsi:type="rtsExt:target_port_ext" rts:portName="TkSlider0.slider" rts:instanceName="TkSlider0" rts:componentId="RTC:MasutaniLab:Generic:TkSlider0:1.0">
+			<rtsExt:Properties rtsExt:value="localhost/TkSlider0.rtc" rtsExt:name="COMPONENT_PATH_ID" />
+		</rts:sourceDataPort>
+		<rts:targetDataPort xsi:type="rtsExt:target_port_ext" rts:portName="DoubleArmV7-DoubleArmV7PDControllerIoRTC.qt" rts:instanceName="DoubleArmV7-DoubleArmV7PDControllerIoRTC" rts:componentId="RTC:MasutaniLab:Generic:DoubleArmV7-DoubleArmV7PDControllerIoRTC:1.0">
+			<rtsExt:Properties rtsExt:value="localhost/DoubleArmV7-DoubleArmV7PDControllerIoRTC.rtc" rtsExt:name="COMPONENT_PATH_ID" />
+		</rts:targetDataPort>
+		<rtsExt:Properties rtsExt:value="IDL:RTC/TimedDoubleSeq:1.0" rtsExt:name="dataport.data_type" />
+		<rtsExt:Properties rtsExt:value="corba_cdr" rtsExt:name="dataport.interface_type" />
+		<rtsExt:Properties rtsExt:value="push" rtsExt:name="dataport.dataflow_type" />
+		<rtsExt:Properties rtsExt:value="flush" rtsExt:name="dataport.subscription_type" />
+		<rtsExt:Properties rtsExt:value="little,big" rtsExt:name="dataport.serializer.cdr.endian" />
+		<rtsExt:Properties rtsExt:value="{1:(191,36),2:(196,36),3:(220,36),4:(220,95),5:(262,95),6:(267,95)}" rtsExt:name="POSITION" />
+	</rts:DataPortConnectors>
+	<rts:DataPortConnectors xsi:type="rtsExt:dataport_connector_ext" rts:connectorId="bb8cd546-ab82-4786-a1d3-4e9fa791a45d" rts:name="DoubleArmV7-VisionSensorIoRTC.Upper_Hand_Camera_ImageViewer2.Image" rts:dataType="IDL:Img/TimedCameraImage:1.0" rts:interfaceType="corba_cdr" rts:dataflowType="push" rts:subscriptionType="flush">
+		<rts:sourceDataPort xsi:type="rtsExt:target_port_ext" rts:portName="DoubleArmV7-VisionSensorIoRTC.Upper_Hand_Camera" rts:instanceName="DoubleArmV7-VisionSensorIoRTC" rts:componentId="RTC:Choreonoid:Generic:DoubleArmV7-VisionSensorIoRTC:1.0.0">
 			<rtsExt:Properties rtsExt:value="localhost/DoubleArmV7-VisionSensorIoRTC.rtc" rtsExt:name="COMPONENT_PATH_ID" />
 		</rts:sourceDataPort>
 		<rts:targetDataPort xsi:type="rtsExt:target_port_ext" rts:portName="ImageViewer2.Image" rts:instanceName="ImageViewer2" rts:componentId="RTC:MasutaniLab:ImageProcessing:ImageViewer2:2.0.1">
@@ -311,20 +351,6 @@
 		<rtsExt:Properties rtsExt:value="push" rtsExt:name="dataport.dataflow_type" />
 		<rtsExt:Properties rtsExt:value="flush" rtsExt:name="dataport.subscription_type" />
 		<rtsExt:Properties rtsExt:value="little,big" rtsExt:name="dataport.serializer.cdr.endian" />
-		<rtsExt:Properties rtsExt:value="{1:(172,275),2:(177,275),3:(323,275),4:(323,329),5:(469,329),6:(474,329)}" rtsExt:name="POSITION" />
-	</rts:DataPortConnectors>
-	<rts:DataPortConnectors xsi:type="rtsExt:dataport_connector_ext" rts:connectorId="851bced4-0cf8-45a7-b00b-6c6534dfbd65" rts:name="DoubleArmV7-VisionSensorIoRTC.FRAME_FRONT_CAMERA_DEPTH-depth_PointCloudViewer1.pc" rts:dataType="IDL:PointCloudTypes/PointCloud:1.0" rts:interfaceType="corba_cdr" rts:dataflowType="push" rts:subscriptionType="flush">
-		<rts:sourceDataPort xsi:type="rtsExt:target_port_ext" rts:portName="DoubleArmV7-VisionSensorIoRTC.FRAME_FRONT_CAMERA_DEPTH-depth" rts:instanceName="DoubleArmV7-VisionSensorIoRTC" rts:componentId="RTC:Choreonoid:Generic:DoubleArmV7-VisionSensorIoRTC:1.0.0">
-			<rtsExt:Properties rtsExt:value="localhost/DoubleArmV7-VisionSensorIoRTC.rtc" rtsExt:name="COMPONENT_PATH_ID" />
-		</rts:sourceDataPort>
-		<rts:targetDataPort xsi:type="rtsExt:target_port_ext" rts:portName="PointCloudViewer1.pc" rts:instanceName="PointCloudViewer1" rts:componentId="RTC:OECU:RTCPCL:PointCloudViewer1:1.0.0">
-			<rtsExt:Properties rtsExt:value="localhost/PointCloudViewer1.rtc" rtsExt:name="COMPONENT_PATH_ID" />
-		</rts:targetDataPort>
-		<rtsExt:Properties rtsExt:value="IDL:PointCloudTypes/PointCloud:1.0" rtsExt:name="dataport.data_type" />
-		<rtsExt:Properties rtsExt:value="corba_cdr" rtsExt:name="dataport.interface_type" />
-		<rtsExt:Properties rtsExt:value="push" rtsExt:name="dataport.dataflow_type" />
-		<rtsExt:Properties rtsExt:value="flush" rtsExt:name="dataport.subscription_type" />
-		<rtsExt:Properties rtsExt:value="little,big" rtsExt:name="dataport.serializer.cdr.endian" />
-		<rtsExt:Properties rtsExt:value="{1:(172,257),2:(177,257),3:(323,257),4:(323,271),5:(469,271),6:(474,271)}" rtsExt:name="POSITION" />
+		<rtsExt:Properties rtsExt:value="{1:(155,437),2:(160,437),3:(307,437),4:(307,328),5:(454,328),6:(459,328)}" rtsExt:name="POSITION" />
 	</rts:DataPortConnectors>
 </rts:RtsProfile>

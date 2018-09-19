@@ -24,13 +24,17 @@ p1=/localhost/PointCloudViewer1.rtc
 
 sleep 3
 
+#コンフィギュレーション
+rtconf $v1 set windowTitle FRAME_FRONT_CAMERA
+rtconf $v2 set windowTitle Upper_Hand_Camera
+
 #接続
 rtcon $s:slider $r:qt
 rtcon $sv:slider $r:dq
 rtcon $r:q $m:value
 rtcon $r:dv $ma:value
 rtcon $c:FRAME_FRONT_CAMERA $v1:Image
-rtcon $c:WORK_RIGHT_VIEW $v2:Image
+rtcon $c:Upper_Hand_Camera $v2:Image
 rtcon $c:FRAME_FRONT_CAMERA_DEPTH-depth $p1:pc
 
 #activate
