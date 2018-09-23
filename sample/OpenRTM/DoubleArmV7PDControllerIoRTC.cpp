@@ -75,11 +75,11 @@ public:
     RTC::TimedDoubleSeq angles;
     RTC::OutPort<RTC::TimedDoubleSeq> anglesOut;
 
-    RTC::Acceleration3D accel;
-    RTC::OutPort<RTC::Acceleration3D> accelOut;
+    RTC::TimedAcceleration3D accel;
+    RTC::OutPort<RTC::TimedAcceleration3D> accelOut;
 
-    RTC::AngularVelocity3D angularVelocity;
-    RTC::OutPort<RTC::AngularVelocity3D> angularVelocityOut;
+    RTC::TimedAngularVelocity3D angularVelocity;
+    RTC::OutPort<RTC::TimedAngularVelocity3D> angularVelocityOut;
 };
 
 const char* spec[] =
@@ -295,15 +295,15 @@ void DoubleArmV7PDControllerIoRTC::inputFromSimulator()
     anglesOut.write();
     
     auto dv = accelSensor->dv();
-    accel.ax = dv.x();
-    accel.ay = dv.y();
-    accel.az = dv.z();
+    accel.data.ax = dv.x();
+    accel.data.ay = dv.y();
+    accel.data.az = dv.z();
     accelOut.write();
 
     auto w = gyro->w();
-    angularVelocity.avx = w.x();
-    angularVelocity.avy = w.y();
-    angularVelocity.avz = w.z();
+    angularVelocity.data.avx = w.x();
+    angularVelocity.data.avy = w.y();
+    angularVelocity.data.avz = w.z();
     angularVelocityOut.write();
 }
 
