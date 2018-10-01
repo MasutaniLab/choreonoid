@@ -11,6 +11,7 @@
 #include "AISTSimulatorItem.h"
 #include "SimpleControllerItem.h"
 #include "BodyMotionControllerItem.h"
+#include "RIC30BodyMotionControllerItem.h"
 #include "GLVisionSimulatorItem.h"
 #include "WorldLogFileItem.h"
 #include "SensorVisualizerItem.h"
@@ -74,6 +75,7 @@ public:
         AISTSimulatorItem::initializeClass(this);
         SimpleControllerItem::initializeClass(this);
         BodyMotionControllerItem::initializeClass(this);
+        RIC30BodyMotionControllerItem::initializeClass(this);
         GLVisionSimulatorItem::initializeClass(this);
         WorldLogFileItem::initializeClass(this);
         SensorVisualizerItem::initializeClass(this);

@@ -1,0 +1,267 @@
+/*!
+  @file
+  @author Yasuhiro Masutani
+*/
+
+#include "RIC30BodyMotionControllerItem.h"
+#include "BodyMotionItem.h"
+#include <cnoid/ItemManager>
+#include <cnoid/Archive>
+#include <cnoid/MessageView>
+#include <cnoid/ItemList>
+#include <cnoid/ItemTreeView>
+#include "gettext.h"
+
+using namespace std;
+using namespace cnoid;
+
+namespace cnoid {
+
+class RIC30BodyMotionControllerItemImpl
+{
+public:
+    RIC30BodyMotionControllerItem* self;
+    BodyMotionItemPtr motionItem;
+    MultiValueSeqPtr qseqRef;
+    BodyPtr body;
+    int currentFrame;
+    int lastFrame;
+    int numJoints;
+
+    MessageView* mv;
+
+    RIC30BodyMotionControllerItemImpl(RIC30BodyMotionControllerItem* self);
+    bool initialize(ControllerIO* io);
+    void output();
+};
+
+}
+
+
+void RIC30BodyMotionControllerItem::initializeClass(ExtensionManager* ext)
+{
+    ext->itemManager().registerClass<RIC30BodyMotionControllerItem>(N_("RIC30BodyMotionControllerItem"));
+    ext->itemManager().addCreationPanel<RIC30BodyMotionControllerItem>();
+}
+
+
+RIC30BodyMotionControllerItem::RIC30BodyMotionControllerItem()
+{
+    impl = new RIC30BodyMotionControllerItemImpl(this);
+    pgain_ = 31.25;
+    dgain_ = 2.5;
+    torquemax_ = 0.5;
+    friction_ = 0.10;
+}
+
+
+RIC30BodyMotionControllerItem::RIC30BodyMotionControllerItem(const RIC30BodyMotionControllerItem& org)
+    : ControllerItem(org)
+{
+    impl = new RIC30BodyMotionControllerItemImpl(this);
+    pgain_ = org.pgain_;
+    dgain_ = org.dgain_;
+    torquemax_ = org.torquemax_;
+    friction_ = org.friction_;
+}
+
+
+RIC30BodyMotionControllerItemImpl::RIC30BodyMotionControllerItemImpl(RIC30BodyMotionControllerItem* self)
+    : self(self)
+{
+    mv = MessageView::instance();
+}
+
+
+RIC30BodyMotionControllerItem::~RIC30BodyMotionControllerItem()
+{
+    delete impl;
+}
+
+
+bool RIC30BodyMotionControllerItem::initialize(ControllerIO* io)
+{
+    return impl->initialize(io);
+}
+
+
+bool RIC30BodyMotionControllerItemImpl::initialize(ControllerIO* io)
+{
+    mv->putln(_("RIC30BodyMotionControllerItemImpl::initialize()"));
+    mv->putln(str(boost::format(_("pgain: %1%")) % self->pgain()));
+    mv->putln(str(boost::format(_("dgain: %1%")) % self->dgain()));
+    mv->putln(str(boost::format(_("torquemax: %1%")) % self->torquemax()));
+    mv->putln(str(boost::format(_("friction: %1%")) % self->friction()));
+    ItemList<BodyMotionItem> motionItems;
+    if(!motionItems.extractChildItems(self)){
+        self->putMessage(
+            str(boost::format(_("Any body motion item for %1% is not found."))
+                % self->name()));
+        return false;
+    }
+    motionItem = motionItems.front();
+    // find the first checked item
+    ItemTreeView* itv = ItemTreeView::instance();
+    for(int i=0; i < motionItems.size(); ++i){
+        if(itv->isItemChecked(motionItems[i])){
+            motionItem = motionItems[i];
+            break;
+        }
+    }
+
+    qseqRef = motionItem->jointPosSeq();
+
+    body = io->body();
+    currentFrame = 0;
+    lastFrame = std::max(0, qseqRef->numFrames() - 1);
+    numJoints = std::min(body->numJoints(), qseqRef->numParts());
+    if(qseqRef->numFrames() == 0){
+        self->putMessage(_("Reference motion is empty()."));
+        return false;
+    }
+    if(fabs(qseqRef->frameRate() - (1.0 / io->timeStep())) > 1.0e-6){
+        self->putMessage(_("The frame rate of the reference motion is different from the world frame rate."));
+        return false;
+    }
+
+    // Overwrite the initial position and pose
+    MultiSE3SeqPtr lseq = motionItem->linkPosSeq();
+    if(lseq->numParts() > 0 && lseq->numFrames() > 0){
+        SE3& p = lseq->at(0, 0);
+        Link* rootLink = body->rootLink();
+        rootLink->p() = p.translation();
+        rootLink->R() = p.rotation().toRotationMatrix();
+    }
+    self->output();
+    body->calcForwardKinematics();
+    
+    return true;
+}
+
+
+bool RIC30BodyMotionControllerItem::start()
+{
+    control();
+    return true;
+}
+    
+    
+double RIC30BodyMotionControllerItem::timeStep() const
+{
+    return impl->qseqRef->timeStep();
+}
+        
+
+void RIC30BodyMotionControllerItem::input()
+{
+
+}
+
+
+bool RIC30BodyMotionControllerItem::control()
+{
+    if(++impl->currentFrame > impl->lastFrame){
+        impl->currentFrame = impl->lastFrame;
+        return false;
+    }
+    return true;
+}
+        
+
+void RIC30BodyMotionControllerItemImpl::output()
+{
+    int prevFrame = std::max(currentFrame - 1, 0);
+    int nextFrame = std::min(currentFrame + 1, lastFrame);
+            
+    MultiValueSeq::Frame q0 = qseqRef->frame(prevFrame);
+    MultiValueSeq::Frame q1 = qseqRef->frame(currentFrame);
+    MultiValueSeq::Frame q2 = qseqRef->frame(nextFrame);
+    
+    double dt = qseqRef->timeStep();
+    double dt2 = dt * dt;
+    double pgain = self->pgain();
+    double dgain = self->dgain();
+    double torquemax = self->torquemax();
+    double friction = self->friction();
+    
+    for(int i=0; i < numJoints; ++i){
+        Link* joint = body->joint(i);
+        double q = q1[i];
+        double dq = (q2[i] - q1[i]) / dt;
+        double u = pgain*(q-joint->q()) + dgain*(dq-joint->dq());
+        if (u<-torquemax) {
+            u = -torquemax;
+        } else if (u>torquemax) {
+            u = torquemax;
+        }
+        if (abs(joint->dq()) < 1e-6) {
+            if (abs(u) < friction ) {
+                u = 0;
+            } else if (u > 0) {
+                u -= friction;
+            } else {
+                u += friction;
+            }
+        } else if (joint->dq() > 0) {
+            u -= friction;
+        } else {
+            u += friction;
+        }
+        joint->u() = u;
+    }
+}
+
+
+void RIC30BodyMotionControllerItem::output()
+{
+    impl->output();
+}
+
+
+void RIC30BodyMotionControllerItem::stop()
+{
+    impl->qseqRef.reset();
+    impl->motionItem = 0;
+    impl->body = 0;
+}
+
+
+void RIC30BodyMotionControllerItem::onDisconnectedFromRoot()
+{
+    stop();
+}
+    
+
+Item* RIC30BodyMotionControllerItem::doDuplicate() const
+{
+    return new RIC30BodyMotionControllerItem(*this);
+}
+
+
+void RIC30BodyMotionControllerItem::doPutProperties(PutPropertyFunction& putProperty)
+{
+    putProperty(_("P gain"), pgain_, changeProperty(pgain_));
+    putProperty(_("D gain"), dgain_, changeProperty(dgain_));
+    putProperty(_("Torque max"), torquemax_, changeProperty(torquemax_));
+    putProperty(_("Friction"), friction_, changeProperty(friction_));
+}
+
+
+bool RIC30BodyMotionControllerItem::store(Archive& archive)
+{
+    archive.write("pgain", pgain_);
+    archive.write("dgain", dgain_);
+    archive.write("torquemax", torquemax_);
+    archive.write("friction", friction_);
+    return true;
+}
+    
+
+bool RIC30BodyMotionControllerItem::restore(const Archive& archive)
+{
+    archive.read("pgain", pgain_);
+    archive.read("dgain", dgain_);
+    archive.read("torquemax", torquemax_);
+    archive.read("friction", friction_);
+    return true;
+}

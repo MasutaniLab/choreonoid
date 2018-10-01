@@ -329,6 +329,10 @@ msgstr "色"
 msgid "BodyMotionControllerItem"
 msgstr "ボディモーションコントローラアイテム"
 
+#: 
+msgid "RIC30BodyMotionControllerItem"
+msgstr "RIC30ボディモーションコントローラアイテム"
+
 #: BodyMotionControllerItem.cpp:81
 msgid "Any body motion item for %1% is not found."
 msgstr "%1%用ボディモーションアイテムが見つかりません。"
