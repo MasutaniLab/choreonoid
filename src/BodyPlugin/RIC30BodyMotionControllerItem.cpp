@@ -6,14 +6,16 @@
 #include "RIC30BodyMotionControllerItem.h"
 #include "BodyMotionItem.h"
 #include <cnoid/ItemManager>
-#include <cnoid/Archive>
-#include <cnoid/MessageView>
 #include <cnoid/ItemList>
 #include <cnoid/ItemTreeView>
+#include <cnoid/ControllerIO>
+#include <cnoid/MessageView>
+#include <cnoid/Archive>
 #include "gettext.h"
 
 using namespace std;
 using namespace cnoid;
+using boost::format;
 
 namespace cnoid {
 
@@ -27,8 +29,6 @@ public:
     int currentFrame;
     int lastFrame;
     int numJoints;
-
-    MessageView* mv;
 
     RIC30BodyMotionControllerItemImpl(RIC30BodyMotionControllerItem* self);
     bool initialize(ControllerIO* io);
@@ -69,7 +69,7 @@ RIC30BodyMotionControllerItem::RIC30BodyMotionControllerItem(const RIC30BodyMoti
 RIC30BodyMotionControllerItemImpl::RIC30BodyMotionControllerItemImpl(RIC30BodyMotionControllerItem* self)
     : self(self)
 {
-    mv = MessageView::instance();
+
 }
 
 
@@ -87,16 +87,18 @@ bool RIC30BodyMotionControllerItem::initialize(ControllerIO* io)
 
 bool RIC30BodyMotionControllerItemImpl::initialize(ControllerIO* io)
 {
+    auto mv = MessageView::instance();
+
     mv->putln(_("RIC30BodyMotionControllerItemImpl::initialize()"));
-    mv->putln(str(boost::format(_("pgain: %1%")) % self->pgain()));
-    mv->putln(str(boost::format(_("dgain: %1%")) % self->dgain()));
-    mv->putln(str(boost::format(_("torquemax: %1%")) % self->torquemax()));
-    mv->putln(str(boost::format(_("friction: %1%")) % self->friction()));
+    mv->putln(format(_("pgain: %1%")) % self->pgain());
+    mv->putln(format(_("dgain: %1%")) % self->dgain());
+    mv->putln(format(_("torquemax: %1%")) % self->torquemax());
+    mv->putln(format(_("friction: %1%")) % self->friction());
     ItemList<BodyMotionItem> motionItems;
     if(!motionItems.extractChildItems(self)){
-        self->putMessage(
-            str(boost::format(_("Any body motion item for %1% is not found."))
-                % self->name()));
+        mv->putln(
+            format(_("Any body motion item for %1% is not found.")) % self->name(),
+            MessageView::ERROR);
         return false;
     }
     motionItem = motionItems.front();
@@ -116,12 +118,15 @@ bool RIC30BodyMotionControllerItemImpl::initialize(ControllerIO* io)
     lastFrame = std::max(0, qseqRef->numFrames() - 1);
     numJoints = std::min(body->numJoints(), qseqRef->numParts());
     if(qseqRef->numFrames() == 0){
-        self->putMessage(_("Reference motion is empty()."));
+        mv->putln(
+            format(_("%1% for %2% is empty.")) % motionItem->name() % self->name(),
+            MessageView::ERROR);
         return false;
     }
     if(fabs(qseqRef->frameRate() - (1.0 / io->timeStep())) > 1.0e-6){
-        self->putMessage(_("The frame rate of the reference motion is different from the world frame rate."));
-        return false;
+        mv->putln(
+            format(_("The frame rate of %1% is different from the world frame rate.")) % motionItem->name(),
+            MessageView::ERROR);
     }
 
     // Overwrite the initial position and pose
