@@ -1,0 +1,544 @@
+items: 
+  id: 0
+  name: "Root"
+  plugin: Base
+  class: RootItem
+  children: 
+    - 
+      id: 1
+      name: "World"
+      plugin: Body
+      class: WorldItem
+      data: 
+        collisionDetection: false
+        collisionDetector: AISTCollisionDetector
+        materialTableFile: "${SHARE}/default/materials.yaml"
+      children: 
+        - 
+          id: 2
+          name: "Environment"
+          plugin: Base
+          class: FolderItem
+          children: 
+            - 
+              id: 3
+              name: "Floor"
+              plugin: Body
+              class: BodyItem
+              data: 
+                modelFile: "${SHARE}/model/misc/floor.body"
+                currentBaseLink: "Floor"
+                rootPosition: [ 0, 0, -0.1 ]
+                rootAttitude: [ 
+                  1, 0, 0, 
+                  0, 1, 0, 
+                  0, 0, 1 ]
+                jointPositions: [  ]
+                initialRootPosition: [ 0, 0, -0.1 ]
+                initialRootAttitude: [ 
+                  1, 0, 0, 
+                  0, 1, 0, 
+                  0, 0, 1 ]
+                zmp: [ 0, 0, 0 ]
+                collisionDetection: true
+                selfCollisionDetection: false
+                isEditable: false
+            - 
+              id: 4
+              name: "Car"
+              plugin: Body
+              class: BodyItem
+              data: 
+                modelFile: "${SHARE}/model/WRS2018/CarT3.body"
+                currentBaseLink: "BODY"
+                rootPosition: [ 2.6, -0.5, 0 ]
+                rootAttitude: [ 
+                  2.22044605e-16, 1, 0, 
+                  -1, 2.22044605e-16, -0, 
+                  -0, 0, 1 ]
+                jointPositions: [  0.000000 ]
+                initialRootPosition: [ 2.6, -0.5, 0 ]
+                initialRootAttitude: [ 
+                  2.22044605e-16, 1, 0, 
+                  -1, 2.22044605e-16, -0, 
+                  -0, 0, 1 ]
+                initialJointPositions: [  0.000000 ]
+                zmp: [ 0, 0, 0 ]
+                collisionDetection: true
+                selfCollisionDetection: true
+                isEditable: true
+              children: 
+                - 
+                  id: 5
+                  name: "Controller"
+                  plugin: Body
+                  class: SimpleControllerItem
+                  data: 
+                    isNoDelayMode: false
+                    controllerOptions: ""
+                    controller: "CarT3Controller.so"
+                    baseDirectory: "Controller directory"
+                    reloading: false
+                    isOldTargetVariableMode: false
+            - 
+              id: 7
+              name: "Spreader"
+              plugin: Body
+              class: BodyItem
+              data: 
+                modelFile: "${SHARE}/model/WRS2018/Spreader.body"
+                currentBaseLink: "BASE"
+                rootPosition: [ 1.122252, -0.0975240504, 0.0864676285 ]
+                rootAttitude: [ 
+                  0.955659486, -0.0495509593, 0.290275128, 
+                  0.0449728713, 0.998736468, 0.0224256176, 
+                  -0.291019567, -0.00837674823, 0.956680428 ]
+                jointPositions: [ -0.000000, -0.000000 ]
+                initialRootPosition: [ 1.122252, -0.0975240504, 0.0864676285 ]
+                initialRootAttitude: [ 
+                  0.955659486, -0.0495509593, 0.290275128, 
+                  0.0449728713, 0.998736468, 0.0224256176, 
+                  -0.291019567, -0.00837674822, 0.956680428 ]
+                initialJointPositions: [ -0.000000, -0.000000 ]
+                zmp: [ 0, 0, 0 ]
+                collisionDetection: true
+                selfCollisionDetection: false
+                isEditable: true
+              children: 
+                - 
+                  id: 8
+                  name: "SpreaderController"
+                  plugin: Body
+                  class: SimpleControllerItem
+                  data: 
+                    isNoDelayMode: false
+                    controllerOptions: ""
+                    controller: "SpreaderController.so"
+                    baseDirectory: "Controller directory"
+                    reloading: false
+                    isOldTargetVariableMode: false
+        - 
+          id: 9
+          name: "DoubleArmV7"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "${SHARE}/model/DoubleArmV7/DoubleArmV7A.body"
+            currentBaseLink: "MFRAME"
+            rootPosition: [ -0.791750913, -0.0167985008, 0.536782003 ]
+            rootAttitude: [ 
+              0.999681527, 0.025225879, -0.000706353048, 
+              -0.0252247424, 0.999680565, 0.00157423644, 
+              0.000745838913, -0.00155591751, 0.999998511 ]
+            jointPositions: [ 
+              -3.073594, -0.002680, -1.178416,  2.616225,  0.000001,  0.000000,  0.000000,  0.000000, -3.036132, -0.082618, 
+               1.222512, -1.053016,  0.095022,  0.009431,  1.530642, -0.050697,  0.398364, -0.398364,  0.834134, -0.834046, 
+               0.834124,  0.834133, -0.834042,  0.834123,  2.840062,  0.000798,  0.037152,  2.844245,  2.376047, -0.004115, 
+              -0.005963,  2.379772 ]
+            initialRootPosition: [ -0.791750913, -0.0167985008, 0.536782003 ]
+            initialRootAttitude: [ 
+              0.999681527, 0.025225879, -0.000706353048, 
+              -0.0252247424, 0.999680566, 0.00157423644, 
+              0.000745838913, -0.00155591751, 0.999998511 ]
+            initialJointPositions: [ 
+              -3.073594, -0.002680, -1.178416,  2.616225,  0.000001,  0.000000,  0.000000,  0.000000, -3.036132, -0.082618, 
+               1.222512, -1.053016,  0.095022,  0.009431,  1.530642, -0.050697,  0.398364, -0.398364,  0.834134, -0.834046, 
+               0.834124,  0.834133, -0.834042,  0.834123,  2.840062,  0.000798,  0.037152,  2.844245,  2.376047, -0.004115, 
+              -0.005963,  2.379772 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: true
+            isEditable: true
+          children: 
+            - 
+              id: 10
+              name: "DoubleArmV7Controller"
+              plugin: Body
+              class: SimpleControllerItem
+              data: 
+                isNoDelayMode: false
+                controllerOptions: ""
+                controller: "DoubleArmV7Controller"
+                baseDirectory: "Controller directory"
+                reloading: true
+                isOldTargetVariableMode: false
+        - 
+          id: 11
+          name: "AGXSimulator"
+          plugin: AGXDynamics
+          class: AGXSimulatorItem
+          data: 
+            timeStep: 0.005
+            realtimeSync: true
+            recording: "full"
+            timeRangeMode: "Unlimited"
+            timeLength: 180
+            allLinkPositionOutputMode: true
+            deviceStateOutput: true
+            controllerThreads: true
+            recordCollisionData: false
+            controllerOptions: "position"
+            Gravity: [ 0, 0, -9.80665 ]
+            NumThreads: 4
+            ContactReduction: true
+            ContactReductionBinResolution: 3
+            ContactReductionThreshhold: 12
+            ContactWarmstarting: true
+            AutoSleep: false
+            SaveToAGXFileOnStart: false
+            DebugMessageOnConsole: 2
+views: 
+  - 
+    id: 0
+    plugin: Base
+    class: ItemPropertyView
+    mounted: true
+  - 
+    id: 1
+    plugin: Base
+    class: ItemTreeView
+    mounted: true
+    state: 
+      checked: [ 3, 4, 7, 9 ]
+      expanded: [ 1, 2, 4, 5, 6, 7, 8, 9, 10 ]
+  - 
+    id: 2
+    plugin: Base
+    class: MessageView
+    mounted: true
+  - 
+    id: 3
+    plugin: Base
+    class: SceneView
+    mounted: true
+    state: 
+      editMode: true
+      viewpointControlMode: thirdPerson
+      collisionLines: false
+      polygonMode: fill
+      cullingMode: enabled
+      defaultHeadLight: true
+      defaultHeadLightIntensity: 0.9
+      headLightLightingFromBack: false
+      worldLight: true
+      worldLightIntensity: 0.8
+      worldLightAmbient: 0.3
+      additionalLights: false
+      shadowLights: 
+        - 0
+      fog: true
+      floorGrid: false
+      floorGridSpan: 10
+      floorGridInterval: 0.5
+      xzGridSpan: 10
+      xzGridInterval: 0.5
+      xzGrid: false
+      yzGridSpan: 10
+      yzGridInterval: 0.5
+      texture: true
+      lineWidth: 1
+      pointSize: 1
+      normalVisualization: false
+      normalLength: 0.01
+      coordinateAxes: true
+      fpsTestIteration: 1
+      showFPS: false
+      enableNewDisplayListDoubleRendering: false
+      useBufferForPicking: true
+      upsideDown: false
+      cameras: 
+        - 
+          camera: [ System, Perspective ]
+          isCurrent: true
+          fieldOfView: 0.698132
+          near: 0.01
+          far: 200
+          eye: [ -0.952901359, -3.55484243, 1.38673746 ]
+          direction: [ 0.43387475, 0.878498336, -0.199983435 ]
+          up: [ 0.0885566716, 0.179307251, 0.979799278 ]
+        - 
+          camera: [ System, Orthographic ]
+          orthoHeight: 20
+          near: 0.01
+          far: 200
+      backgroundColor: [ 0, 0, 0 ]
+      gridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
+      xzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
+      yzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
+      dedicatedItemTreeViewChecks: false
+  - 
+    id: 4
+    name: "Camera Scene"
+    plugin: Base
+    class: SceneView
+    mounted: true
+    state: 
+      editMode: false
+      viewpointControlMode: thirdPerson
+      collisionLines: false
+      polygonMode: fill
+      cullingMode: enabled
+      defaultHeadLight: true
+      defaultHeadLightIntensity: 0.8
+      headLightLightingFromBack: false
+      worldLight: true
+      worldLightIntensity: 0.7
+      worldLightAmbient: 0.3
+      additionalLights: true
+      fog: true
+      floorGrid: false
+      floorGridSpan: 10
+      floorGridInterval: 0.5
+      xzGridSpan: 10
+      xzGridInterval: 0.5
+      xzGrid: false
+      yzGridSpan: 10
+      yzGridInterval: 0.5
+      texture: true
+      lineWidth: 1
+      pointSize: 1
+      normalVisualization: false
+      normalLength: 0.01
+      coordinateAxes: false
+      fpsTestIteration: 1
+      showFPS: false
+      enableNewDisplayListDoubleRendering: false
+      useBufferForPicking: true
+      upsideDown: false
+      cameras: 
+        - 
+          camera: [ System, Perspective ]
+          isCurrent: true
+          fieldOfView: 0.698132
+          near: 0.01
+          far: 200
+          eye: [ 4, 2, 1.5 ]
+          direction: [ -0.888888889, -0.444444444, -0.111111111 ]
+          up: [ -0.0993807989, -0.0496903995, 0.99380799 ]
+        - 
+          camera: [ System, Orthographic ]
+          orthoHeight: 20
+          near: 0.01
+          far: 200
+      backgroundColor: [ 0, 0, 0 ]
+      gridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
+      xzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
+      yzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
+      dedicatedItemTreeViewChecks: true
+      checked: [ 3, 4, 7, 9 ]
+  - 
+    id: 5
+    plugin: Body
+    class: BodyLinkView
+    mounted: true
+    state: 
+      showRotationMatrix: false
+  - 
+    id: 6
+    name: "Body State"
+    plugin: Body
+    class: BodyStateView
+    mounted: true
+  - 
+    id: 7
+    plugin: Body
+    class: JointSliderView
+    mounted: true
+    state: 
+      showAllJoints: true
+      jointId: false
+      name: true
+      numColumns: 1
+      spinBox: true
+      slider: true
+      labelOnLeft: true
+      currentBodyItem: 9
+  - 
+    id: 8
+    plugin: Body
+    class: LinkSelectionView
+    mounted: true
+    state: 
+      listingMode: "Link Tree"
+      currentBodyItem: 9
+      bodyItems: 
+        - 
+          id: 9
+          selectedLinks: [ 14 ]
+  - 
+    id: 9
+    plugin: OpenRTM
+    class: RTSNameServerView
+    state: 
+      NameServers: 
+        - 
+          isDefaultNameServer: false
+          host: "localhost"
+          port: 2809
+  - 
+    id: 10
+    plugin: Python
+    class: PythonConsoleView
+    mounted: true
+toolbars: 
+  "TimeBar": 
+    minTime: 0
+    maxTime: 69.035
+    frameRate: 1000
+    playbackFrameRate: 60
+    idleLoopDrivenMode: false
+    currentTime: 10.29
+    speedScale: 1
+    syncToOngoingUpdates: true
+    autoExpansion: true
+  "KinematicsBar": 
+    mode: IK
+    enablePositionDragger: true
+    penetrationBlock: false
+    collisionLinkHighlight: false
+    snapDistance: 0.025
+    penetrationBlockDepth: 0.0005
+    lazyCollisionDetectionMode: true
+  "BodyBar": 
+    current: 9
+  "LeggedBodyBar": 
+    stanceWidth: 0.15
+  "BodyMotionGenerationBar": 
+    autoGenerationForNewBody: true
+    balancer: false
+    autoGeneration: false
+    timeScaleRatio: 1
+    preInitialDuration: 1
+    postFinalDuration: 1
+    onlyTimeBarRange: false
+    makeNewBodyItem: true
+    stealthyStepMode: true
+    stealthyHeightRatioThresh: 2
+    flatLiftingHeight: 0.005
+    flatLandingHeight: 0.005
+    impactReductionHeight: 0.005
+    impactReductionTime: 0.04
+    autoZmp: true
+    minZmpTransitionTime: 0.1
+    zmpCenteringTimeThresh: 0.03
+    zmpTimeMarginBeforeLiftingSpin: 0
+    zmpMaxDistanceFromCenter: 0.02
+    allLinkPositions: false
+    lipSyncMix: false
+    timeToStartBalancer: 0
+    balancerIterations: 2
+    plainBalancerMode: false
+    boundaryConditionType: position
+    boundarySmootherType: quintic
+    boundarySmootherTime: 0.5
+    boundaryCmAdjustment: false
+    boundaryCmAdjustmentTime: 1
+    waistHeightRelaxation: false
+    gravity: 9.8
+    dynamicsTimeRatio: 1
+Body: 
+  "BodyMotionEngine": 
+    updateJointVelocities: false
+  "EditableSceneBody": 
+    editableSceneBodies: 
+      - 
+        bodyItem: 3
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
+        bodyItem: 4
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
+        bodyItem: 7
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
+        bodyItem: 9
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+    staticModelEditing: true
+  "KinematicFaultChecker": 
+    checkJointPositions: true
+    angleMargin: 0
+    translationMargin: 0
+    checkJointVelocities: true
+    velocityLimitRatio: 100
+    targetJoints: all
+    checkSelfCollisions: true
+    onlyTimeBarRange: false
+  "SplineFilterDialog": 
+    isInputFrameRateSpecified: false
+    inputFrameRate: 200
+    isOutputFrameRateSpecified: false
+    outputFrameRate: 200
+OpenRTM: 
+  "deleteUnmanagedRTCsOnStartingSimulation": false
+viewAreas: 
+  - 
+    type: embedded
+    tabs: true
+    contents: 
+      type: splitter
+      orientation: horizontal
+      sizes: [ 437, 2130 ]
+      children: 
+        - 
+          type: splitter
+          orientation: vertical
+          sizes: [ 847, 845 ]
+          children: 
+            - 
+              type: pane
+              views: [ 1 ]
+              current: 1
+            - 
+              type: pane
+              views: [ 0, 8 ]
+              current: 8
+        - 
+          type: splitter
+          orientation: vertical
+          sizes: [ 1301, 391 ]
+          children: 
+            - 
+              type: splitter
+              orientation: horizontal
+              sizes: [ 922, 1202 ]
+              children: 
+                - 
+                  type: pane
+                  views: [ 5, 7, 4 ]
+                  current: 5
+                - 
+                  type: pane
+                  views: [ 3 ]
+                  current: 3
+            - 
+              type: splitter
+              orientation: horizontal
+              sizes: [ 1062, 1062 ]
+              children: 
+                - 
+                  type: pane
+                  views: [ 2 ]
+                  current: 2
+                - 
+                  type: pane
+                  views: [ 10, 6 ]
+                  current: 6
+layoutOfToolBars: 
+  rows: 
+    - 
+      - { name: "FileBar", x: 0, priority: 0 }
+      - { name: "CaptureBar", x: 47, priority: 2 }
+      - { name: "ScriptBar", x: 47, priority: 0 }
+      - { name: "SimulationBar", x: 93, priority: 1 }
+      - { name: "TimeBar", x: 94, priority: 0 }
+      - { name: "SceneBar", x: 1324, priority: 4 }
+      - { name: "KinematicsBar", x: 1687, priority: 3 }
+      - { name: "BodyBar", x: 1923, priority: 0 }
