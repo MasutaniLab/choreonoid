@@ -81,6 +81,35 @@ items:
                     reloading: false
                     isOldTargetVariableMode: false
             - 
+              id: 6
+              name: "Victim"
+              plugin: Body
+              class: BodyItem
+              data: 
+                modelFile: "${SHARE}/model/WRS2018/Victim.body"
+                rootPosition: [ 2.2056441, -0.671722796, 0.573309943 ]
+                rootAttitude: [ 
+                  -5.98997074e-10, 0.999975631, 0.00698126001, 
+                  0.173648178, -0.00687519926, 0.984783754, 
+                  0.984807753, 0.00121228335, -0.173643947 ]
+                jointPositions: [ 
+                   0.000000,  1.119763,  0.606997, -0.322886,  0.022394,  0.000000,  0.000000,  0.755187, -1.570796, -0.841090, 
+                   0.022689,  0.000000,  0.000000,  0.755728, -1.570796, -0.841249, -0.026946,  0.011916, -0.142889,  0.913207, 
+                  -0.338695, -0.027343, -0.026180,  0.012217, -0.143117,  0.912807, -0.338594, -0.027925 ]
+                initialRootPosition: [ 2.2056441, -0.671722796, 0.573309943 ]
+                initialRootAttitude: [ 
+                  -2.41473508e-11, 0.999975631, 0.00698126014, 
+                  0.173648178, -0.00687519908, 0.984783754, 
+                  0.984807753, 0.00121228315, -0.173643947 ]
+                initialJointPositions: [ 
+                   0.000000,  1.119763,  0.606997, -0.322886,  0.022394,  0.000000,  0.000000,  0.755187, -1.570796, -0.841090, 
+                   0.022689,  0.000000,  0.000000,  0.755728, -1.570796, -0.841249, -0.026946,  0.011916, -0.142889,  0.913207, 
+                  -0.338695, -0.027343, -0.026180,  0.012217, -0.143117,  0.912807, -0.338594, -0.027925 ]
+                zmp: [ 0, 0, 0 ]
+                collisionDetection: true
+                selfCollisionDetection: true
+                isEditable: true
+            - 
               id: 7
               name: "Spreader"
               plugin: Body
@@ -92,13 +121,13 @@ items:
                 rootAttitude: [ 
                   0.955659486, -0.0495509593, 0.290275128, 
                   0.0449728713, 0.998736468, 0.0224256176, 
-                  -0.291019567, -0.00837674823, 0.956680428 ]
+                  -0.291019567, -0.00837674821, 0.956680428 ]
                 jointPositions: [ -0.000000, -0.000000 ]
                 initialRootPosition: [ 1.122252, -0.0975240504, 0.0864676285 ]
                 initialRootAttitude: [ 
                   0.955659486, -0.0495509593, 0.290275128, 
                   0.0449728713, 0.998736468, 0.0224256176, 
-                  -0.291019567, -0.00837674822, 0.956680428 ]
+                  -0.291019567, -0.00837674821, 0.956680428 ]
                 initialJointPositions: [ -0.000000, -0.000000 ]
                 zmp: [ 0, 0, 0 ]
                 collisionDetection: true
@@ -128,7 +157,7 @@ items:
             rootPosition: [ -0.791750913, -0.0167985008, 0.536782003 ]
             rootAttitude: [ 
               0.999681527, 0.025225879, -0.000706353048, 
-              -0.0252247424, 0.999680565, 0.00157423644, 
+              -0.0252247424, 0.999680566, 0.00157423644, 
               0.000745838913, -0.00155591751, 0.999998511 ]
             jointPositions: [ 
               -3.073594, -0.002680, -1.178416,  2.616225,  0.000001,  0.000000,  0.000000,  0.000000, -3.036132, -0.082618, 
@@ -199,7 +228,8 @@ views:
     class: ItemTreeView
     mounted: true
     state: 
-      checked: [ 3, 4, 7, 9 ]
+      selected: [ 11 ]
+      checked: [ 3, 4, 6, 7, 9 ]
       expanded: [ 1, 2, 4, 5, 6, 7, 8, 9, 10 ]
   - 
     id: 2
@@ -212,7 +242,7 @@ views:
     class: SceneView
     mounted: true
     state: 
-      editMode: true
+      editMode: false
       viewpointControlMode: thirdPerson
       collisionLines: false
       polygonMode: fill
@@ -253,12 +283,12 @@ views:
           fieldOfView: 0.698132
           near: 0.01
           far: 200
-          eye: [ -0.952901359, -3.55484243, 1.38673746 ]
-          direction: [ 0.43387475, 0.878498336, -0.199983435 ]
-          up: [ 0.0885566716, 0.179307251, 0.979799278 ]
+          eye: [ -4.7460508, -3.8685649, 3.19663242 ]
+          direction: [ 0.774708727, 0.518710587, -0.361615425 ]
+          up: [ 0.300480969, 0.201188724, 0.932327348 ]
         - 
           camera: [ System, Orthographic ]
-          orthoHeight: 20
+          orthoHeight: 5.73008
           near: 0.01
           far: 200
       backgroundColor: [ 0, 0, 0 ]
@@ -268,79 +298,19 @@ views:
       dedicatedItemTreeViewChecks: false
   - 
     id: 4
-    name: "Camera Scene"
-    plugin: Base
-    class: SceneView
-    mounted: true
-    state: 
-      editMode: false
-      viewpointControlMode: thirdPerson
-      collisionLines: false
-      polygonMode: fill
-      cullingMode: enabled
-      defaultHeadLight: true
-      defaultHeadLightIntensity: 0.8
-      headLightLightingFromBack: false
-      worldLight: true
-      worldLightIntensity: 0.7
-      worldLightAmbient: 0.3
-      additionalLights: true
-      fog: true
-      floorGrid: false
-      floorGridSpan: 10
-      floorGridInterval: 0.5
-      xzGridSpan: 10
-      xzGridInterval: 0.5
-      xzGrid: false
-      yzGridSpan: 10
-      yzGridInterval: 0.5
-      texture: true
-      lineWidth: 1
-      pointSize: 1
-      normalVisualization: false
-      normalLength: 0.01
-      coordinateAxes: false
-      fpsTestIteration: 1
-      showFPS: false
-      enableNewDisplayListDoubleRendering: false
-      useBufferForPicking: true
-      upsideDown: false
-      cameras: 
-        - 
-          camera: [ System, Perspective ]
-          isCurrent: true
-          fieldOfView: 0.698132
-          near: 0.01
-          far: 200
-          eye: [ 4, 2, 1.5 ]
-          direction: [ -0.888888889, -0.444444444, -0.111111111 ]
-          up: [ -0.0993807989, -0.0496903995, 0.99380799 ]
-        - 
-          camera: [ System, Orthographic ]
-          orthoHeight: 20
-          near: 0.01
-          far: 200
-      backgroundColor: [ 0, 0, 0 ]
-      gridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
-      xzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
-      yzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
-      dedicatedItemTreeViewChecks: true
-      checked: [ 3, 4, 7, 9 ]
-  - 
-    id: 5
     plugin: Body
     class: BodyLinkView
     mounted: true
     state: 
       showRotationMatrix: false
   - 
-    id: 6
+    id: 5
     name: "Body State"
     plugin: Body
     class: BodyStateView
     mounted: true
   - 
-    id: 7
+    id: 6
     plugin: Body
     class: JointSliderView
     mounted: true
@@ -352,132 +322,30 @@ views:
       spinBox: true
       slider: true
       labelOnLeft: true
-      currentBodyItem: 9
   - 
-    id: 8
+    id: 7
     plugin: Body
     class: LinkSelectionView
     mounted: true
     state: 
       listingMode: "Link Tree"
-      currentBodyItem: 9
       bodyItems: 
+        - 
+          id: 4
+          selectedLinks: [ 1 ]
+        - 
+          id: 6
+          selectedLinks: [ 
+            0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 
+            20, 21, 22, 23, 24, 25, 26, 27, 28 ]
         - 
           id: 9
           selectedLinks: [ 14 ]
   - 
-    id: 9
-    plugin: OpenRTM
-    class: RTSNameServerView
-    state: 
-      NameServers: 
-        - 
-          isDefaultNameServer: false
-          host: "localhost"
-          port: 2809
-  - 
-    id: 10
+    id: 8
     plugin: Python
     class: PythonConsoleView
     mounted: true
-toolbars: 
-  "TimeBar": 
-    minTime: 0
-    maxTime: 69.035
-    frameRate: 1000
-    playbackFrameRate: 60
-    idleLoopDrivenMode: false
-    currentTime: 10.29
-    speedScale: 1
-    syncToOngoingUpdates: true
-    autoExpansion: true
-  "KinematicsBar": 
-    mode: IK
-    enablePositionDragger: true
-    penetrationBlock: false
-    collisionLinkHighlight: false
-    snapDistance: 0.025
-    penetrationBlockDepth: 0.0005
-    lazyCollisionDetectionMode: true
-  "BodyBar": 
-    current: 9
-  "LeggedBodyBar": 
-    stanceWidth: 0.15
-  "BodyMotionGenerationBar": 
-    autoGenerationForNewBody: true
-    balancer: false
-    autoGeneration: false
-    timeScaleRatio: 1
-    preInitialDuration: 1
-    postFinalDuration: 1
-    onlyTimeBarRange: false
-    makeNewBodyItem: true
-    stealthyStepMode: true
-    stealthyHeightRatioThresh: 2
-    flatLiftingHeight: 0.005
-    flatLandingHeight: 0.005
-    impactReductionHeight: 0.005
-    impactReductionTime: 0.04
-    autoZmp: true
-    minZmpTransitionTime: 0.1
-    zmpCenteringTimeThresh: 0.03
-    zmpTimeMarginBeforeLiftingSpin: 0
-    zmpMaxDistanceFromCenter: 0.02
-    allLinkPositions: false
-    lipSyncMix: false
-    timeToStartBalancer: 0
-    balancerIterations: 2
-    plainBalancerMode: false
-    boundaryConditionType: position
-    boundarySmootherType: quintic
-    boundarySmootherTime: 0.5
-    boundaryCmAdjustment: false
-    boundaryCmAdjustmentTime: 1
-    waistHeightRelaxation: false
-    gravity: 9.8
-    dynamicsTimeRatio: 1
-Body: 
-  "BodyMotionEngine": 
-    updateJointVelocities: false
-  "EditableSceneBody": 
-    editableSceneBodies: 
-      - 
-        bodyItem: 3
-        showCenterOfMass: false
-        showPpcom: false
-        showZmp: false
-      - 
-        bodyItem: 4
-        showCenterOfMass: false
-        showPpcom: false
-        showZmp: false
-      - 
-        bodyItem: 7
-        showCenterOfMass: false
-        showPpcom: false
-        showZmp: false
-      - 
-        bodyItem: 9
-        showCenterOfMass: false
-        showPpcom: false
-        showZmp: false
-    staticModelEditing: true
-  "KinematicFaultChecker": 
-    checkJointPositions: true
-    angleMargin: 0
-    translationMargin: 0
-    checkJointVelocities: true
-    velocityLimitRatio: 100
-    targetJoints: all
-    checkSelfCollisions: true
-    onlyTimeBarRange: false
-  "SplineFilterDialog": 
-    isInputFrameRateSpecified: false
-    inputFrameRate: 200
-    isOutputFrameRateSpecified: false
-    outputFrameRate: 200
-OpenRTM: 
-  "deleteUnmanagedRTCsOnStartingSimulation": false
 viewAreas: 
   - 
     type: embedded
@@ -485,12 +353,12 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 437, 2130 ]
+      sizes: [ 309, 1582 ]
       children: 
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 847, 845 ]
+          sizes: [ 577, 575 ]
           children: 
             - 
               type: pane
@@ -498,22 +366,22 @@ viewAreas:
               current: 1
             - 
               type: pane
-              views: [ 0, 8 ]
-              current: 8
+              views: [ 0, 7 ]
+              current: 0
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 1301, 391 ]
+          sizes: [ 886, 266 ]
           children: 
             - 
               type: splitter
               orientation: horizontal
-              sizes: [ 922, 1202 ]
+              sizes: [ 497, 1079 ]
               children: 
                 - 
                   type: pane
-                  views: [ 5, 7, 4 ]
-                  current: 5
+                  views: [ 4, 6 ]
+                  current: 4
                 - 
                   type: pane
                   views: [ 3 ]
@@ -521,7 +389,7 @@ viewAreas:
             - 
               type: splitter
               orientation: horizontal
-              sizes: [ 1062, 1062 ]
+              sizes: [ 788, 788 ]
               children: 
                 - 
                   type: pane
@@ -529,8 +397,8 @@ viewAreas:
                   current: 2
                 - 
                   type: pane
-                  views: [ 10, 6 ]
-                  current: 6
+                  views: [ 8, 5 ]
+                  current: 5
 layoutOfToolBars: 
   rows: 
     - 
