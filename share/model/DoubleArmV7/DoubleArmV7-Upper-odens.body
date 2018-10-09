@@ -15,6 +15,11 @@ links:
         name: FRAME_GYRO
         id: 0
       -
+        type: CompetitorMarker
+        name: CompetitorMarker
+        isOptional: true
+        offsetTranslation: [ 0, 0, 1.2 ]
+      -
         type: AccelerationSensor
         name: ACCEL_SENSOR
         id: 0
