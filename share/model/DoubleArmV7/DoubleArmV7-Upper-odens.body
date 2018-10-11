@@ -1017,6 +1017,17 @@ links:
             fieldOfView: 41.08
             farClipDistance: 5
             on: false
+          -
+            type: Camera
+            name: UF_FRONT_CAMERA_DEPTH
+            translation: [ 0.5, 0.6, -0.2 ]
+            rotation: [ -0.171088, -0.970288, -0.171088, 91.73 ]
+            format: COLOR_DEPTH
+            width: 320
+            height: 240
+            fieldOfView: 62
+            frameRate: 30
+            on: true
   -
     name: MNP_SWING
     parent: UFRAME
