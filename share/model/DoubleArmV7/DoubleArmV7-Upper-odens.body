@@ -1020,8 +1020,8 @@ links:
           -
             type: Camera
             name: UF_FRONT_CAMERA_DEPTH
-            translation: [ 0.5, 0.6, -0.2 ]
-            rotation: [ -0.171088, -0.970288, -0.171088, 91.73 ]
+            translation: [ -0.25, 1.5, 0 ]
+            rotation: [ -0.2, -1, -0.2, 90 ]
             format: COLOR_DEPTH
             width: 320
             height: 240
