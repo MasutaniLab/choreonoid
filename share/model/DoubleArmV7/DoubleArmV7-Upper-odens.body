@@ -647,7 +647,7 @@ links:
             height: 720
             fieldOfView: 115.97
             farClipDistance: 5
-            on: false
+            on: true
   -
     name: TOHKU_ROLL
     parent: TOHKU_PITCH
@@ -1018,7 +1018,7 @@ links:
             height: 720
             fieldOfView: 41.08
             farClipDistance: 5
-            on: false
+            on: true
           -
             type: Camera
             name: UF_FRONT_CAMERA_DEPTH
