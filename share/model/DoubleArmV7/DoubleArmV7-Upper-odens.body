@@ -54,6 +54,8 @@ links:
             height: 240
             fieldOfView: 62
             frameRate: 30
+            nearClipDistance: 0.11
+            farClipDistance: 10.0
             on: true
           -
             type: Visual
@@ -1027,6 +1029,8 @@ links:
             height: 240
             fieldOfView: 62
             frameRate: 30
+            nearClipDistance: 0.11
+            farClipDistance: 10.0
             on: true
   -
     name: MNP_SWING
