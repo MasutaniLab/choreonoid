@@ -639,7 +639,7 @@ links:
             type: Camera
             name: Lower_Hand_Camera
             rotation: [ -0.171088,  0.970288,  0.171088, 91.73 ]
-            translation: [ -0.2, 0.20, 0 ]
+            translation: [ -0.52, 0.20, 0 ]
             format: COLOR
             width: 1280
             height: 720
@@ -1633,7 +1633,7 @@ links:
           -
             type: Camera
             name: Upper_Hand_Camera
-            translation: [ -0.2, 0.15, 0.0 ]
+            translation: [ -0.6, 0.15, 0.0 ]
             rotation: [ 0, 1, 0, 90.0 ]
             format: COLOR
             width: 1280
