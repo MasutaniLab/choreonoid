@@ -2018,7 +2018,17 @@ links:
         fieldOfView: 96
         farClipDistance: 5
         on: true
-
+      -
+        type: Camera
+        name: Upper_Hand_Tip_Camera2
+        translation: [ 0.075, 0, 0 ]
+        rotation: [ [0, 0, 1, -90], [1, 0, 0, 90]]
+        format: COLOR
+        width: 1280
+        height: 720
+        fieldOfView: 30
+        farClipDistance: 5
+        on: true
   -
     name: HANDLNK_I
     parent: HANDBASE
