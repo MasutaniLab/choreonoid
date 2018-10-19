@@ -214,7 +214,7 @@ links:
             height: 360
             fieldOfView: 96
             farClipDistance: 5
-            on: true
+            on: false
           -
             type: Camera
             name: mid_LEFT_CAMERA
@@ -225,7 +225,7 @@ links:
             height: 360
             fieldOfView: 96
             farClipDistance: 5
-            on: true
+            on: false
           -
             type: Camera
             name: Mid_TOP_CAMERA
@@ -236,7 +236,7 @@ links:
             height: 360
             fieldOfView: 96
             farClipDistance: 5
-            on: true
+            on: false
           -
             type: Camera
             name: Mid_BOTTOM_CAMERA
@@ -247,7 +247,7 @@ links:
             height: 360
             fieldOfView: 96
             farClipDistance: 5
-            on: true
+            on: false
           -
             type: Camera
             name: Mid_FRONT_CAMERA
@@ -258,7 +258,7 @@ links:
             height: 720
             fieldOfView: 40
             farClipDistance: 5
-            on: true
+            on: false
   -
     name: BLOCK
     parent: MFRAME
@@ -1007,7 +1007,7 @@ links:
             width: 640
             height: 360
             fieldOfView: 95.91
-            on: true
+            on: false
           -
             type: Camera
             name: UF_FRONT_CAMERA
@@ -2028,7 +2028,18 @@ links:
         height: 720
         fieldOfView: 30
         farClipDistance: 5
-        on: true
+        on: false
+      -
+        type: Camera
+        name: Upper_Hand_Tip_Camera3
+        translation: [ 0, 0, 0 ]
+        rotation: [ 0, 0, 1, -90.0 ]
+        format: COLOR
+        width: 1280
+        height: 720
+        fieldOfView: 20
+        farClipDistance: 5
+        on: false
   -
     name: HANDLNK_I
     parent: HANDBASE
