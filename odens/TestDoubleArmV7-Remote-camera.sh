@@ -35,7 +35,7 @@ rtcon $r:q $m:value
 rtcon $r:dv $ma:value
 rtcon $c:FRAME_FRONT_CAMERA $v1:Image
 rtcon $c:Upper_Hand_Camera $v2:Image
-rtcon $c:FRAME_FRONT_CAMERA_DEPTH-depth $p1:pc
+rtcon $c:UF_FRONT_CAMERA_DEPTH-depth $p1:pc
 
 #activate
 rtact $s $sv $m $ma $v1 $v2 $p1
