@@ -9,7 +9,6 @@ set(sources
   MenuManager.cpp
   Menu.cpp
   ProjectManager.cpp
-  ParametricPathProcessor.cpp
   PathVariableEditor.cpp
   PluginManager.cpp
   MainWindow.cpp
@@ -45,6 +44,7 @@ set(sources
   FloatingNumberBox.cpp
   ScrollBar.cpp
   Slider.cpp
+  Dial.cpp
   Splitter.cpp
   Buttons.cpp
   ButtonGroup.cpp
@@ -108,6 +108,7 @@ set(sources
   TaskView.cpp
   VirtualJoystickView.cpp
   MessageLogItem.cpp
+  LightingItem.cpp
   gl_core_3_3.c
   #gl_core_4_0.c
   #gl_core_4_4.c
@@ -132,6 +133,7 @@ set(headers
   FloatingNumberBox.h
   ScrollBar.h
   Slider.h
+  Dial.h
   Splitter.h
   Buttons.h
   ButtonGroup.h
@@ -158,7 +160,6 @@ set(headers
   ProjectManager.h
   PluginManager.h
   Plugin.h
-  ParametricPathProcessor.h
   MessageView.h
   ItemTreeView.h
   ItemList.h
@@ -188,6 +189,7 @@ set(headers
   LazySignal.h
   LazyCaller.h
   SceneWidget.h
+  SceneWidgetEvent.h
   SceneProjector.h
   SceneDragProjector.h
   SceneDragger.h
@@ -212,6 +214,7 @@ set(headers
   TextEdit.h
   TaskView.h
   MessageLogItem.h
+  LightingItem.h
   exportdecl.h
   )
 
@@ -228,6 +231,7 @@ set(qtheaders
   FloatingNumberBox.h
   ScrollBar.h
   Slider.h
+  Dial.h
   Splitter.h
   Buttons.h
   ButtonGroup.h

@@ -5,7 +5,6 @@
 #include "App.h"
 #include "AppUtil.h"
 #include "AppConfig.h"
-#include "ParametricPathProcessor.h"
 #include "ExtensionManager.h"
 #include "OptionManager.h"
 #include "PluginManager.h"
@@ -49,9 +48,11 @@
 #include "VirtualJoystickView.h"
 #include "DescriptionDialog.h"
 #include "MessageLogItem.h"
+#include "LightingItem.h"
 #include <cnoid/Config>
 #include <cnoid/ValueTree>
 #include <cnoid/CnoidUtil>
+#include <cnoid/ParametricPathProcessor>
 #include <QApplication>
 #include <QTextCodec>
 #include <QGLFormat>
@@ -230,6 +231,7 @@ void AppImpl::initialize( const char* appName, const char* vendorName, const QIc
     PointSetItem::initializeClass(ext);
     MultiPointSetItem::initializeClass(ext);
     MessageLogItem::initializeClass(ext);
+    LightingItem::initializeClass(ext);
 
     MovieRecorder::initialize(ext);
 

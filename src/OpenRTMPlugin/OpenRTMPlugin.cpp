@@ -38,6 +38,7 @@
 #include <cnoid/Sleep>
 #include <QTcpSocket>
 #include <cnoid/AppConfig>
+#include <fmt/format.h>
 #include <rtm/ComponentActionListener.h>
 
 #include "LoggerUtil.h"
@@ -47,15 +48,9 @@
 using namespace std;
 using namespace std::placeholders;
 using namespace cnoid;
-using boost::format;
+using fmt::format;
 
 namespace {
-
-// Old conf filename. This should be deprecated, but continue to use for a while
-const char* DEFAULT_CONF_FILENAME = "./rtc.conf.choreonoid";
-
-// New conf filename. It is desirable to use this.
-//const char* DEFAUT_CONF_FILENAME = "./choreonoid.rtc.conf"
 
 class ManagerEx : public RTC::Manager
 {
@@ -114,11 +109,9 @@ public:
             ::coil::Creator<::RTC::ExecutionContextBase, ExecutionContextType>,
             ::coil::Destructor<::RTC::ExecutionContextBase, ExecutionContextType>) == 0) {
 #endif
-            mv->putln(format(_("%1% has been registered.")) % name);
+            mv->putln(format(_("{} has been registered."), name));
         } else {
-            mv->putln(
-                MessageView::WARNING,
-                format(_("Failed to register %1%.")) % name);
+            mv->putln(format(_("Failed to register {}."), name), MessageView::WARNING);
         }
     }
 
@@ -137,7 +130,18 @@ public:
             }
             //
             configFile = appVars->get("defaultSetting", DEFAULT_CONF_FILENAME);
+        } else {
+            appVars->write("defaultSetting", DEFAULT_CONF_FILENAME, DOUBLE_QUOTED);
+            appVars->write("defaultVendor", "AIST", DOUBLE_QUOTED);
+            appVars->write("defaultVersion", "1.0.0", DOUBLE_QUOTED);
+
+#if defined(OPENRTM_VERSION12)
+            appVars->write("heartBeatPeriod", 500);
+#endif
+            appVars->write("outputLog", false);
+            appVars->write("logLevel", "INFO");
         }
+        DDEBUG_V("configFile : %s", configFile.c_str());
 
         const char* argv[] = {
             "choreonoid",
@@ -231,7 +235,7 @@ public:
         NameServerInfo info = RTCCommonUtil::getManagerAddress();
         if (info.hostAddress.empty() == false) {
             NameServerManager::instance()->getNCHelper()->setLocation(info.hostAddress, info.portNo);
-            DDEBUG_V("Init ncHelper host:%s, port:%d", info.hostAddress.c_str(), info.hostAddress);
+            DDEBUG_V("Init ncHelper host:%s, port:%d", info.hostAddress.c_str(), info.portNo);
         }
 
         RTSNameServerView::initializeClass(this);
@@ -309,7 +313,9 @@ public:
             if (n == 1) {
                 mv->notify(_("An RT component which is not managed by Choreonoid is being deleted."));
             } else {
-                mv->notify(format(_("%1% RT components which are not managed by Choreonoid are being deleted.")) % n);
+                mv->notify(
+                    format(_("{} RT components which are not managed by Choreonoid are being deleted."),
+                           n));
             }
             mv->flush();
             cnoid::deleteUnmanagedRTCs();
@@ -554,8 +560,9 @@ bool cnoid::deleteRTC(RTC::RtcBase* rtc)
 
         } catch (CORBA::SystemException& ex) {
             MessageView::instance()->putln(
-                MessageView::WARNING, format(_("CORBA %1% (%2%), %3% in cnoid::deleteRTC()."))
-                % ex._name() % ex._rep_id() % ex.NP_minorString());
+                format(_("CORBA {0} ({1}), {2} in cnoid::deleteRTC()."),
+                       ex._name(), ex._rep_id(), ex.NP_minorString()),
+                MessageView::WARNING);
         }
     }
 
