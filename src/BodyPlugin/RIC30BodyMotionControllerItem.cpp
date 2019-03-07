@@ -10,12 +10,13 @@
 #include <cnoid/ItemTreeView>
 #include <cnoid/ControllerIO>
 #include <cnoid/MessageView>
+#include <fmt/format.h>
 #include <cnoid/Archive>
 #include "gettext.h"
 
 using namespace std;
 using namespace cnoid;
-using boost::format;
+using fmt::format;
 
 namespace cnoid {
 
@@ -40,8 +41,9 @@ public:
 
 void RIC30BodyMotionControllerItem::initializeClass(ExtensionManager* ext)
 {
-    ext->itemManager().registerClass<RIC30BodyMotionControllerItem>(N_("RIC30BodyMotionControllerItem"));
-    ext->itemManager().addCreationPanel<RIC30BodyMotionControllerItem>();
+    ItemManager& itemManager = ext->itemManager();
+    itemManager.registerClass<RIC30BodyMotionControllerItem>(N_("RIC30BodyMotionControllerItem"));
+    itemManager.addCreationPanel<RIC30BodyMotionControllerItem>();
 }
 
 
@@ -90,14 +92,14 @@ bool RIC30BodyMotionControllerItemImpl::initialize(ControllerIO* io)
     auto mv = MessageView::instance();
 
     mv->putln(_("RIC30BodyMotionControllerItemImpl::initialize()"));
-    mv->putln(format(_("pgain: %1%")) % self->pgain());
-    mv->putln(format(_("dgain: %1%")) % self->dgain());
-    mv->putln(format(_("torquemax: %1%")) % self->torquemax());
-    mv->putln(format(_("friction: %1%")) % self->friction());
+    mv->putln(format(_("pgain: {}"), self->pgain()));
+    mv->putln(format(_("dgain: {}"), self->dgain()));
+    mv->putln(format(_("torquemax: {}"), self->torquemax()));
+    mv->putln(format(_("friction: {}"), self->friction()));
     ItemList<BodyMotionItem> motionItems;
     if(!motionItems.extractChildItems(self)){
         mv->putln(
-            format(_("Any body motion item for %1% is not found.")) % self->name(),
+            format(_("Any body motion item for {} is not found."), self->name()),
             MessageView::ERROR);
         return false;
     }
@@ -119,13 +121,13 @@ bool RIC30BodyMotionControllerItemImpl::initialize(ControllerIO* io)
     numJoints = std::min(body->numJoints(), qseqRef->numParts());
     if(qseqRef->numFrames() == 0){
         mv->putln(
-            format(_("%1% for %2% is empty.")) % motionItem->name() % self->name(),
+            format(_("{0} for {1} is empty."), motionItem->name(), self->name()),
             MessageView::ERROR);
         return false;
     }
     if(fabs(qseqRef->frameRate() - (1.0 / io->timeStep())) > 1.0e-6){
         mv->putln(
-            format(_("The frame rate of %1% is different from the world frame rate.")) % motionItem->name(),
+            format(_("The frame rate of {} is different from the world frame rate."), motionItem->name()),
             MessageView::ERROR);
     }
 
