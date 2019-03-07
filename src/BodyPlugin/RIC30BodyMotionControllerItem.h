@@ -30,6 +30,7 @@ public:
     virtual void stop() override;
     double pgain() const { return pgain_; }
     double dgain() const { return dgain_; }
+    double igain() const { return igain_; }
     double torquemax() const { return torquemax_; }
     double friction() const { return friction_; }
 
@@ -42,6 +43,7 @@ protected:
 
     double pgain_;
     double dgain_;
+    double igain_;
     double torquemax_;
     double friction_;
         

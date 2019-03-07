@@ -12,6 +12,7 @@
 #include <cnoid/MessageView>
 #include <fmt/format.h>
 #include <cnoid/Archive>
+#include <vector>
 #include "gettext.h"
 
 using namespace std;
@@ -30,6 +31,7 @@ public:
     int currentFrame;
     int lastFrame;
     int numJoints;
+    vector<double> ie;
 
     RIC30BodyMotionControllerItemImpl(RIC30BodyMotionControllerItem* self);
     bool initialize(ControllerIO* io);
@@ -52,6 +54,7 @@ RIC30BodyMotionControllerItem::RIC30BodyMotionControllerItem()
     impl = new RIC30BodyMotionControllerItemImpl(this);
     pgain_ = 31.25;
     dgain_ = 2.5;
+    igain_ = 0.0;
     torquemax_ = 0.5;
     friction_ = 0.10;
 }
@@ -63,6 +66,7 @@ RIC30BodyMotionControllerItem::RIC30BodyMotionControllerItem(const RIC30BodyMoti
     impl = new RIC30BodyMotionControllerItemImpl(this);
     pgain_ = org.pgain_;
     dgain_ = org.dgain_;
+    igain_ = org.igain_;
     torquemax_ = org.torquemax_;
     friction_ = org.friction_;
 }
@@ -94,6 +98,7 @@ bool RIC30BodyMotionControllerItemImpl::initialize(ControllerIO* io)
     mv->putln(_("RIC30BodyMotionControllerItemImpl::initialize()"));
     mv->putln(format(_("pgain: {}"), self->pgain()));
     mv->putln(format(_("dgain: {}"), self->dgain()));
+    mv->putln(format(_("igain: {}"), self->igain()));
     mv->putln(format(_("torquemax: {}"), self->torquemax()));
     mv->putln(format(_("friction: {}"), self->friction()));
     ItemList<BodyMotionItem> motionItems;
@@ -129,6 +134,11 @@ bool RIC30BodyMotionControllerItemImpl::initialize(ControllerIO* io)
         mv->putln(
             format(_("The frame rate of {} is different from the world frame rate."), motionItem->name()),
             MessageView::ERROR);
+    }
+
+    ie.resize(numJoints);
+    for (int i = 0; i < numJoints; i++) {
+        ie[i] = 0.0;
     }
 
     // Overwrite the initial position and pose
@@ -188,14 +198,27 @@ void RIC30BodyMotionControllerItemImpl::output()
     double dt2 = dt * dt;
     double pgain = self->pgain();
     double dgain = self->dgain();
+    double igain = self->igain();
     double torquemax = self->torquemax();
     double friction = self->friction();
+    double iemax;
+    if (igain == 0.0) {
+        iemax = 0.0;
+    } else {
+        iemax = torquemax / igain;
+    }
     
     for(int i=0; i < numJoints; ++i){
         Link* joint = body->joint(i);
         double q = q1[i];
         double dq = (q2[i] - q1[i]) / dt;
-        double u = pgain*(q-joint->q()) + dgain*(dq-joint->dq());
+        ie[i] += (q - joint->q())*dt;
+        if (ie[i] > iemax) {
+            ie[i] = iemax;
+        } else if (ie[i] < -iemax) {
+            ie[i] = -iemax;
+        }
+        double u = pgain*(q-joint->q()) + dgain*(dq-joint->dq()) + igain*ie[i];
         if (u<-torquemax) {
             u = -torquemax;
         } else if (u>torquemax) {
@@ -249,6 +272,7 @@ void RIC30BodyMotionControllerItem::doPutProperties(PutPropertyFunction& putProp
 {
     putProperty(_("P gain"), pgain_, changeProperty(pgain_));
     putProperty(_("D gain"), dgain_, changeProperty(dgain_));
+    putProperty(_("I gain"), igain_, changeProperty(igain_));
     putProperty(_("Torque max"), torquemax_, changeProperty(torquemax_));
     putProperty(_("Friction"), friction_, changeProperty(friction_));
 }
@@ -258,6 +282,7 @@ bool RIC30BodyMotionControllerItem::store(Archive& archive)
 {
     archive.write("pgain", pgain_);
     archive.write("dgain", dgain_);
+    archive.write("igain", igain_);
     archive.write("torquemax", torquemax_);
     archive.write("friction", friction_);
     return true;
@@ -268,6 +293,7 @@ bool RIC30BodyMotionControllerItem::restore(const Archive& archive)
 {
     archive.read("pgain", pgain_);
     archive.read("dgain", dgain_);
+    archive.read("igain", igain_);
     archive.read("torquemax", torquemax_);
     archive.read("friction", friction_);
     return true;
