@@ -33,6 +33,7 @@ public:
     double igain() const { return igain_; }
     double torquemax() const { return torquemax_; }
     double friction() const { return friction_; }
+    double damping() const { return damping_; }
 
 protected:
     virtual void onDisconnectedFromRoot() override;
@@ -46,7 +47,8 @@ protected:
     double igain_;
     double torquemax_;
     double friction_;
-        
+    double damping_;
+
 private:
     friend class RIC30BodyMotionControllerItemImpl;
     RIC30BodyMotionControllerItemImpl* impl;

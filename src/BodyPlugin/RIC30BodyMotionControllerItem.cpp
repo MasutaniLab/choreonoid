@@ -52,11 +52,12 @@ void RIC30BodyMotionControllerItem::initializeClass(ExtensionManager* ext)
 RIC30BodyMotionControllerItem::RIC30BodyMotionControllerItem()
 {
     impl = new RIC30BodyMotionControllerItemImpl(this);
-    pgain_ = 31.25;
-    dgain_ = 2.5;
+    pgain_ = 31.58;
+    dgain_ = 2.51;
     igain_ = 0.0;
     torquemax_ = 0.5;
-    friction_ = 0.10;
+    friction_ = 0.03;
+    damping_ = 0.08;
 }
 
 
@@ -69,6 +70,7 @@ RIC30BodyMotionControllerItem::RIC30BodyMotionControllerItem(const RIC30BodyMoti
     igain_ = org.igain_;
     torquemax_ = org.torquemax_;
     friction_ = org.friction_;
+    damping_ = org.damping_;
 }
 
 
@@ -101,6 +103,7 @@ bool RIC30BodyMotionControllerItemImpl::initialize(ControllerIO* io)
     mv->putln(format(_("igain: {}"), self->igain()));
     mv->putln(format(_("torquemax: {}"), self->torquemax()));
     mv->putln(format(_("friction: {}"), self->friction()));
+    mv->putln(format(_("damping: {}"), self->damping()));
     ItemList<BodyMotionItem> motionItems;
     if(!motionItems.extractChildItems(self)){
         mv->putln(
@@ -149,9 +152,20 @@ bool RIC30BodyMotionControllerItemImpl::initialize(ControllerIO* io)
         rootLink->p() = p.translation();
         rootLink->R() = p.rotation().toRotationMatrix();
     }
-    self->output();
+
+    MultiValueSeq::Frame q = qseqRef->frame(0);
+    for (int i = 0; i < numJoints; ++i) {
+        auto joint = body->joint(i);
+        joint->setActuationMode(Link::JOINT_DISPLACEMENT);
+        joint->q() = joint->q_target() = q[i];
+    }
     body->calcForwardKinematics();
-    
+
+    for (int i = 0; i < numJoints; ++i) {
+        auto joint = body->joint(i);
+        joint->setActuationMode(Link::JOINT_TORQUE);
+    }
+
     return true;
 }
 
@@ -201,13 +215,16 @@ void RIC30BodyMotionControllerItemImpl::output()
     double igain = self->igain();
     double torquemax = self->torquemax();
     double friction = self->friction();
+    double damping = self->damping();
     double iemax;
     if (igain == 0.0) {
         iemax = 0.0;
     } else {
         iemax = torquemax / igain;
     }
-    
+
+    auto mv = MessageView::instance();
+
     for(int i=0; i < numJoints; ++i){
         Link* joint = body->joint(i);
         double q = q1[i];
@@ -218,25 +235,37 @@ void RIC30BodyMotionControllerItemImpl::output()
         } else if (ie[i] < -iemax) {
             ie[i] = -iemax;
         }
+        //mv->putln(format(_("{0}, {1}, {2}, {3}, {4}"), dt, q, joint->q(), dq, joint->dq()));
+        //PIDフィードバック制御
         double u = pgain*(q-joint->q()) + dgain*(dq-joint->dq()) + igain*ie[i];
+        //トルク制限
         if (u<-torquemax) {
             u = -torquemax;
         } else if (u>torquemax) {
             u = torquemax;
         }
+        //粘性抵抗
+        u -= damping*joint->dq();
+        //摩擦
+        int cond = 0;
         if (abs(joint->dq()) < 1e-6) {
             if (abs(u) < friction ) {
                 u = 0;
             } else if (u > 0) {
                 u -= friction;
+                cond = 1;
             } else {
                 u += friction;
+                cond = 2;
             }
         } else if (joint->dq() > 0) {
             u -= friction;
+            cond = 3;
         } else {
             u += friction;
+            cond = 4;
         }
+        //mv->putln(format(_("cond: {}"), cond));
         joint->u() = u;
     }
 }
@@ -275,6 +304,7 @@ void RIC30BodyMotionControllerItem::doPutProperties(PutPropertyFunction& putProp
     putProperty(_("I gain"), igain_, changeProperty(igain_));
     putProperty(_("Torque max"), torquemax_, changeProperty(torquemax_));
     putProperty(_("Friction"), friction_, changeProperty(friction_));
+    putProperty(_("Damping"), damping_, changeProperty(damping_));
 }
 
 
@@ -285,6 +315,7 @@ bool RIC30BodyMotionControllerItem::store(Archive& archive)
     archive.write("igain", igain_);
     archive.write("torquemax", torquemax_);
     archive.write("friction", friction_);
+    archive.write("damping", damping_);
     return true;
 }
     
@@ -296,5 +327,6 @@ bool RIC30BodyMotionControllerItem::restore(const Archive& archive)
     archive.read("igain", igain_);
     archive.read("torquemax", torquemax_);
     archive.read("friction", friction_);
+    archive.read("damping", damping_);
     return true;
 }
