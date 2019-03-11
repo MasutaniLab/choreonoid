@@ -28,6 +28,7 @@ public:
     void startSimulation(bool doRest = true);
     void stopSimulation(SimulatorItem* simulator);
     void pauseSimulation(SimulatorItem* simulator);
+    void onStopSimulationClicked();
 
     virtual ~SimulationBar();
 
@@ -37,7 +38,6 @@ private:
     void onStoreInitialClicked();
     void onRestoreInitialClicked();
     void forEachSimulator(std::function<void(SimulatorItem* simulator)> callback, bool doSelect = false);
-    void onStopSimulationClicked();
     void onPauseSimulationClicked();
     ToolButton* pauseToggle;
 
