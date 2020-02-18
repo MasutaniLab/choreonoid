@@ -7,14 +7,15 @@
 #include "RootItem.h"
 #include "ItemPath.h"
 #include "ItemManager.h"
-#include <boost/filesystem.hpp>
+#include <cnoid/stdx/filesystem>
+#include <chrono>
 #include <typeinfo>
 #include <unordered_set>
 #include "gettext.h"
 
 using namespace std;
-namespace filesystem = boost::filesystem;
 using namespace cnoid;
+namespace filesystem = cnoid::stdx::filesystem;
 
 //tmp
 #include <iostream>
@@ -475,6 +476,12 @@ Item* Item::findSubItem(const std::string& path) const
 }
 
 
+Item* Item::rootItem()
+{
+    return RootItem::instance();
+}
+
+
 RootItem* Item::findRootItem() const
 {
     Item* current = const_cast<Item*>(this);
@@ -729,7 +736,7 @@ void Item::updateFileInformation(const std::string& filename, const std::string&
 {
     filesystem::path fpath(filename);
     if(filesystem::exists(fpath)){
-        fileModificationTime_ = filesystem::last_write_time(fpath);
+        fileModificationTime_ = filesystem::last_write_time_to_time_t(fpath);
         isConsistentWithFile_ = true;
     } else {
         fileModificationTime_ = 0;

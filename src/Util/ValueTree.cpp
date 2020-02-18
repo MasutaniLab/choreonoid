@@ -6,9 +6,8 @@
 #include <stack>
 #include <iostream>
 #include <yaml.h>
-#include <boost/lexical_cast.hpp>
+#include <cnoid/stdx/filesystem>
 #include <fmt/format.h>
-#include <boost/filesystem.hpp>
 #include "gettext.h"
 
 #ifdef _WIN32
@@ -16,7 +15,6 @@
 #endif
 
 using namespace std;
-using namespace boost;
 using namespace cnoid;
 
 namespace {
@@ -42,6 +40,9 @@ const char* defaultDoubleFormat = "%.6g";
 ValueNodePtr invalidNode;
 MappingPtr invalidMapping;
 ListingPtr invalidListing;
+
+constexpr double PI = 3.141592653589793238462643383279502884;
+constexpr double TO_RADIAN = PI / 180.0;
 
 }
 
@@ -234,6 +235,16 @@ double ValueNode::toDouble() const
 }
 
 
+double ValueNode::toAngle() const
+{
+    if(isDegreeMode()){
+        return TO_RADIAN * toDouble();
+    } else {
+        return toDouble();
+    }
+}
+
+
 bool ValueNode::read(bool& out_value) const
 {
     if(isScalar()){
@@ -339,7 +350,7 @@ ScalarNode::ScalarNode(const char* text, size_t length, StringStyle stringStyle)
 
 
 ScalarNode::ScalarNode(int value)
-    : stringValue_(lexical_cast<string>(value))
+    : stringValue_(std::to_string(value))
 {
     typeBits = SCALAR;
     line_ = -1;
@@ -851,7 +862,7 @@ void Mapping::write(const std::string &key, double value)
 
 void Mapping::writePath(const std::string &key, const std::string& value)
 {
-    write(key, filesystem::path(value).string(), DOUBLE_QUOTED);
+    write(key, stdx::filesystem::path(value).string(), DOUBLE_QUOTED);
 }
 
 
