@@ -26,7 +26,7 @@ class RIC30BodyMotionControllerItemImpl
 public:
     RIC30BodyMotionControllerItem* self;
     BodyMotionItemPtr motionItem;
-    MultiValueSeqPtr qseqRef;
+    shared_ptr<MultiValueSeq> qseqRef;
     BodyPtr body;
     int currentFrame;
     int lastFrame;
@@ -145,7 +145,7 @@ bool RIC30BodyMotionControllerItemImpl::initialize(ControllerIO* io)
     }
 
     // Overwrite the initial position and pose
-    MultiSE3SeqPtr lseq = motionItem->linkPosSeq();
+    shared_ptr<MultiSE3Seq> lseq = motionItem->linkPosSeq();
     if(lseq->numParts() > 0 && lseq->numFrames() > 0){
         SE3& p = lseq->at(0, 0);
         Link* rootLink = body->rootLink();
@@ -236,17 +236,17 @@ void RIC30BodyMotionControllerItemImpl::output()
             ie[i] = -iemax;
         }
         //mv->putln(format(_("{0}, {1}, {2}, {3}, {4}"), dt, q, joint->q(), dq, joint->dq()));
-        //PIDƒtƒB[ƒhƒoƒbƒN§Œä
+        //PIDï¿½tï¿½Bï¿½[ï¿½hï¿½oï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½
         double u = pgain*(q-joint->q()) + dgain*(dq-joint->dq()) + igain*ie[i];
-        //ƒgƒ‹ƒN§ŒÀ
+        //ï¿½gï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½ï¿½
         if (u<-torquemax) {
             u = -torquemax;
         } else if (u>torquemax) {
             u = torquemax;
         }
-        //”S«’ïR
+        //ï¿½Sï¿½ï¿½ï¿½ï¿½R
         u -= damping*joint->dq();
-        //–€C
+        //ï¿½ï¿½ï¿½C
         int cond = 0;
         if (abs(joint->dq()) < 1e-6) {
             if (abs(u) < friction ) {
