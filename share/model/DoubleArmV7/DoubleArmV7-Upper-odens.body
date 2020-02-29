@@ -1945,37 +1945,50 @@ links:
     material: Hand
     elements:
       -
-        type: Visual
-        resource: { uri: "prt/hand_tip_asm_v7_marge.wrl" }
-      -
         type: Collision
         elements: &HANDTIP_COLLISION_MODEL
           -
             type: Shape
-            translation: [ 0.055, -0.044, 0 ]
+            translation: [ 0.075, -0.0398, -0.0102 ]
+            rotation: [ 1, 0, 0, -45 ]
+            geometry: { type: Box, size: [ 0.070, 0.012, 0.017 ] }
+            # appearance:
+            #   material:
+            #     diffuseColor: [ 1, 0, 0 ]
+          -
+            type: Shape
+            translation: [ 0.075, -0.0398, 0.0102 ]
+            rotation: [ 1, 0, 0, 45 ]
+            geometry: { type: Box, size: [ 0.070, 0.012, 0.017 ] }
+            # appearance:
+            #   material:
+            #     diffuseColor: [ 1, 0, 0 ]
+          -
+            type: Shape
+            translation: [ 0.055, -0.032, 0 ]
             geometry: { type: Box, size: [ 0.030, 0.012, 0.050 ] }
           -
             type: Shape
-            translation: [ 0.075, -0.044, 0 ]
-            geometry: { type: Box, size: [ 0.070, 0.012, 0.026 ] }
+            translation: [ 0.075, -0.027, 0 ]
+            geometry: { type: Box, size: [ 0.070, 0.022, 0.026 ] }
           -
             type: Shape
-            translation: [ 0.107458, -0.044, -0.013040 ]
+            translation: [ 0.107458, -0.032, -0.013040 ]
             rotation: [ 0, 1, 0, 37.23 ]
             geometry: { type: Box, size: [ 0.004, 0.012, 0.003140 ] }
           -
             type: Shape
-            translation: [ 0.107458, -0.044, 0.013040 ]
+            translation: [ 0.107458, -0.032, 0.013040 ]
             rotation: [ 0, 1, 0, -37.23 ]
             geometry: { type: Box, size: [ 0.004, 0.012, 0.003140 ] }
           -
             type: Shape
-            translation: [ 0.086631, -0.044, 0.010547 ]
+            translation: [ 0.086631, -0.032, 0.010547 ]
             rotation: [ 0, 1, 0, -76.00 ]
             geometry: { type: Box, size: [ 0.02, 0.012, 0.039267 ] }
           -
             type: Shape
-            translation: [ 0.086631, -0.044, -0.010547 ]
+            translation: [ 0.086631, -0.032, -0.010547 ]
             rotation: [ 0, 1, 0, 76.00 ]
             geometry: { type: Box, size: [ 0.02, 0.012, 0.039267 ] }
           -
@@ -1984,9 +1997,12 @@ links:
             geometry: { type: Box, size: [ 0.077, 0.015, 0.024 ] }
           -
             type: Shape
-            translation: [ 0.052836, -0.017650, 0.0 ]
+            translation: [ 0.035358, -0.012493, 0.0 ]
             rotation: [ 0, 0, 1, 70.54 ]
-            geometry: { type: Box, size: [ 0.028, 0.111362, 0.024 ] }
+            geometry: { type: Box, size: [ 0.028, 0.075, 0.024 ] }
+            # appearance:
+            #   material:
+            #     diffuseColor: [ 0, 1, 0 ]
           -
             type: Shape
             translation: [ 0.024299, -0.027011, 0.0 ]
@@ -2007,6 +2023,9 @@ links:
             translation: [ 0.0, 0.0, 0.0 ]
             rotation: [ 1, 0, 0, 90 ]
             geometry: { type: Cylinder, radius: 0.0150, height: 0.024 }
+      -
+        type: Visual
+        elements: *HANDTIP_COLLISION_MODEL
       -
         type: Camera
         name: Upper_Hand_Tip_Camera
@@ -2120,7 +2139,7 @@ links:
     elements:
       -
         type: Visual
-        resource: { uri: "prt/hand_tip_asm_v7_marge.wrl" }
+        elements: *HANDTIP_COLLISION_MODEL
       -
         type: Collision
         elements: *HANDTIP_COLLISION_MODEL
