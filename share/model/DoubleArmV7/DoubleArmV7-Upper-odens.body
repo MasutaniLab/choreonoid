@@ -1949,17 +1949,17 @@ links:
         elements: &HANDTIP_COLLISION_MODEL
           -
             type: Shape
-            translation: [ 0.075, -0.0398, -0.0102 ]
+            translation: [ 0.075, -0.044364, -0.01485 ]
             rotation: [ 1, 0, 0, -45 ]
-            geometry: { type: Box, size: [ 0.070, 0.012, 0.017 ] }
+            geometry: { type: Box, size: [ 0.070, 0.012, 0.030 ] }
             # appearance:
             #   material:
             #     diffuseColor: [ 1, 0, 0 ]
           -
             type: Shape
-            translation: [ 0.075, -0.0398, 0.0102 ]
+            translation: [ 0.075, -0.044364, 0.01485 ]
             rotation: [ 1, 0, 0, 45 ]
-            geometry: { type: Box, size: [ 0.070, 0.012, 0.017 ] }
+            geometry: { type: Box, size: [ 0.070, 0.012, 0.030 ] }
             # appearance:
             #   material:
             #     diffuseColor: [ 1, 0, 0 ]
