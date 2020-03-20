@@ -13,18 +13,10 @@ public:
 
     Link::ActuationMode mainActuationMode;
 
-    enum TrackType { NO_TRACKS = 0, CONTINOUS_TRACKS, PSEUDO_TRACKS };
-    int trackType;
-    Link* trackL;
-    Link* trackR;
-    double trackgain;
-
     vector<int> armJointIdMap;
     vector<Link*> armJoints;
     vector<double> q_ref;
     vector<double> q_prev;
-    vector<double> pgain;
-    vector<double> dgain;
     double* q_tip1;
     double* q_tip2;
 
@@ -52,18 +44,10 @@ public:
 
     TestArmController();
     virtual bool initialize(SimpleControllerIO* io) override;
-    bool initContinuousTracks(SimpleControllerIO* io);
-    bool initPseudoContinuousTracks(SimpleControllerIO* io);
     void initArms(SimpleControllerIO* io);
-    void initPDGain();
     void initJoystickKeyBind();
     virtual bool control() override;
-    void controlTracks();
     void setTargetArmPositions();
-    void controlArms();
-    void controlArmsWithTorque();
-    void controlArmsWithVelocity();
-    void controlArmsWithPosition();
 
     Link* link(const char* name) { return body->link(name); }
 };
@@ -71,34 +55,15 @@ public:
 
 TestArmController::TestArmController()
 {
-    mainActuationMode = Link::ActuationMode::JOINT_TORQUE;
-    trackType = NO_TRACKS;
+    mainActuationMode = Link::ActuationMode::JOINT_DISPLACEMENT;
 }
-
 
 bool TestArmController::initialize(SimpleControllerIO* io)
 {
     body = io->body();
     dt = io->timeStep();
 
-    io->os() << "The actuation mode of " << io->controllerName() << " is ";
-    string option = io->optionString();
-    if(option == "velocity"){
-        mainActuationMode = Link::ActuationMode::JOINT_VELOCITY;
-        io->os() << "JOINT_VELOCITY";
-    } else if(option  == "position"){
-        mainActuationMode = Link::ActuationMode::JOINT_DISPLACEMENT;
-        io->os() << "JOINT_DISPLACEMENT";
-    } else {
-        mainActuationMode = Link::ActuationMode::JOINT_EFFORT;
-        io->os() << "JOINT_EFFORT";
-    }
-    io->os() << "." << endl;
-
-    initContinuousTracks(io) || initPseudoContinuousTracks(io);
-    
     initArms(io);
-    initPDGain();
 
     joystick = io->getOrCreateSharedObject<SharedJoystick>("joystick");
     arm1Mode = joystick->addMode();
@@ -107,55 +72,6 @@ bool TestArmController::initialize(SimpleControllerIO* io)
 
     return true;
 }
-
-
-bool TestArmController::initContinuousTracks(SimpleControllerIO* io)
-{
-    trackL = link("WHEEL_L0");
-    trackR = link("WHEEL_R0");
-
-    if(!trackL || !trackR){
-        return false;
-    }
-    
-    if(mainActuationMode == Link::ActuationMode::JOINT_EFFORT){
-        trackL->setActuationMode(Link::ActuationMode::JOINT_TORQUE);
-        trackR->setActuationMode(Link::ActuationMode::JOINT_TORQUE);
-    } else {
-        trackL->setActuationMode(Link::ActuationMode::JOINT_VELOCITY);
-        trackR->setActuationMode(Link::ActuationMode::JOINT_VELOCITY);
-    }
-    
-    io->enableOutput(trackL);
-    io->enableOutput(trackR);
-
-    trackType = CONTINOUS_TRACKS;
-    
-    io->os() << "Continuous tracks of " << body->name() << " are detected." << endl;
-    
-    return true;
-}
-
-
-bool TestArmController::initPseudoContinuousTracks(SimpleControllerIO* io)
-{
-    trackL = link("TRACK_L");
-    trackR = link("TRACK_R");
-
-    if(!trackL || !trackR){
-        return false;
-    }
-
-    if(trackL->actuationMode() == Link::JOINT_SURFACE_VELOCITY && trackR->actuationMode() == Link::JOINT_SURFACE_VELOCITY){
-        io->enableOutput(trackL);
-        io->enableOutput(trackR);
-        trackType = PSEUDO_TRACKS;
-        io->os() << "Pseudo continuous tracks of " << body->name() << " are detected." << endl;
-    }
-
-    return (trackType == PSEUDO_TRACKS);
-}
-
 
 void TestArmController::initArms(SimpleControllerIO* io)
 {
@@ -175,43 +91,6 @@ void TestArmController::initArms(SimpleControllerIO* io)
     q_tip1 = &q_ref[armJointIdMap[link("TOHKU_TIP_01")->jointId()]];
     q_tip2 = &q_ref[armJointIdMap[link("TOHKU_TIP_02")->jointId()]];
 }
-
-
-void TestArmController::initPDGain()
-{
-    // Tracks
-    if(trackType == CONTINOUS_TRACKS){
-        if(mainActuationMode == Link::ActuationMode::JOINT_EFFORT){
-            trackgain = 2000.0;
-        } else {
-            trackgain = 2.0;
-        }
-    } else if(trackType == PSEUDO_TRACKS){
-        trackgain = 1.0;
-    }
-
-    // Arm
-    if(mainActuationMode == Link::ActuationMode::JOINT_EFFORT){
-        pgain = {
-        /* MFRAME */ 200000, /* BLOCK */ 150000, /* BOOM */ 150000, /* ARM  */ 100000,
-        /* PITCH  */  30000, /* ROLL  */  20000, /* TIP1 */    500, /* TIP2 */    500,
-        /* UFRAME */ 150000, /* SWING */  50000, /* BOOM */ 100000, /* ARM  */  80000,
-        /* ELBOW */   30000, /* YAW   */  20000, /* HAND */    500, /* ROD  */  50000};
-        dgain = {
-        /* MFRAME */ 20000, /* BLOCK */ 15000, /* BOOM */ 10000, /* ARM  */ 5000,
-        /* PITCH  */   500, /* ROLL  */   500, /* TIP1 */    50, /* TIP2 */   50,
-        /* UFRAME */ 15000, /* SWING */  1000, /* BOOM */  3000, /* ARM  */ 2000,
-        /* ELBOW */    500, /* YAW   */   500, /* HAND */    20, /* ROD  */ 5000};
-
-    } else if(mainActuationMode == Link::ActuationMode::JOINT_VELOCITY){
-        pgain = {
-        /* MFRAME */ 100, /* BLOCK */ 100, /* BOOM */ 100, /* ARM  */ 100,
-        /* PITCH  */  50, /* ROLL  */  50, /* TIP1 */   5, /* TIP2 */   5,
-        /* UFRAME */ 100, /* SWING */ 100, /* BOOM */ 100, /* ARM  */ 100,
-        /* ELBOW */   50, /* YAW   */  20, /* HAND */  20, /* ROD  */  50};
-    }
-}
-
 
 void TestArmController::initJoystickKeyBind()
 {
@@ -266,52 +145,13 @@ bool TestArmController::control()
 
     shiftState = joystick->getButtonState(SHIFT_BUTTON) ? 1 : 0;
 
-    if(trackType){
-        controlTracks();
+    setTargetArmPositions();
+
+    for (size_t i = 0; i < armJoints.size(); ++i) {
+      armJoints[i]->q_target() = q_ref[i];
     }
-    
-    controlArms();
 
     return true;
-}
-
-
-void TestArmController::controlTracks()
-{
-    trackL->u() = 0.0;
-    trackL->dq() = 0.0;
-    trackR->u() = 0.0;
-    trackR->dq() = 0.0;
-    
-    const double k1 = 0.4;
-    const double k2 = 0.6;
-
-    double pos[2];
-    pos[0] = k1 * joystick->getPosition(currentJoystickMode, Joystick::DIRECTIONAL_PAD_H_AXIS);
-    pos[1] = k1 * joystick->getPosition(currentJoystickMode, Joystick::DIRECTIONAL_PAD_V_AXIS);
-    
-    if(shiftState == 1){
-        pos[0] += k2 * (
-            joystick->getPosition(currentJoystickMode, Joystick::L_STICK_H_AXIS) +
-            joystick->getPosition(currentJoystickMode, Joystick::R_STICK_H_AXIS));
-        pos[1] += k2 * (
-            joystick->getPosition(currentJoystickMode, Joystick::L_STICK_V_AXIS) +
-            joystick->getPosition(currentJoystickMode, Joystick::R_STICK_V_AXIS));
-    }
-    
-    for(int i=0; i < 2; ++i){
-        if(fabs(pos[i]) < 0.2){
-            pos[i] = 0.0;
-        }
-    }
-
-    if(trackType == CONTINOUS_TRACKS && mainActuationMode == Link::ActuationMode::JOINT_EFFORT){
-        trackL->u() = trackgain * (-2.0 * pos[1] + pos[0]);
-        trackR->u() = trackgain * (-2.0 * pos[1] - pos[0]);
-    } else {
-        trackL->dq_target() = trackgain * (-2.0 * pos[1] + pos[0]);
-        trackR->dq_target() = trackgain * (-2.0 * pos[1] - pos[0]);
-    }
 }
 
 
@@ -336,12 +176,7 @@ void TestArmController::setTargetArmPositions()
 
     // Restrict each target position by taking the joint displacement range
     // and the cunnret joint displacement into accout
-    double maxerror;
-    if(mainActuationMode == Link::ActuationMode::JOINT_EFFORT){
-        maxerror = radian(20.0);
-    } else {
-        maxerror = radian(5.0);
-    }
+    double maxerror = radian(5.0);
     for(size_t i=0; i < armJoints.size(); ++i){
         auto joint = armJoints[i];
         auto& q = q_ref[i];
@@ -358,56 +193,5 @@ void TestArmController::setTargetArmPositions()
     // Align the positions of the tip joints
     (*q_tip1) = (*q_tip2) = std::max(*q_tip1, *q_tip2);
 }
-
-
-void TestArmController::controlArms()
-{
-    setTargetArmPositions();
-
-    switch(mainActuationMode){
-    case Link::ActuationMode::JOINT_DISPLACEMENT:
-        controlArmsWithPosition();
-        break;
-    case Link::ActuationMode::JOINT_VELOCITY:
-        controlArmsWithVelocity();
-        break;
-    case Link::ActuationMode::JOINT_EFFORT:
-        controlArmsWithTorque();
-        break;
-    default:
-        break;
-    }
-}
-
-
-void TestArmController::controlArmsWithPosition()
-{
-    for(size_t i=0; i < armJoints.size(); ++i){
-        armJoints[i]->q_target() = q_ref[i];
-    }
-}
-
-
-void TestArmController::controlArmsWithVelocity()
-{
-    for(size_t i=0; i < armJoints.size(); ++i){
-        auto joint = armJoints[i];
-        auto q_current = joint->q();
-        joint->dq_target() = pgain[i] * (q_ref[i] - q_current);
-    }
-}
-
-
-void TestArmController::controlArmsWithTorque()
-{
-    for(size_t i=0; i < armJoints.size(); ++i){
-        auto joint = armJoints[i];
-        auto q_current = joint->q();
-        auto dq_current = (q_current - q_prev[i]) / dt;
-        joint->u() = pgain[i] * (q_ref[i] - q_current) + dgain[i] * (0.0 - dq_current);
-        q_prev[i] = q_current;
-    }
-}
-
 
 CNOID_IMPLEMENT_SIMPLE_CONTROLLER_FACTORY(TestArmController)
