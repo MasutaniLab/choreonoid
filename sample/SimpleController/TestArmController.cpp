@@ -1,6 +1,7 @@
 #include <cnoid/SimpleController>
 #include <cnoid/SharedJoystick>
 #include <cnoid/EigenUtil>
+#include <iostream>
 
 using namespace std;
 using namespace cnoid;
@@ -27,7 +28,7 @@ bool TestArmController::initialize(SimpleControllerIO* io)
     mainActuationMode = Link::ActuationMode::JOINT_DISPLACEMENT;
     body = io->body();
     dt = io->timeStep();
-
+    armJoints.clear();
     for (auto joint : body->joints()) {
         if (joint->jointId() >= 0 && (joint->isRevoluteJoint() || joint->isPrismaticJoint())) {
             joint->setActuationMode(mainActuationMode);
@@ -45,8 +46,14 @@ bool TestArmController::initialize(SimpleControllerIO* io)
 
 bool TestArmController::control()
 {
+    joystick->getModeButtonState() ;
+    //std::cout<<"q_ref[0]=" << joystick->getModeButtonState() <<std::endl;   
+
     q_ref[0] += -0.6 * joystick->getPosition(Joystick::L_STICK_H_AXIS) * dt;
-    q_ref[1] += -0.6 * joystick->getPosition(Joystick::R_STICK_H_AXIS) * dt;
+    q_ref[1] += -0.6  * joystick->getPosition(Joystick::R_STICK_H_AXIS) * dt;
+
+    std::cout<<"q_ref[1]=" << joystick->getButtonState(Joystick::A_BUTTON) <<std::endl;
+    std::cout<<"q_ref[2]=" << joystick->getPosition(Joystick::L_STICK_H_AXIS) <<std::endl;
 
     double maxerror = radian(5.0);
     for (size_t i = 0; i < armJoints.size(); ++i) {

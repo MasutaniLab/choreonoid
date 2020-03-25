@@ -1,0 +1,80 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+angleUnit: degree
+name: Testarm
+
+links:
+  -
+    name: Frame
+    translation: [ 0, 0, 1.0 ]
+    jointType: fixed
+    centerOfMass: [ 0, 0, 0 ]
+    mass: 8.0
+    inertia: [
+      0.1, 0,   0,
+      0,   0.1, 0,
+      0,   0,   0.5 ]
+    elements:
+      Shape:
+        geometry:
+          type: Box
+          size: [ 0.01, 1.2, 0.1 ]
+        appearance: &BodyAppearance
+          material:
+            diffuseColor: [ 0, 0.6, 0 ]
+            specularColor: [ 0.2, 0.8, 0.2 ]
+            shininess: 0.6
+  -
+    name: Right_Arm
+    parent: Frame
+    translation: [ 0.2, 0.35, 0 ]
+    rotation: [ -0.5, 0, 0, 45]
+    jointType: fixed
+    centerOfMass: [ 0, 0, 0 ]
+    mass: 8.0
+    inertia: [
+      0.1, 0,   0,
+      0,   0.1, 0,
+      0,   0,   0.5 ]
+    elements:
+      Shape:
+        geometry:
+          type: Box
+          size: [ 0.3, 0.01, 1.45 ]
+        appearance: *BodyAppearance
+  -
+    name: Left_Arm
+    parent: Frame
+    translation: [ 0.2, -0.35, 0 ]
+    rotation: [ 0.5, 0, 0, 45]
+    jointType: fixed
+    centerOfMass: [ 0, 0, 0 ]
+    mass: 8.0
+    inertia:  [
+      0.1, 0,   0,
+      0,   0.1, 0,
+      0,   0,   0.5 ]
+    elements:
+      Shape:
+        geometry:
+          type: Box
+          size: [ 0.3, 0.01, 1.45 ]
+        appearance: *BodyAppearance
+  -
+    name: Frame2
+    parent: Frame
+    translation: [ 0.4, 0, -0.2 ]
+    jointType: fixed
+    centerOfMass: [ 0, 0, 0 ]
+    mass: 8.0
+    inertia:  [
+      0.1, 0,   0,
+      0,   0.1, 0,
+      0,   0,   0.5 ]
+    elements:
+      Shape:
+        geometry:
+          type: Box
+          size: [ 0.01, 1.2, 0.1 ]
+        appearance: *BodyAppearance
+
