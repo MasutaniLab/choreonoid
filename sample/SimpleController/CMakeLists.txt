@@ -46,6 +46,9 @@ list(APPEND project_files
   AizuSpiderNS.cnoid AizuSpiderNA.cnoid AizuSpiderSS.cnoid
   AizuSpiderSA.cnoid AizuSpiderDS.cnoid AizuSpiderDA.cnoid)
 
+# TestArm sample
+add_cnoid_simple_controller(TestArmController TestArmController.cpp)
+
 # AizuWheel sample
 add_cnoid_simple_controller(AizuWheelController AizuWheelController.cpp)
 list(APPEND project_files AizuWheel.cnoid)
