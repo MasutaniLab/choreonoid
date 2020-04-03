@@ -6,70 +6,105 @@ items:
   children: 
     - 
       id: 1
-      name: "World"
-      plugin: Body
-      class: WorldItem
-      data: 
-        collisionDetection: false
-        collisionDetector: AISTCollisionDetector
-        materialTableFile: "${SHARE}/default/materials.yaml"
-    - 
-      id: 2
-      name: "DoubleArmV7"
+      name: "L-50-2.0-4.0"
       plugin: Body
       class: BodyItem
       data: 
-        modelFile: "${SHARE}/model/DoubleArmV7/DoubleArmV7A.body"
-        currentBaseLink: "TFRAME"
-        rootPosition: [ 1, 0.0037, 0.5376 ]
+        modelFile: "${PROJECT_DIR}/L-50-2.0-4.0.body"
+        currentBaseLink: "Pipe-L-50-2.0-4.0"
+        rootPosition: [ 6, 0, 0.975 ]
+        rootAttitude: [ 
+          6.123234e-17, 1, 6.123234e-17, 
+          0, 6.123234e-17, -1, 
+          -1, 6.123234e-17, 3.74939946e-33 ]
+        jointPositions: [  ]
+        initialRootPosition: [ 6, 0, 0.975 ]
+        initialRootAttitude: [ 
+          0, 1, 0, 
+          0, 0, -1, 
+          -1, 0, 0 ]
+        zmp: [ 0, 0, 0 ]
+        collisionDetection: true
+        selfCollisionDetection: false
+        isEditable: true
+    - 
+      id: 2
+      name: "BaseA-50.0"
+      plugin: Body
+      class: BodyItem
+      data: 
+        modelFile: "${PROJECT_DIR}/BaseA-50-T4-02.body"
+        currentBaseLink: "Base"
+        rootPosition: [ 6, 0, 1 ]
         rootAttitude: [ 
           1, 0, 0, 
           0, 1, 0, 
           0, 0, 1 ]
-        jointPositions: [ 
-           0.391500, -0.762258, -1.310742,  2.654646,  0.000000,  0.101593, -0.349066, -0.349066, -0.000000, -0.000000, 
-           0.000000,  0.000000, -0.000000, -0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
-           0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
-           0.000000,  0.000000 ]
-        initialRootPosition: [ 1, 0.0037, 0.5376 ]
+        jointPositions: [  ]
+        initialRootPosition: [ 6, 0, 1 ]
         initialRootAttitude: [ 
           1, 0, 0, 
           0, 1, 0, 
           0, 0, 1 ]
-        initialJointPositions: [ 
-           0.391500, -0.762258, -1.310742,  2.654646,  0.000000,  0.101593, -0.349066, -0.349066, -0.000000, -0.000000, 
-           0.000000,  0.000000, -0.000000, -0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
-           0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
-           0.000000,  0.000000 ]
         zmp: [ 0, 0, 0 ]
         collisionDetection: true
-        selfCollisionDetection: true
-        isEditable: true
-      children: 
-        - 
-          id: 3
-          name: "DoubleArmV7Controller"
-          plugin: Body
-          class: SimpleControllerItem
-          data: 
-            isNoDelayMode: false
-            controllerOptions: ""
-            controller: "DoubleArmV7Controller"
-            baseDirectory: "Controller directory"
-            reloading: true
-            isOldTargetVariableMode: false
-        - 
-          id: 4
-          name: "BodyTrackingCamera"
-          plugin: Body
-          class: BodyTrackingCameraItem
-          data: 
-            targetLink: ""
-            keepRelativeAttitude: false
-            cameraType: "Perspective"
-            nearClipDistance: 0.05
-            farClipDistance: 200
-            fieldOfView: 0.785398
+        selfCollisionDetection: false
+        isEditable: false
+    - 
+      id: 3
+      name: "RoadSurface60m"
+      plugin: Body
+      class: BodyItem
+      data: 
+        modelFile: "${SHARE}/model/WRS2018/RoadSurface60m.body"
+        currentBaseLink: ""
+        rootPosition: [ 0, 0, 0 ]
+        rootAttitude: [ 
+          1, 0, 0, 
+          0, 1, 0, 
+          0, 0, 1 ]
+        jointPositions: [  ]
+        initialRootPosition: [ 0, 0, 0 ]
+        initialRootAttitude: [ 
+          1, 0, 0, 
+          0, 1, 0, 
+          0, 0, 1 ]
+        zmp: [ 0, 0, 0 ]
+        collisionDetection: true
+        selfCollisionDetection: false
+        isEditable: false
+    - 
+      id: 4
+      name: "TunnelWall60m-L"
+      plugin: Body
+      class: BodyItem
+      data: 
+        modelFile: "${SHARE}/model/WRS2018/TunnelWall60m-L.body"
+        currentBaseLink: "1_Base"
+        rootPosition: [ 0, 0, 0 ]
+        rootAttitude: [ 
+          1, 0, 0, 
+          0, 1, 0, 
+          0, 0, 1 ]
+        jointPositions: [  ]
+        initialRootPosition: [ 0, 0, 0 ]
+        initialRootAttitude: [ 
+          1, 0, 0, 
+          0, 1, 0, 
+          0, 0, 1 ]
+        zmp: [ 0, 0, 0 ]
+        collisionDetection: true
+        selfCollisionDetection: false
+        isEditable: false
+    - 
+      id: 5
+      name: "WorldLogFile"
+      plugin: Body
+      class: WorldLogFileItem
+      data: 
+        filename: T1.log
+        timeStampSuffix: true
+        recordingFrameRate: 100
 views: 
   - 
     id: 0
@@ -87,8 +122,8 @@ views:
     class: ItemTreeView
     mounted: true
     state: 
-      checked: [ 2, 4 ]
-      expanded: [ 1, 2 ]
+      checked: [ 1, 2, 3, 4 ]
+      expanded: [ 2, 3 ]
   - 
     id: 3
     plugin: Base
@@ -100,7 +135,7 @@ views:
     class: SceneView
     mounted: true
     state: 
-      editMode: false
+      editMode: true
       viewpointControlMode: thirdPerson
       collisionLines: false
       polygonMode: fill
@@ -135,23 +170,18 @@ views:
       cameras: 
         - 
           camera: [ System, Perspective ]
+          isCurrent: true
           fieldOfView: 0.698132
           near: 0.04
           far: 200
-          eye: [ 4, 2, 1.5 ]
-          direction: [ -0.888888889, -0.444444444, -0.111111111 ]
-          up: [ -0.0993807989, -0.0496903995, 0.99380799 ]
+          eye: [ -6.35631652, -5.07308012, 1.64166347 ]
+          direction: [ 0.84696412, 0.525404604, -0.0812513478 ]
+          up: [ 0.0690452645, 0.0428314483, 0.996693643 ]
         - 
           camera: [ System, Orthographic ]
           orthoHeight: 20
           near: 0.04
           far: 200
-        - 
-          camera: BodyTrackingCamera
-          isCurrent: true
-          eye: [ -2.61951924, -2.46536682, 2.08675891 ]
-          direction: [ 0.845524847, 0.509197307, -0.160641948 ]
-          up: [ 0.137613986, 0.0828747629, 0.987012748 ]
       backgroundColor: [ 0.100000001, 0.100000001, 0.300000012 ]
       gridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
       xzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
@@ -195,33 +225,12 @@ views:
       enableNewDisplayListDoubleRendering: false
       useBufferForPicking: true
       upsideDown: false
-      cameras: 
-        - 
-          camera: [ System, Perspective ]
-          fieldOfView: 0.698132
-          near: 0.04
-          far: 200
-          eye: [ 4, 2, 1.5 ]
-          direction: [ -0.888888889, -0.444444444, -0.111111111 ]
-          up: [ -0.0993807989, -0.0496903995, 0.99380799 ]
-        - 
-          camera: [ System, Orthographic ]
-          orthoHeight: 20
-          near: 0.04
-          far: 200
-        - 
-          camera: [ DoubleArmV7, FRAME_FRONT_CAMERA ]
-          isCurrent: true
-        - 
-          camera: BodyTrackingCamera
-          eye: [ -2.61951924, -2.46536682, 2.08675891 ]
-          direction: [ 0.845524847, 0.509197307, -0.160641948 ]
-          up: [ 0.137613986, 0.0828747629, 0.987012748 ]
       backgroundColor: [ 0.100000001, 0.100000001, 0.300000012 ]
       gridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
       xzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
       yzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
-      dedicatedItemTreeViewChecks: false
+      dedicatedItemTreeViewChecks: true
+      checked: [ 3, 4 ]
   - 
     id: 6
     plugin: Body
@@ -249,6 +258,13 @@ views:
     mounted: true
     state: 
       listingMode: "Link List"
+      bodyItems: 
+        - 
+          id: 2
+          selectedLinks: [ 0 ]
+        - 
+          id: 1
+          selectedLinks: [ 0 ]
   - 
     id: 9
     plugin: OpenRTM
@@ -272,7 +288,7 @@ toolbars:
     frameRate: 1000
     playbackFrameRate: 60
     idleLoopDrivenMode: false
-    currentTime: 4.785
+    currentTime: 0
     speedScale: 1
     syncToOngoingUpdates: true
     autoExpansion: true
@@ -325,7 +341,22 @@ Body:
   "EditableSceneBody": 
     editableSceneBodies: 
       - 
+        bodyItem: 1
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
         bodyItem: 2
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
+        bodyItem: 3
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
+        bodyItem: 4
         showCenterOfMass: false
         showPpcom: false
         showZmp: false
@@ -353,12 +384,12 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 215, 860 ]
+      sizes: [ 352, 1497 ]
       children: 
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 356, 355 ]
+          sizes: [ 476, 475 ]
           children: 
             - 
               type: pane
@@ -371,12 +402,12 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 508, 203 ]
+          sizes: [ 679, 272 ]
           children: 
             - 
               type: splitter
               orientation: horizontal
-              sizes: [ 400, 454 ]
+              sizes: [ 698, 793 ]
               children: 
                 - 
                   type: pane

@@ -102,7 +102,7 @@ contactMaterials:
     restitution: 0.0
   -
     materials: [ Default, Hand ]
-    friction: 1.0
+    friction: 0.5
     restitution: 0.0
     surfaceViscosity: 1e-8
     frictionModel: [ cone, direct ]
@@ -187,7 +187,11 @@ contactMaterials:
     frictionModel: [ cone, direct ]
   -
     materials: [ Steel, Hand ]
-    friction: 1.0
+    friction: 0.0
     restitution: 0.0
     surfaceViscosity: 1e-8
     frictionModel: [ cone, direct ]
+  -
+    materials: [ Ground, Hand ]
+    friction: 10.0
+    restitution: 0.0

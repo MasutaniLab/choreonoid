@@ -13,8 +13,57 @@ items:
         collisionDetection: false
         collisionDetector: AISTCollisionDetector
         materialTableFile: "${SHARE}/default/materials.yaml"
+      children: 
+        - 
+          id: 2
+          name: "Floor"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "${PROJECT_DIR}/floor.body"
+            currentBaseLink: "Floor"
+            rootPosition: [ 0, 0, -0.1 ]
+            rootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            jointPositions: [  ]
+            initialRootPosition: [ 0, 0, -0.1 ]
+            initialRootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: false
+        - 
+          id: 3
+          name: "AGXSimulator"
+          plugin: AGXDynamics
+          class: AGXSimulatorItem
+          data: 
+            timeStep: 0.001
+            realtimeSync: true
+            recording: "full"
+            timeRangeMode: "Unlimited"
+            timeLength: 180
+            allLinkPositionOutputMode: true
+            deviceStateOutput: true
+            controllerThreads: true
+            recordCollisionData: false
+            controllerOptions: ""
+            Gravity: [ 0, 0, -9.80665 ]
+            NumThreads: 1
+            ContactReduction: true
+            ContactReductionBinResolution: 3
+            ContactReductionThreshhold: 12
+            ContactWarmstarting: false
+            AutoSleep: false
+            SaveToAGXFileOnStart: false
+            DebugMessageOnConsole: 2
     - 
-      id: 2
+      id: 4
       name: "DoubleArmV7"
       plugin: Body
       class: BodyItem
@@ -47,7 +96,7 @@ items:
         isEditable: true
       children: 
         - 
-          id: 3
+          id: 5
           name: "DoubleArmV7Controller"
           plugin: Body
           class: SimpleControllerItem
@@ -59,7 +108,7 @@ items:
             reloading: true
             isOldTargetVariableMode: false
         - 
-          id: 4
+          id: 6
           name: "BodyTrackingCamera"
           plugin: Body
           class: BodyTrackingCameraItem
@@ -87,8 +136,9 @@ views:
     class: ItemTreeView
     mounted: true
     state: 
-      checked: [ 2, 4 ]
-      expanded: [ 1, 2 ]
+      selected: [ 3 ]
+      checked: [ 2, 3, 4, 6 ]
+      expanded: [ 1, 4 ]
   - 
     id: 3
     plugin: Base
@@ -140,7 +190,7 @@ views:
           far: 200
           eye: [ 4, 2, 1.5 ]
           direction: [ -0.888888889, -0.444444444, -0.111111111 ]
-          up: [ -0.0993807989, -0.0496903995, 0.99380799 ]
+          up: [ -0.099380799, -0.0496903995, 0.99380799 ]
         - 
           camera: [ System, Orthographic ]
           orthoHeight: 20
@@ -203,7 +253,7 @@ views:
           far: 200
           eye: [ 4, 2, 1.5 ]
           direction: [ -0.888888889, -0.444444444, -0.111111111 ]
-          up: [ -0.0993807989, -0.0496903995, 0.99380799 ]
+          up: [ -0.099380799, -0.0496903995, 0.99380799 ]
         - 
           camera: [ System, Orthographic ]
           orthoHeight: 20
@@ -242,6 +292,7 @@ views:
       spinBox: true
       slider: true
       labelOnLeft: true
+      currentBodyItem: 4
   - 
     id: 8
     plugin: Body
@@ -249,6 +300,7 @@ views:
     mounted: true
     state: 
       listingMode: "Link List"
+      currentBodyItem: 4
   - 
     id: 9
     plugin: OpenRTM
@@ -284,6 +336,8 @@ toolbars:
     snapDistance: 0.025
     penetrationBlockDepth: 0.0005
     lazyCollisionDetectionMode: true
+  "BodyBar": 
+    current: 4
   "LeggedBodyBar": 
     stanceWidth: 0.15
   "BodyMotionGenerationBar": 
@@ -326,6 +380,11 @@ Body:
     editableSceneBodies: 
       - 
         bodyItem: 2
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
+        bodyItem: 4
         showCenterOfMass: false
         showPpcom: false
         showZmp: false

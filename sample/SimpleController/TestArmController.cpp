@@ -14,6 +14,8 @@ public:
 
     Link::ActuationMode mainActuationMode;
 
+    int arm1Mode;
+
     vector<Link*> armJoints;
     vector<double> q_ref;
 
@@ -41,13 +43,17 @@ bool TestArmController::initialize(SimpleControllerIO* io)
 
     joystick = io->getOrCreateSharedObject<SharedJoystick>("joystick");
 
+    arm1Mode = joystick->addMode();
+
     return true;
 }
 
 bool TestArmController::control()
 {
     //joystick->getModeButtonState() ;
-    //std::cout<<"q_ref[0]=" << joystick->getModeButtonState() <<std::endl;   
+    //std::cout<<"q_ref[0]=" << joystick->getModeButtonState() <<std::endl;
+
+    joystick->updateState(arm1Mode);
 
     q_ref[0] += -0.6 * joystick->getPosition(Joystick::L_STICK_H_AXIS) * dt;
     q_ref[1] += -0.6  * joystick->getPosition(Joystick::R_STICK_H_AXIS) * dt;
