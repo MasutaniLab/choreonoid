@@ -2,6 +2,7 @@
  * @author Shin'ichiro Nakaoka
 */
 
+#include <ostream>
 #include "../MultiValueSeq.h"
 #include "../ValueTree.h"
 #include "../YAMLWriter.h"

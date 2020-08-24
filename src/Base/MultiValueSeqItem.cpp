@@ -3,6 +3,7 @@
    @author Shin'ichiro Nakaoka
 */
 
+#include <ostream>
 #include "MultiValueSeqItem.h"
 #include "MultiSeqItemCreationPanel.h"
 #include "ItemManager.h"
